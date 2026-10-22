@@ -1088,10 +1088,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "ultraviolet",
-      "secondary": "lavender",
+      "accent": "chrome",
+      "secondary": "pale-cyan",
       "treatment": "sculptural-chrome",
-      "brief": "Volumetric fluid vortex of folded translucent liquid glass with ultraviolet and lavender light channels (inspired by approved M18)",
+      "brief": "Interlocking cantilevered razor blades of liquid chrome with pale-cyan gleams (inspired by M23 - Piece 1)",
       "space": "full bleed portrait"
     },
     {
@@ -1101,9 +1101,9 @@
         "liquid-geometry"
       ],
       "accent": "molten-red",
-      "secondary": "chrome",
+      "secondary": "charcoal",
       "treatment": "sculptural-chrome",
-      "brief": "Asymmetric hyperbolic fluid catenary arch with a restrained molten crimson caustic slit (inspired by approved M02)",
+      "brief": "Staggered shears of obsidian chrome with razor-thin molten crimson caustic slit (inspired by M23 - Piece 2)",
       "space": "full bleed portrait"
     },
     {
@@ -1112,10 +1112,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "black",
-      "secondary": "icy-blue",
-      "treatment": "sculptural-chrome",
-      "brief": "Radial constellation of magnetic ferrofluid spikes and obsidian needles with icy-blue rim highlights (inspired by approved M28)",
+      "accent": "pearl",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Interlocking laminar sheets of pearlescent silver with subtle lavender caustics (inspired by M38 - Piece 1)",
       "space": "full bleed portrait"
     },
     {
@@ -1124,10 +1124,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "pearl",
-      "secondary": "pale-cyan",
-      "treatment": "sculptural-chrome",
-      "brief": "Macro honeycomb lattice of interconnected liquid platinum filaments with pale-cyan sheen (inspired by approved M29)",
+      "accent": "slate",
+      "secondary": "icy-blue",
+      "treatment": "folded-surfaces",
+      "brief": "Three overlapping fluid sheets of chrome slate with icy-blue caustics (inspired by M38 - Piece 2)",
       "space": "full bleed portrait"
     },
     {
@@ -1136,10 +1136,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "ultraviolet",
-      "secondary": "chrome-body",
-      "treatment": "sculptural-chrome",
-      "brief": "Stepped tectonic fluid strike-slip fault with obsidian shelves and ultraviolet crevice glow (inspired by approved M34)",
+      "accent": "pearl",
+      "secondary": "ultraviolet",
+      "treatment": "topographic-waves",
+      "brief": "Diagonal ridge of pearlescent silver with deep ultraviolet interior crevice (inspired by M43 - Piece 1)",
       "space": "full bleed portrait"
     },
     {

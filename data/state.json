@@ -1340,10 +1340,10 @@
         "pillars": [
           "liquid-geometry"
         ],
-        "accent": "ultraviolet",
-        "secondary": "lavender",
+        "accent": "chrome",
+        "secondary": "pale-cyan",
         "treatment": "sculptural-chrome",
-        "brief": "Volumetric fluid vortex of folded translucent liquid glass with ultraviolet and lavender light channels (inspired by approved M18)",
+        "brief": "Interlocking cantilevered razor blades of liquid chrome with pale-cyan gleams (inspired by M23 - Piece 1)",
         "space": "full bleed portrait"
       },
       {
@@ -1353,9 +1353,9 @@
           "liquid-geometry"
         ],
         "accent": "molten-red",
-        "secondary": "chrome",
+        "secondary": "charcoal",
         "treatment": "sculptural-chrome",
-        "brief": "Asymmetric hyperbolic fluid catenary arch with a restrained molten crimson caustic slit (inspired by approved M02)",
+        "brief": "Staggered shears of obsidian chrome with razor-thin molten crimson caustic slit (inspired by M23 - Piece 2)",
         "space": "full bleed portrait"
       },
       {
@@ -1364,10 +1364,10 @@
         "pillars": [
           "liquid-geometry"
         ],
-        "accent": "black",
-        "secondary": "icy-blue",
-        "treatment": "sculptural-chrome",
-        "brief": "Radial constellation of magnetic ferrofluid spikes and obsidian needles with icy-blue rim highlights (inspired by approved M28)",
+        "accent": "pearl",
+        "secondary": "lavender",
+        "treatment": "folded-surfaces",
+        "brief": "Interlocking laminar sheets of pearlescent silver with subtle lavender caustics (inspired by M38 - Piece 1)",
         "space": "full bleed portrait"
       },
       {
@@ -1376,10 +1376,10 @@
         "pillars": [
           "liquid-geometry"
         ],
-        "accent": "pearl",
-        "secondary": "pale-cyan",
-        "treatment": "sculptural-chrome",
-        "brief": "Macro honeycomb lattice of interconnected liquid platinum filaments with pale-cyan sheen (inspired by approved M29)",
+        "accent": "slate",
+        "secondary": "icy-blue",
+        "treatment": "folded-surfaces",
+        "brief": "Three overlapping fluid sheets of chrome slate with icy-blue caustics (inspired by M38 - Piece 2)",
         "space": "full bleed portrait"
       },
       {
@@ -1388,10 +1388,10 @@
         "pillars": [
           "liquid-geometry"
         ],
-        "accent": "ultraviolet",
-        "secondary": "chrome-body",
-        "treatment": "sculptural-chrome",
-        "brief": "Stepped tectonic fluid strike-slip fault with obsidian shelves and ultraviolet crevice glow (inspired by approved M34)",
+        "accent": "pearl",
+        "secondary": "ultraviolet",
+        "treatment": "topographic-waves",
+        "brief": "Diagonal ridge of pearlescent silver with deep ultraviolet interior crevice (inspired by M43 - Piece 1)",
         "space": "full bleed portrait"
       },
       {
@@ -4264,20 +4264,32 @@
         "status": "draft",
         "activeVersion": 1,
         "approvedVersion": null,
-        "pending": true,
-        "versions": [],
-        "plannedSpec": {
-          "inspiredBy": "RUPTURE_M18",
-          "prompt": "A monumental volumetric fluid vortex funnel of folded translucent liquid glass and molten platinum swirling in zero gravity, inspired by the approved master RUPTURE_M18. Internal optical light channels projecting deep ultraviolet caustic refractions and delicate lavender dispersion through the curved glass folds into empty black space. Pure pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
-          "accent": "ultraviolet",
-          "secondary": "lavender",
-          "foundation": [
-            "black"
-          ],
-          "treatment": "sculptural-chrome",
-          "note": "Volumetric fluid vortex of folded translucent liquid glass with ultraviolet and lavender light channels (inspired by approved M18)",
-          "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        "versions": [
+          {
+            "v": 1,
+            "file": "artworks/masters/RUPTURE_M90_v1.jpg",
+            "prompt": "Interlocking cantilevered blades of razor-sheared liquid chrome and polished platinum slicing laterally in zero gravity, inspired by the approved master RUPTURE_M23. Knife-sharp shear edges catching subtle pale-cyan specular gleams and crisp soft-white highlight lines against pure pitch-black negative space void. High contrast, photorealistic fluid metallic surface quality. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
+            "spec": {
+              "pillars": [
+                {
+                  "id": "liquid-geometry",
+                  "weight": 1
+                }
+              ],
+              "accent": "chrome",
+              "secondary": "pale-cyan",
+              "foundation": [
+                "black",
+                "white"
+              ],
+              "treatment": "sculptural-chrome",
+              "inspiredBy": "RUPTURE_M23"
+            },
+            "source": "gemini-3.1-flash-image",
+            "note": "Interlocking cantilevered razor blades of liquid chrome with pale-cyan gleams (inspired by M23 - Piece 1)",
+            "createdAt": "2026-10-23T00:55:00.000Z"
+          }
+        ]
       },
       "RUPTURE_M91": {
         "id": "RUPTURE_M91",
@@ -4285,21 +4297,32 @@
         "status": "draft",
         "activeVersion": 1,
         "approvedVersion": null,
-        "pending": true,
-        "versions": [],
-        "plannedSpec": {
-          "inspiredBy": "RUPTURE_M02",
-          "prompt": "An asymmetric hyperbolic fluid catenary arch of heavy sculptural liquid chrome tapering to an ultra-thin Rayleigh-Plateau pinch neck in zero gravity, inspired by the approved master RUPTURE_M02. Mirror-polished chrome contours catching charcoal studio reflections, with a restrained, paper-thin slit of incandescent molten crimson caustic light glowing inside the narrow fluid throat into pitch-black void. Pure pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon. High resolution, 9:16 portrait composition.",
-          "accent": "molten-red",
-          "secondary": "chrome",
-          "foundation": [
-            "charcoal",
-            "black"
-          ],
-          "treatment": "sculptural-chrome",
-          "note": "Asymmetric hyperbolic fluid catenary arch with a restrained molten crimson caustic slit (inspired by approved M02)",
-          "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        "versions": [
+          {
+            "v": 1,
+            "file": "artworks/masters/RUPTURE_M91_v1.jpg",
+            "prompt": "Staggered stepped horizontal shears of heavy liquid obsidian and razor-sheared dark chrome blades in zero gravity, inspired by the approved master RUPTURE_M23. An ultra-thin razor-sharp molten crimson caustic slit radiates strictly along the central shear horizon, casting a faint crimson refraction into deep charcoal shadows, while the outer blade bevels reflect pure silver highlights against pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon. High resolution, 9:16 portrait composition.",
+            "spec": {
+              "pillars": [
+                {
+                  "id": "liquid-geometry",
+                  "weight": 1
+                }
+              ],
+              "accent": "molten-red",
+              "secondary": "charcoal",
+              "foundation": [
+                "black",
+                "chrome"
+              ],
+              "treatment": "sculptural-chrome",
+              "inspiredBy": "RUPTURE_M23"
+            },
+            "source": "gemini-3.1-flash-image",
+            "note": "Staggered shears of obsidian chrome with razor-thin molten crimson caustic slit (inspired by M23 - Piece 2)",
+            "createdAt": "2026-10-23T00:56:00.000Z"
+          }
+        ]
       },
       "RUPTURE_M92": {
         "id": "RUPTURE_M92",
@@ -4307,20 +4330,22 @@
         "status": "draft",
         "activeVersion": 1,
         "approvedVersion": null,
-        "pending": true,
-        "versions": [],
-        "plannedSpec": {
-          "inspiredBy": "RUPTURE_M28",
-          "prompt": "A radial constellation of chiseled magnetic ferrofluid spikes and fluted liquid obsidian needles converging toward a gravitational center in zero gravity, inspired by the approved master RUPTURE_M28. Jet-black gloss surfaces with directional studio grazing light casting crisp icy-blue rim highlights along needle apexes into pitch-black void. Pure pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
-          "accent": "black",
-          "secondary": "icy-blue",
-          "foundation": [
-            "charcoal"
-          ],
-          "treatment": "sculptural-chrome",
-          "note": "Radial constellation of magnetic ferrofluid spikes and obsidian needles with icy-blue rim highlights (inspired by approved M28)",
-          "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        "versions": [
+          {
+            "v": 1,
+            "file": "artworks/masters/RUPTURE_M92_v1.jpg",
+            "prompt": "Floating interlocking laminar sheets of liquid pearlescent silver and liquid mercury gliding horizontally in zero gravity, inspired by approved master RUPTURE_M38. Knife-sharp sheared edges with subtle lavender caustic rim highlights reflecting into obsidian void. Pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait.",
+            "spec": {
+              "accent": "pearl",
+              "secondary": "lavender",
+              "treatment": "folded-surfaces",
+              "inspiredBy": "RUPTURE_M38"
+            },
+            "source": "gemini-3.1-flash-image",
+            "note": "Interlocking laminar sheets of pearlescent silver with subtle lavender caustics (inspired by M38 - Piece 1)",
+            "createdAt": "2026-10-22T20:59:42.045Z"
+          }
+        ]
       },
       "RUPTURE_M93": {
         "id": "RUPTURE_M93",
@@ -4328,20 +4353,22 @@
         "status": "draft",
         "activeVersion": 1,
         "approvedVersion": null,
-        "pending": true,
-        "versions": [],
-        "plannedSpec": {
-          "inspiredBy": "RUPTURE_M29",
-          "prompt": "A macro honeycomb lattice and delicate cellular web of interconnected liquid platinum filaments and gossamer vitreous bubbles in zero gravity, inspired by the approved master RUPTURE_M29. Micro-thin filigree struts in nacreous pearlescent silver catching pale-cyan specular gleams, with deep transparent voids opening through the porous fluid matrix. Pure pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
-          "accent": "pearl",
-          "secondary": "pale-cyan",
-          "foundation": [
-            "black"
-          ],
-          "treatment": "sculptural-chrome",
-          "note": "Macro honeycomb lattice of interconnected liquid platinum filaments with pale-cyan sheen (inspired by approved M29)",
-          "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        "versions": [
+          {
+            "v": 1,
+            "file": "artworks/masters/RUPTURE_M93_v1.jpg",
+            "prompt": "Three overlapping offset fluid sheets of liquid chrome slate gliding with lateral slip, projecting cold icy-blue refractive caustics across mirror-polished metallic lips in zero gravity, inspired by the geometric shearing and layered fluid planes of the reference artwork RUPTURE_M38. Knife-edge bevels with razor specular highlights, floating in pure pitch-black negative space void. High contrast, photorealistic fluid metallic surface quality. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
+            "spec": {
+              "accent": "slate",
+              "secondary": "icy-blue",
+              "treatment": "folded-surfaces",
+              "inspiredBy": "RUPTURE_M38"
+            },
+            "source": "gemini-3.1-flash-image",
+            "note": "Three overlapping fluid sheets of chrome slate with icy-blue caustics (inspired by M38 - Piece 2)",
+            "createdAt": "2026-10-22T21:00:25.524Z"
+          }
+        ]
       },
       "RUPTURE_M94": {
         "id": "RUPTURE_M94",
@@ -4349,20 +4376,22 @@
         "status": "draft",
         "activeVersion": 1,
         "approvedVersion": null,
-        "pending": true,
-        "versions": [],
-        "plannedSpec": {
-          "inspiredBy": "RUPTURE_M34",
-          "prompt": "A giant tectonic fluid strike-slip fault with opposing stepped shelves of black obsidian glass and dense slate liquid chrome ledges in zero gravity, inspired by the approved master RUPTURE_M34. Sheared diagonal fault cleavage emitting a restrained deep ultraviolet caustic refraction from subterranean clefts against pitch-black void. Pure pitch-black negative space void. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
-          "accent": "ultraviolet",
-          "secondary": "chrome-body",
-          "foundation": [
-            "black"
-          ],
-          "treatment": "sculptural-chrome",
-          "note": "Stepped tectonic fluid strike-slip fault with obsidian shelves and ultraviolet crevice glow (inspired by approved M34)",
-          "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        "versions": [
+          {
+            "v": 1,
+            "file": "artworks/masters/RUPTURE_M94_v1.jpg",
+            "prompt": "Monumental diagonal fluid ridge and undulating topographic waves of nacreous pearlescent silver, revealing deep ultraviolet bioluminescence within the subterranean crevice in zero gravity, inspired by the diagonal geological faulting and sculptural fluid waves of the reference artwork RUPTURE_M43. Liquid metallic chrome crests with knife-sharp specular highlights against pure pitch-black negative space void. High contrast, photorealistic fluid metallic surface quality. Exclude: No spheres, no orbs, no floating balls, no pedestal, no plinth, no floor, no text, no typography, no painted neon, no red. High resolution, 9:16 portrait composition.",
+            "spec": {
+              "accent": "pearl",
+              "secondary": "ultraviolet",
+              "treatment": "topographic-waves",
+              "inspiredBy": "RUPTURE_M43"
+            },
+            "source": "gemini-3.1-flash-image",
+            "note": "Diagonal ridge of pearlescent silver with deep ultraviolet interior crevice (inspired by M43 - Piece 1)",
+            "createdAt": "2026-10-22T21:01:13.678Z"
+          }
+        ]
       },
       "RUPTURE_M95": {
         "id": "RUPTURE_M95",
@@ -4735,6 +4764,16 @@
     "RUPTURE_M88.jpg",
     "RUPTURE_M88.png",
     "RUPTURE_M89.jpg",
-    "RUPTURE_M89.png"
+    "RUPTURE_M89.png",
+    "RUPTURE_M90.jpg",
+    "RUPTURE_M90.png",
+    "RUPTURE_M91.jpg",
+    "RUPTURE_M91.png",
+    "RUPTURE_M92.jpg",
+    "RUPTURE_M92.png",
+    "RUPTURE_M93.jpg",
+    "RUPTURE_M93.png",
+    "RUPTURE_M94.jpg",
+    "RUPTURE_M94.png"
   ]
 }
