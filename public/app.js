@@ -1,4 +1,4 @@
-import { buildPrompt, randomiseSpec, newSeed } from '/src/prompt-engine.mjs';
+import { buildPrompt, randomiseSpec, newSeed } from './src/prompt-engine.mjs';
 
 // ---------- state ----------
 let S = null; // server state
