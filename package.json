@@ -1,0 +1,13 @@
+{
+  "name": "rupture-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RUPTURE visual artwork generation workspace",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node scripts/build-static-state.mjs",
+    "studio": "node scripts/studio.mjs"
+  }
+}

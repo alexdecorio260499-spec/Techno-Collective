@@ -1,0 +1,1194 @@
+{
+  "collections": [
+    {
+      "id": "00",
+      "name": "Master Reference Collection",
+      "primary": "liquid-geometry",
+      "description": "13 standalone master artworks capturing distinct topological archetypes of ANOMALY — CONCEPT 3: LIQUID GEOMETRY."
+    },
+    {
+      "id": "01",
+      "name": "Liquid Geometry Series",
+      "primary": "liquid-geometry",
+      "description": "Sculptural liquid chrome, pearlescent silver, polished metallic fluid, translucent glass-like membranes and smooth flowing geometric surfaces."
+    }
+  ],
+  "artworks": [
+    {
+      "id": "RUPTURE_M01",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Gravitational Anomaly I: Slender vertical filament rising against gravity from a reflective pool toward a suspended chrome sphere on the brink of contact.",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M02",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "reflective-globes",
+      "brief": "Distorted Toroid I: Singular elliptical liquid chrome ring stretching asymmetrically into a translucent glass-like membrane with icy blue caustics.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M03",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Folded Manifold I: Seamless liquid metal and nacreous silver ribbons curving gracefully out of darkness with lavender iridescence inside the crease.",
+      "space": "upper half"
+    },
+    {
+      "id": "RUPTURE_M04",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "icy-blue",
+      "treatment": "reflective-globes",
+      "brief": "Coalescing Nuclei I: Two asymmetric liquid-chrome globes suspended mid-merger, bridged by a taut translucent membrane with pale cyan caustics.",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M05",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Refracted Monolith I: Vertical fluid-geometric column combining an architectural pillar with a smooth organic liquid helical twist.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M06",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "lavender",
+      "treatment": "translucent-membrane",
+      "brief": "Caustic Warp I: Flowing wave of sculptural liquid chrome peeling into a gossamer-thin translucent glass-like membrane with ultraviolet refraction.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M07",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Gravitational Anomaly II: Parabolic fluid meniscus rising from wide concentric ripples toward a hovering liquid-chrome sphere.",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M08",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "reflective-globes",
+      "brief": "Distorted Toroid II: Nested dual rings of polished chrome and optical glass suspended diagonally with internal icy blue refraction.",
+      "space": "lower half"
+    },
+    {
+      "id": "RUPTURE_M09",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Folded Manifold II: Dense cascading multi-layer silver and chrome waves with deep shadow crevices and lavender rim sheen.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M10",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "icy-blue",
+      "treatment": "reflective-globes",
+      "brief": "Coalescing Nuclei II: Three mercury-like chrome nodes suspended in a delicate triangular glass membrane web under surface tension.",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M11",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Refracted Monolith II: Faceted crystalline optical glass prism wrapped in a liquid-chrome coil with spectral dispersion.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M12",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "lavender",
+      "treatment": "translucent-membrane",
+      "brief": "Caustic Warp II: High-speed liquid chrome wave curling back with deep ultraviolet and lavender refraction inside its fluid crest.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M13",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Gravitational Lens: Floating horizontal disc of mirror-polished liquid chrome encased in an optical glass rim refracting cold cyan light.",
+      "space": "lower third"
+    },
+    {
+      "id": "RUPTURE_M14",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Striated Liquid Vortex (inspired by Ref 3 & Ref 8): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M15",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Weightless asymmetrical sculptural liquid mercury glyph with fluid tension necks and meniscus beads (inspired by Ref 2 & Ref 6): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M16",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Interwoven aerodynamic helical ribbon cage and toroidal spiral structure with cavernous negative space (inspired by Ref 9 & Ref 4): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M17",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Dynamic sweeping liquid chrome ribbons and razor-thin fluid tendrils cutting across vertical frame (inspired by Ref 1 & Ref 4): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M18",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Complex volumetric sculptural wave of folded translucent liquid glass membranes with internal caustics (inspired by Ref 7 & Ref 4): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M19",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Explosive ascending crown splash of sculptural liquid glass and chrome with dense fine linear hair striations (inspired by Ref 8 & Ref 3): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M20",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental distorted elliptical ring and aperture of heavy sculptural liquid chrome with brilliant inner cyan refraction (inspired by moodboard grid R1-T4): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M21",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental topographic fluid strata and continuous undulating folds of sculptural liquid mercury sweeping diagonally across frame (inspired by moodboard grid R1-T1): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M22",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Dark gravitational fluid singularity surrounded by razor-thin concentric liquid chrome orbital rings and fine coordinate lines (inspired by moodboard grid R6-T3): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M23",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Horizontal razor-sheared liquid chrome planes and laminar metallic fluid strata cutting across the composition (inspired by moodboard grid R8-T4): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M24",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Ethereal monumental sheet of flowing translucent liquid glass and metallic silk billowing with diagonal spectral refraction (inspired by moodboard grid R3-T7): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M25",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Hyper-stretched liquid chrome tension bridge and tapering fluid neck pulling apart diagonally between two dark fluid masses (inspired by moodboard grid R1-T5): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M26",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Violent snaking high-voltage liquid mercury electrical arc and fluid lightning filament with ionised plasma glow (inspired by moodboard grid R3-T5): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M27",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental vertical column of chiseled liquid obsidian and dark chrome with geometric crystalline facets (inspired by moodboard grid R2-T2): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M28",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Sharp organic cluster of conical magnetic liquid chrome spires and fluid needles erupting vertically under magnetic tension (inspired by moodboard grid R4-T2): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M29",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Complex macro lattice and Voronoi reticulum of interconnected liquid mercury cells and razor-thin metallic fluid membranes (inspired by moodboard grid R1-T6): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M30",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Colossal surging wave of sculptural liquid chrome curling into an overhead barrel and golden-ratio fluid vortex (inspired by moodboard grid R8-T3): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M31",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Multiple concentric nested elliptical rings of sculptural liquid chrome and glass rotating on intersecting offset axes in pure empty space (inspired by moodboard grid R2-T4 & R4-T5): User uploaded reference master",
+      "space": "upper third"
+    },
+    {
+      "id": "RUPTURE_M32",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Distorted fluid mercury sheet with organic aperture revealing negative-space void and thick surface tension rims (inspired by moodboard grid R6-T4 & R3-T2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M33",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Vertical acoustical matrix of vibrating liquid chrome filaments under tension with harmonic standing wave nodes (inspired by moodboard grid R8-T7 & R3-T3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M34",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "icy-blue",
+      "treatment": "folded-surfaces",
+      "brief": "Stepped fluid obsidian and liquid chrome terraces in asymmetric diagonal fault with deep ultraviolet caustics and icy-blue specular peaks (inspired by M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M35",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "chrome",
+      "treatment": "pearlescent-silver",
+      "brief": "Massive undulating laminar swells of pearlescent silver and liquid mercury with pale-cyan specular gleams (inspired by M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M36",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "ultraviolet",
+      "treatment": "folded-surfaces",
+      "brief": "Interlocking concentric fluid contour ridges with velvety lavender iridescence and ultraviolet rim glow (inspired by M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M37",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Hyper-thin planar fins of polished chrome sliced at conflicting shear angles with icy-blue and pale-cyan caustics (inspired by M23)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M38",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Staggered horizontal laminar fluid strata with lateral displacement and subtle lavender interface sheen (inspired by M23)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M39",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Converging angled fluid blades with deep ultraviolet shadows and pale-cyan caustic projections (inspired by M23)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M40",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "ultraviolet",
+      "treatment": "translucent-membrane",
+      "brief": "Monumental diaphanous sheet of liquid glass and molten platinum with pale-cyan transparency and ultraviolet caustics (inspired by M24)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M41",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "icy-blue",
+      "treatment": "translucent-membrane",
+      "brief": "Twisted double-membrane of translucent vitreous film with soft lavender dispersion and icy-blue caustics (inspired by M24)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M42",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "chrome",
+      "treatment": "translucent-membrane",
+      "brief": "Gossamer fluid sail of molten silver and optic glass with pure chrome reflections and deep ultraviolet edge glow (inspired by M24)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M43",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Monumental diagonal topographic fluid strata with molten crimson caustics in deep crevices and pale-cyan specular ridges (inspired by moodboard R1C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M44",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "High-tension parabolic fluid arch of polished liquid chrome with ruby crimson dispersion along inner curve (inspired by moodboard R1C3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M45",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental vertical obelisk column of chiseled liquid obsidian with icy-blue bevels and molten crimson internal cleavage caustics (inspired by moodboard R2C2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M46",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "molten-red",
+      "treatment": "folded-surfaces",
+      "brief": "Tightly spiraling helical ribbon of molten platinum and liquid glass with lavender sheen and molten ruby core (inspired by moodboard R2C7)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M47",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Vertical matrix of vibrating liquid chrome filaments under tension with ultraviolet caustics and resonant crimson nodes (inspired by moodboard R3C3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M48",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Surging sculptural liquid chrome wave curling over into a golden-ratio vortex scroll with pale-cyan and lavender caustics (inspired by moodboard R4C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M49",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Interwoven 3D topological fluid ribbon knot of heavy liquid platinum with icy-blue rim highlights and molten ruby core (inspired by moodboard R4C7)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M50",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Vertical cascade of parallel laminar liquid chrome sheets with razor-thin bevels and pale-cyan specular gleams (inspired by moodboard R6C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M51",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Articulated serpentine S-spine of segmented liquid chrome vertebrae with deep ultraviolet shadows and molten crimson joints (inspired by moodboard R6C7)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M52",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental vertical pillar of viscous molten platinum with surface-tension micro-grooves and faint molten crimson dispersion (inspired by moodboard R7C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M53",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Explosive radial liquid chrome crown splash with ethereal lavender sheen and ruby crimson dispersion droplets (inspired by moodboard R8C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M54",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental curling tidal wave of liquid mercury forming a golden-ratio fluid tunnel with interior molten crimson caustics (inspired by moodboard R8C3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M55",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Horizontal razor-sheared liquid chrome planes with a striking slit of molten crimson light refracted between sheared plates (inspired by moodboard R8C4)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M56",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Array of vertical vibrating liquid chrome filaments in harmonic standing wave patterns with ultraviolet and molten crimson glow (inspired by moodboard R8C7)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M57",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental hyperbolic catenoid fluid hourglass with an ultra-thin Rayleigh-Plateau pinch neck and molten crimson throat (inspired by moodboard R1C2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M58",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "molten-red",
+      "treatment": "folded-surfaces",
+      "brief": "Asymmetrical non-orientable fluid Möbius strip of mirror platinum with icy-blue edges and molten crimson core (inspired by moodboard R1C6)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M59",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Concentric circular capillary standing wave ripples inside a liquid mercury impact crater (inspired by moodboard R2C4)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M60",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Monolithic chevron prism of chiseled liquid chrome and dark obsidian fluid with diagonal bifurcation shear (inspired by moodboard R2C6)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M61",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Intertwined fluid double-helix spiral with translucent connecting meniscus rungs and molten crimson core (inspired by moodboard R3C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M62",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Diaphanous undulating fluid acoustic Chladni plate with nodal vibration lines and standing wave crests (inspired by moodboard R3C5)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M63",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Tiered cascading laminar chrome canopy and fluid parasol sheets shedding weightless mercury runoff (inspired by moodboard R4C3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M64",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Asymmetrical fluid vortex funnel and swirling liquid platinum sinkhole draining into infinite void (inspired by moodboard R4C6)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M65",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Segmented biomorphic exoskeleton ribcage arch of polished liquid chrome vertebrae in zero gravity (inspired by moodboard R5C1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M66",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Opposing horizontal tectonic fluid strike-slip fault planes with an incandescent rift cleavage (inspired by moodboard R5C4)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M67",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "molten-red",
+      "treatment": "sculptural-chrome",
+      "brief": "Interlocking liquid mercury toroid rings and fluid chain links suspended without contact in zero gravity (inspired by moodboard R5C7)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M68",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Dendritic branching fractal tree of molten platinum capillary veins spreading vertically into pitch-black void (inspired by moodboard R6C4)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M69",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental curving parabolic fluid scythe and razor crescent blade slicing through deep vacuum (inspired by moodboard R7C3)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M70",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Polyhedral cat's cradle of taut liquid chrome filaments intersecting at luminous tension pinch nodes (inspired by moodboard R7C6)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M71",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental undulating topographic fluid strata in nacreous pearlescent silver with icy-blue rim highlights and charcoal shadows (inspired by approved M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M72",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Ethereal translucent liquid glass membrane billowing weightless with lavender and pale-cyan iridescence and white specular glints (inspired by approved M24)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M73",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Horizontal razor-sheared liquid chrome planes with deep ultraviolet refractions between sheared plates (inspired by approved M23)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M74",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome-body",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Weightless asymmetrical liquid mercury glyph with icy-blue rim highlights in slate liquid chrome body (inspired by approved M15)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M75",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Aerodynamic helical ribbon cage and toroidal spiral structure with lavender sheen and ultraviolet shadow caustics (inspired by approved M16)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M76",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "white",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Sharp organic cluster of conical magnetic liquid chrome spires with soft-white apex highlights and pale-cyan sheen (inspired by approved M28)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M77",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "icy-blue",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Complex volumetric sculptural wave of folded translucent liquid glass and pearlescent silver with icy-blue caustics (inspired by approved M18)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M78",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Monumental distorted elliptical aperture ring of liquid chrome with a restrained molten crimson caustic core (inspired by approved M02)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M79",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Macro lattice and Voronoi reticulum of interconnected liquid mercury cells with pale-cyan membranes and ultraviolet shadows (inspired by approved M29)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M80",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "black",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Stepped fluid obsidian and liquid chrome terraces in asymmetric diagonal fault with icy-blue rim highlights (inspired by approved M34)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M81",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "lavender",
+      "secondary": "pearl",
+      "treatment": "folded-surfaces",
+      "brief": "Dynamic sweeping liquid ribbons and razor-thin fluid tendrils in pearlescent silver with soft lavender sheen (inspired by approved M17)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M82",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "chrome-body",
+      "treatment": "sculptural-chrome",
+      "brief": "Hyperbolic liquid chrome caustic warp with heavy slate metallic body, ultraviolet caustics, and soft-white highlights (inspired by approved M06)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M83",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Hyper-thin planar fins of polished chrome with icy-blue edges and a restrained molten crimson interface slit (inspired by approved M37)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M84",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Twisted double-membrane of translucent vitreous film and mirror liquid silver with pale-cyan and lavender dispersion (inspired by approved M41)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M85",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Monumental vertical cascading fluid strata in pearlescent silver with delicate lavender iridescence (inspired by approved M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M86",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Intersecting orthogonal blades of razor-sheared liquid chrome with pale-cyan highlights (inspired by approved M23)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M87",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pale-cyan",
+      "secondary": "ultraviolet",
+      "treatment": "folded-surfaces",
+      "brief": "Diaphanous acoustic fluid membrane of billowing liquid glass with pale-cyan and ultraviolet caustics (inspired by approved M24)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M88",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome-body",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Monolithic asymmetrical Möbius fluid ribbon of dense liquid chrome slate with icy-blue bevels (inspired by approved M15)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M89",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Triple-strand helical fluid twist of polished platinum with icy-blue specular gleams (inspired by approved M16)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M90",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Volumetric fluid vortex of folded translucent liquid glass with ultraviolet and lavender light channels (inspired by approved M18)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M91",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "chrome",
+      "treatment": "sculptural-chrome",
+      "brief": "Asymmetric hyperbolic fluid catenary arch with a restrained molten crimson caustic slit (inspired by approved M02)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M92",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "black",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Radial constellation of magnetic ferrofluid spikes and obsidian needles with icy-blue rim highlights (inspired by approved M28)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M93",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Macro honeycomb lattice of interconnected liquid platinum filaments with pale-cyan sheen (inspired by approved M29)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M94",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "ultraviolet",
+      "secondary": "chrome-body",
+      "treatment": "sculptural-chrome",
+      "brief": "Stepped tectonic fluid strike-slip fault with obsidian shelves and ultraviolet crevice glow (inspired by approved M34)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M95",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Ascending plume of interwoven liquid mercury ribbons with lavender iridescence (inspired by approved M17)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M96",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome-body",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Split-geode fluid shell of dense sculptural liquid chrome with pale-cyan interior caustics (inspired by approved M06)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M97",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Conflicting planar fins of polished chrome with icy-blue bevels and a molten crimson slit (inspired by approved M37)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M98",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Infinity loop of intertwined nacreous pearlescent fluid and translucent optic glass (inspired by approved M41)",
+      "space": "full bleed portrait"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "id": "REF_MVGEKM04_IKXP",
+      "name": "Gemini Generated Image vz1vdbvz1vdbvz1v",
+      "file": "references/user/REF_MVGEKM04_IKXP_Gemini_Generated_Image_vz1vdbvz1vdbvz1v.jpg",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-20T08:09:57.614Z"
+    },
+    {
+      "id": "REF_MVCCWJP5_5JDS",
+      "name": "Screenshot 2026 10 17 at 12.34.08",
+      "file": "references/user/REF_MVCCWJP5_5JDS_Screenshot_2026-10-17_at_12_34_08.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.554Z"
+    },
+    {
+      "id": "REF_MVCCWJOH_5VOO",
+      "name": "Screenshot 2026 10 17 at 12.34.20",
+      "file": "references/user/REF_MVCCWJOH_5VOO_Screenshot_2026-10-17_at_12_34_20.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.530Z"
+    },
+    {
+      "id": "REF_MVCCWJO7_61U5",
+      "name": "Screenshot 2026 10 17 at 12.34.31",
+      "file": "references/user/REF_MVCCWJO7_61U5_Screenshot_2026-10-17_at_12_34_31.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.520Z"
+    },
+    {
+      "id": "REF_MVCCWJNO_DAU0",
+      "name": "Screenshot 2026 10 17 at 12.34.44",
+      "file": "references/user/REF_MVCCWJNO_DAU0_Screenshot_2026-10-17_at_12_34_44.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.502Z"
+    },
+    {
+      "id": "REF_MVCCWJN1_B9PS",
+      "name": "Screenshot 2026 10 17 at 12.35.02",
+      "file": "references/user/REF_MVCCWJN1_B9PS_Screenshot_2026-10-17_at_12_35_02.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.479Z"
+    },
+    {
+      "id": "REF_MVCCWJML_ODY2",
+      "name": "Screenshot 2026 10 17 at 12.35.26",
+      "file": "references/user/REF_MVCCWJML_ODY2_Screenshot_2026-10-17_at_12_35_26.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.462Z"
+    },
+    {
+      "id": "REF_MVCCWJM4_REWM",
+      "name": "Screenshot 2026 10 17 at 12.35.40",
+      "file": "references/user/REF_MVCCWJM4_REWM_Screenshot_2026-10-17_at_12_35_40.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.446Z"
+    },
+    {
+      "id": "REF_MVCCWJL6_S7WQ",
+      "name": "Screenshot 2026 10 17 at 12.57.11",
+      "file": "references/user/REF_MVCCWJL6_S7WQ_Screenshot_2026-10-17_at_12_57_11.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.415Z"
+    },
+    {
+      "id": "REF_MVCCWJK8_ZMOA",
+      "name": "Screenshot 2026 10 17 at 12.57.21",
+      "file": "references/user/REF_MVCCWJK8_ZMOA_Screenshot_2026-10-17_at_12_57_21.png",
+      "type": "user",
+      "note": "",
+      "createdAt": "2026-10-17T12:12:10.378Z"
+    },
+    {
+      "id": "REF_MOODBOARD_01",
+      "name": "ANOMALY Concept 3 Moodboard",
+      "file": "references/concept6_anomaly3_hi.png",
+      "type": "moodboard",
+      "note": "Original 56-tile contact sheet moodboard for ANOMALY — Liquid Geometry",
+      "createdAt": "2026-10-14T22:42:00.000Z"
+    }
+  ]
+}

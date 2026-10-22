@@ -1,0 +1,205 @@
+{
+  "brand": "RUPTURE",
+  "location": "Mauritius",
+  "conceptTitle": "ANOMALY — CONCEPT 3: LIQUID GEOMETRY",
+  "statement": "Create a premium abstract artwork for an experimental underground techno identity.",
+  "principle": "The result should feel like a physical object made from impossible liquid metal, photographed in a dark, controlled environment.",
+  "motionRhythm": ["RESTRAINT", "FLUIDITY", "REFRACTION", "ANOMALY"],
+  "directionSpec": {
+    "coreMaterial": "Sculptural liquid chrome, pearlescent silver, polished metallic fluid, translucent glass-like membranes and smooth flowing geometric surfaces.",
+    "light": "Iridescent reflections with restrained pale cyan, icy blue, lavender and ultraviolet. Soft white highlights transition into deep charcoal and pure black. The colour should appear as light refracted through the material, not as painted neon.",
+    "composition": "One striking abstract material formation, with elegant flowing curves, folded liquid surfaces, reflective globes, distorted rings or fluid geometric structures. Combine organic fluidity with precise, minimal geometry. Use deliberate negative space and sophisticated asymmetry.",
+    "surfaceQuality": "Photorealistic material rendering, exceptionally smooth reflections, subtle micro-texture, physically convincing refraction, deep dimensionality and controlled studio lighting.",
+    "artDirection": "Contemporary experimental art, underground electronic music, restrained futuristic minimalism, mysterious, cold, hypnotic and unconventional.",
+    "colourDiscipline": "Silver, pearl, white and charcoal are dominant. Use only one or two subtle iridescent accent colours in each artwork.",
+    "exclude": "People, faces, bodies, humanoid figures, robots, literal DJ or club imagery, cyberpunk cityscapes, generic sci-fi interfaces, excessive neon, rainbow gradients everywhere, random glitch effects, typography, logos, watermarks, busy collages and cheap-looking CGI."
+  },
+  "pillars": [
+    {
+      "id": "liquid-geometry",
+      "num": "01",
+      "name": "Liquid Geometry",
+      "subtitle": "ANOMALY — CONCEPT 3",
+      "accent": "pale-cyan",
+      "colors": ["#050505", "#141619", "#9EA4B0", "#D6DADF", "#F2F4F7", "#A8F0FF", "#5CE1FF", "#C8B6FF", "#7A2CFF"],
+      "theme": "Sculptural liquid chrome, pearlescent silver, polished metallic fluid, translucent glass-like membranes and smooth flowing geometric surfaces photographed in a dark, controlled studio void.",
+      "elements": [
+        "One striking abstract material formation combining organic fluidity with precise, minimal geometry",
+        "Elegant flowing curves, folded liquid surfaces, reflective globes, distorted rings and fluid geometric structures",
+        "Iridescent reflections with restrained pale cyan, icy blue, lavender and ultraviolet refracted through the material",
+        "Soft white highlights transitioning into pearlescent silver, deep charcoal and pure black",
+        "Photorealistic material rendering, exceptionally smooth reflections, subtle micro-texture and physically convincing refraction",
+        "Deliberate negative space, sophisticated asymmetry and controlled studio lighting"
+      ],
+      "mood": "Mysterious, cold, hypnotic, unconventional, restrained futuristic minimalism.",
+      "avoid": [
+        "painted neon",
+        "rainbow gradients everywhere",
+        "people or humanoid figures",
+        "cyberpunk cityscapes",
+        "generic sci-fi interfaces",
+        "random glitch effects",
+        "cheap-looking CGI"
+      ],
+      "prompt": "sculptural liquid chrome, pearlescent silver, polished metallic fluid, translucent glass-like membranes and smooth flowing geometric surfaces; one striking abstract material formation with elegant flowing curves, folded liquid surfaces, reflective globes, distorted rings or fluid geometric structures, combining organic fluidity with precise minimal geometry",
+      "trace": "a subtle iridescent refraction of pale cyan and lavender along a liquid-chrome edge"
+    }
+  ],
+  "foundation": [
+    { "id": "black", "name": "Pure Black", "hex": "#050505", "role": "Controlled studio void" },
+    { "id": "charcoal", "name": "Deep Charcoal", "hex": "#141619", "role": "Shadow transition" },
+    { "id": "chrome-body", "name": "Liquid Chrome", "hex": "#9EA4B0", "role": "Dominant metallic body" },
+    { "id": "pearl", "name": "Pearlescent Silver", "hex": "#D6DADF", "role": "Dominant nacreous surface" },
+    { "id": "white", "name": "Soft White", "hex": "#F2F4F7", "role": "Specular studio highlight" }
+  ],
+  "accents": [
+    {
+      "id": "pale-cyan",
+      "name": "Pale Cyan",
+      "hex": "#A8F0FF",
+      "role": "Refracted iridescent highlight",
+      "prompt": "restrained pale cyan (#A8F0FF) refracted through translucent glass-like membranes and liquid chrome"
+    },
+    {
+      "id": "icy-blue",
+      "name": "Icy Blue",
+      "hex": "#5CE1FF",
+      "role": "Cold specular refraction",
+      "prompt": "restrained icy blue (#5CE1FF) refracted inside polished metallic fluid and specular contours"
+    },
+    {
+      "id": "lavender",
+      "name": "Lavender",
+      "hex": "#C8B6FF",
+      "role": "Pearlescent iridescent reflection",
+      "prompt": "subtle pearlescent lavender (#C8B6FF) iridescence along folded liquid surfaces"
+    },
+    {
+      "id": "ultraviolet",
+      "name": "Ultraviolet",
+      "hex": "#7A2CFF",
+      "role": "Deep shadow refraction",
+      "prompt": "restrained deep ultraviolet (#7A2CFF) light refracted in concave metallic shadows and glass membranes"
+    },
+    {
+      "id": "chrome",
+      "name": "Pure Silver / Pearl",
+      "hex": "#C9CDD2",
+      "role": "Pure monochrome liquid metal",
+      "prompt": "pure silver, pearl, soft white and deep charcoal monochrome reflections with whisper-faint natural dispersion"
+    },
+    {
+      "id": "molten-red",
+      "name": "Molten Crimson",
+      "hex": "#FF3344",
+      "role": "Internal chromatic refraction and incandescent fluid edge sheen",
+      "prompt": "restrained molten crimson and deep ruby (#FF3344) caustics refracted through translucent fluid glass membranes and chrome contours"
+    }
+  ],
+  "treatments": [
+    {
+      "id": "sculptural-chrome",
+      "name": "Sculptural Liquid Chrome",
+      "prompt": "Core material focus: mirror-polished sculptural liquid chrome with heavy surface tension, seamless metallic reflections, and soft white highlights transitioning into deep charcoal"
+    },
+    {
+      "id": "pearlescent-silver",
+      "name": "Pearlescent Silver Fluid",
+      "prompt": "Core material focus: pearlescent silver and polished metallic fluid with silky nacreous gradients, smooth flowing geometric surfaces and subtle micro-texture"
+    },
+    {
+      "id": "translucent-membrane",
+      "name": "Translucent Glass Membrane",
+      "prompt": "Core material focus: translucent glass-like membranes fused with liquid chrome, physically convincing refraction, internal caustics and deep dimensionality"
+    },
+    {
+      "id": "reflective-globes",
+      "name": "Reflective Globes & Rings",
+      "prompt": "Core material focus: suspended reflective liquid-metal globes and distorted geometric rings with razor-sharp studio reflections"
+    },
+    {
+      "id": "folded-surfaces",
+      "name": "Folded Liquid Surfaces",
+      "prompt": "Core material focus: folded liquid chrome ribbons and continuous minimal geometric surfaces curving with organic fluidity"
+    }
+  ],
+  "compositions": [
+    {
+      "id": "reflective-globe-anomaly",
+      "name": "Reflective Globe & Rising Filament",
+      "prompt": "one striking mirror-polished liquid-chrome globe suspended above a dark reflective plane, its reflection pulled upward into a thin liquid-metal filament defying gravity, deliberate negative space"
+    },
+    {
+      "id": "distorted-ring",
+      "name": "Distorted Liquid-Chrome Ring",
+      "prompt": "a single distorted ring of sculptural liquid chrome and translucent glass-like membrane floating off-centre in pure black negative space, sophisticated asymmetry"
+    },
+    {
+      "id": "folded-manifold",
+      "name": "Folded Liquid Manifold",
+      "prompt": "one striking abstract formation of folded liquid silver surfaces curving smoothly out of a minimal geometric plane, surrounded by deep charcoal negative space"
+    },
+    {
+      "id": "coalescing-globes",
+      "name": "Coalescing Chrome Globes",
+      "prompt": "two asymmetric reflective liquid-metal globes mid-coalescence, bridged by a stretched translucent glass-like membrane with physically convincing refraction"
+    },
+    {
+      "id": "fluid-monolith",
+      "name": "Fluid Geometric Structure",
+      "prompt": "a vertical fluid-geometric structure of polished metallic fluid and pearlescent silver, combining crisp minimal geometry with an organic liquid twist"
+    },
+    {
+      "id": "refracted-fold",
+      "name": "Macro Refracted Membrane Fold",
+      "prompt": "close-up macro composition of a folded liquid-chrome crest transitioning into a thin translucent glass membrane, with deep studio shadow falloff"
+    }
+  ],
+  "variation": {
+    "light": [
+      "controlled low-key studio rim light with soft white highlights transitioning into pure black",
+      "cold top-down studio key light refracting through translucent membrane edges",
+      "split specular studio lighting grazing the curved metallic surface",
+      "deep internal refraction glowing softly inside the glass-like membrane while the surrounding void stays pure black"
+    ],
+    "scale": [
+      "intimate macro studio photography with shallow depth of field and subtle micro-texture",
+      "sculptural object scale suspended in a dark controlled studio environment",
+      "monumental minimal formation isolated in vast charcoal and pure black space"
+    ],
+    "density": [
+      "ultra-minimal with 70% pure black and charcoal negative space",
+      "balanced single formation with generous breathing room for typography",
+      "layered folded surfaces at the core, dissolving into calm darkness at the margins"
+    ],
+    "space": ["upper third", "lower third", "lower half"]
+  },
+  "artDirection": [
+    "Silver, pearl, soft white and deep charcoal are dominant in every artwork",
+    "Use only one or two subtle iridescent accent colours (pale cyan, icy blue, lavender, ultraviolet)",
+    "Colour must appear as light refracted through the material, never as painted neon",
+    "One striking abstract material formation combining organic fluidity with precise, minimal geometry",
+    "Photorealistic material rendering, exceptionally smooth reflections, subtle micro-texture and physically convincing refraction",
+    "Deliberate negative space, sophisticated asymmetry and controlled studio lighting",
+    "Feels like a physical object made from impossible liquid metal, photographed in a dark, controlled environment",
+    "Contemporary experimental art and underground electronic music — mysterious, cold, hypnotic and unconventional"
+  ],
+  "restrictions": [
+    "People, faces, bodies, humanoid figures or robots",
+    "Literal DJ, club, speaker or stage imagery",
+    "Cyberpunk cityscapes or generic sci-fi HUD interfaces",
+    "Excessive painted neon or rainbow gradients everywhere",
+    "Random glitch effects or busy collages",
+    "Typography, letters, numbers, logos or watermarks",
+    "Cheap-looking CGI or plastic product-render aesthetics"
+  ],
+  "promptRules": {
+    "base": "Create a premium abstract artwork for RUPTURE, an experimental underground techno identity. Vertical 9:16 portrait composition, single standalone image.\n\nANOMALY — CONCEPT 3: LIQUID GEOMETRY.",
+    "coreMaterial": "CORE MATERIAL: Sculptural liquid chrome, pearlescent silver, polished metallic fluid, translucent glass-like membranes and smooth flowing geometric surfaces.",
+    "light": "LIGHT: Iridescent reflections with restrained pale cyan, icy blue, lavender and ultraviolet. Soft white highlights transition into deep charcoal and pure black. The colour should appear as light refracted through the material, not as painted neon.",
+    "surfaceQuality": "SURFACE QUALITY: Photorealistic material rendering, exceptionally smooth reflections, subtle micro-texture, physically convincing refraction, deep dimensionality and controlled studio lighting.",
+    "direction": "ART DIRECTION: Contemporary experimental art, underground electronic music, restrained futuristic minimalism, mysterious, cold, hypnotic and unconventional. The result should feel like a physical object made from impossible liquid metal, photographed in a dark, controlled environment.",
+    "format": "COMPOSITION & FRAMING: Combine organic fluidity with precise, minimal geometry. Use deliberate negative space and sophisticated asymmetry. Keep the primary formation within a flexible central safe area so nothing essential is clipped at the edges.",
+    "negative": "EXCLUDE: Strictly no people, faces, bodies, humanoid figures, robots, literal DJ or club imagery, cyberpunk cityscapes, generic sci-fi interfaces, excessive neon, rainbow gradients everywhere, random glitch effects, typography, letters, numbers, logos, watermarks, busy collages and cheap-looking CGI."
+  }
+}
