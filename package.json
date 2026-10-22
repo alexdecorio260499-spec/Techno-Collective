@@ -7,7 +7,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "start": "node server.mjs",
-    "build": "node scripts/build-static-state.mjs",
+    "build": "node scripts/build-static-site.mjs",
     "studio": "node scripts/studio.mjs"
   }
 }

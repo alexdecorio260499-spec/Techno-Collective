@@ -1,0 +1,8 @@
+# Prevent Vercel from detecting server.mjs as a serverless function
+server.mjs
+test_gemini.mjs
+providers/
+lib/
+queue/
+scratch/
+.env*
