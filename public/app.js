@@ -1,4 +1,99 @@
-import { buildPrompt, randomiseSpec, newSeed } from './src/prompt-engine.mjs';
+// RUPTURE prompt engine — inlined for standalone zero-dependency browser execution.
+function rng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const newSeed = () => Math.floor(Math.random() * 2 ** 31);
+const pick = (r, arr) => arr[Math.floor(r() * arr.length)];
+const byId = (list = [], id) => list.find((x) => x.id === id);
+
+function randomiseSpec(identity, spec = {}, seed = newSeed()) {
+  const r = rng(seed);
+  const out = { ...spec, seed, pillars: [{ id: 'liquid-geometry', weight: 1 }] };
+  out.accent = spec.accent || pick(r, identity.accents).id;
+  if (spec.secondary === undefined) {
+    const others = identity.accents.filter((a) => a.id !== out.accent && a.id !== 'chrome');
+    out.secondary = others.length && r() < 0.65 ? pick(r, others).id : null;
+  }
+  out.treatment = spec.treatment || pick(r, identity.treatments).id;
+  if (!spec.brief) out.composition = spec.composition || pick(r, identity.compositions).id;
+  out.light = spec.light || pick(r, identity.variation.light);
+  out.scale = spec.scale || pick(r, identity.variation.scale);
+  out.density = spec.density || pick(r, identity.variation.density);
+  out.space = spec.space || pick(r, identity.variation.space);
+  return out;
+}
+
+function buildPrompt(identity, spec = {}) {
+  const R = identity.promptRules;
+  const parts = [R.base];
+
+  if (spec.brief) {
+    parts.push(`COMPOSITION: ${spec.brief}`);
+  } else if (spec.composition) {
+    const c = byId(identity.compositions, spec.composition);
+    parts.push(`COMPOSITION: One striking abstract material formation — ${c ? c.prompt : spec.composition}. Combine organic fluidity with precise, minimal geometry. Use deliberate negative space and sophisticated asymmetry.`);
+  } else {
+    parts.push(`COMPOSITION: ${identity.directionSpec?.composition || 'One striking abstract material formation, with elegant flowing curves, folded liquid surfaces, reflective globes, distorted rings or fluid geometric structures. Combine organic fluidity with precise, minimal geometry. Use deliberate negative space and sophisticated asymmetry.'}`);
+  }
+
+  let material = R.coreMaterial;
+  if (spec.treatment) {
+    const t = byId(identity.treatments, spec.treatment);
+    if (t) material += ` ${t.prompt}.`;
+  }
+  parts.push(material);
+
+  parts.push(R.light);
+
+  const acc = spec.accent && byId(identity.accents, spec.accent);
+  const sec = spec.secondary && byId(identity.accents, spec.secondary);
+  let colour = 'COLOUR DISCIPLINE: Silver, pearl, white and charcoal are dominant.';
+  if (acc) colour += ` Primary iridescent reflection: ${acc.prompt}.`;
+  if (sec && sec.id !== acc?.id) colour += ` Secondary subtle refraction: ${sec.prompt}.`;
+  colour += ' Use only one or two subtle iridescent accent colours, appearing strictly as light refracted through the material.';
+  parts.push(colour);
+
+  let surface = R.surfaceQuality;
+  const dials = [spec.light, spec.scale, spec.density].filter(Boolean);
+  if (dials.length) surface += ` Studio setup: ${dials.join('; ')}.`;
+  parts.push(surface);
+
+  parts.push(R.direction);
+
+  parts.push(`${R.format}${spec.space ? ` Keep the ${spec.space} calm and dark as negative space for later typography.` : ''}`);
+
+  if (Array.isArray(spec.references) && spec.references.length) {
+    parts.push(`VISUAL REFERENCES: Condition material textures, fluid tension, and lighting behaviour on the selected reference image(s): ${spec.references.map((r) => r.split('/').pop()).join(', ')}.`);
+  }
+
+  if (spec.instructions && spec.instructions.trim()) {
+    parts.push(`ADDITIONAL DIRECTION: ${spec.instructions.trim()}`);
+  }
+
+  parts.push(R.negative);
+
+  return parts.join('\n\n');
+}
+
+function specFromArtwork(art) {
+  return {
+    pillars: [{ id: 'liquid-geometry', weight: 1 }],
+    accent: art.accent,
+    secondary: art.secondary,
+    treatment: art.treatment,
+    brief: art.brief,
+    space: art.space,
+  };
+}
+
 
 // ---------- state ----------
 let S = null; // server state
