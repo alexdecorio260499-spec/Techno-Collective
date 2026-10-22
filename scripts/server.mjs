@@ -1,4 +1,4 @@
-// RUPTURE Studio — local server. Node >= 18, no dependencies.
+// RUPTURE Studio — local development server. Node >= 18, no dependencies.
 // Run: npm start  →  http://localhost:4747
 
 import http from 'node:http';
@@ -8,19 +8,19 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { buildPrompt, specFromArtwork, randomiseSpec } from './public/src/prompt-engine.mjs';
-import { loadEnv } from './lib/env.mjs';
-import { Store } from './lib/store.mjs';
+import { buildPrompt, specFromArtwork, randomiseSpec } from '../public/src/prompt-engine.mjs';
+import { loadEnv } from '../lib/env.mjs';
+import { Store } from '../lib/store.mjs';
 
 const run = promisify(execFile);
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 loadEnv(path.join(ROOT, '.env'));
 const PORT = Number(process.env.PORT || 4747);
 
 const store = new Store(ROOT);
 let provider = null;
 if (process.env.GEMINI_API_KEY) {
-  provider = (await import('./providers/gemini.mjs')).createProvider({
+  provider = (await import('../providers/gemini.mjs')).createProvider({
     apiKey: process.env.GEMINI_API_KEY,
     model: process.env.GEMINI_MODEL || 'gemini-2.5-flash-image',
   });

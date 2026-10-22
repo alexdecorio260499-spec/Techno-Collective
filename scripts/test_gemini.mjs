@@ -1,6 +1,10 @@
-import { createProvider } from './providers/gemini.mjs';
-import { loadEnv } from './lib/env.mjs';
-loadEnv('./.env');
+import { createProvider } from '../providers/gemini.mjs';
+import { loadEnv } from '../lib/env.mjs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+loadEnv(path.join(ROOT, '.env'));
 
 const p = createProvider({
   apiKey: process.env.GEMINI_API_KEY,
