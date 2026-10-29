@@ -1148,10 +1148,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "chrome",
-      "secondary": "lavender",
-      "treatment": "folded-surfaces",
-      "brief": "Ascending plume of interwoven liquid mercury ribbons with lavender iridescence (inspired by approved M17)",
+      "accent": "slate",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Sinuous diagonal fault in liquid chrome slate with pale-cyan caustics (inspired by M43 - Piece 2)",
       "space": "full bleed portrait"
     },
     {
@@ -1160,10 +1160,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "chrome-body",
-      "secondary": "pale-cyan",
+      "accent": "chrome",
+      "secondary": "icy-blue",
       "treatment": "sculptural-chrome",
-      "brief": "Split-geode fluid shell of dense sculptural liquid chrome with pale-cyan interior caustics (inspired by approved M06)",
+      "brief": "Hyperbolic catenoid column of chrome with icy-blue pinch caustics (inspired by M57 - Piece 1)",
       "space": "full bleed portrait"
     },
     {
@@ -1173,9 +1173,9 @@
         "liquid-geometry"
       ],
       "accent": "molten-red",
-      "secondary": "icy-blue",
+      "secondary": "chrome",
       "treatment": "sculptural-chrome",
-      "brief": "Conflicting planar fins of polished chrome with icy-blue bevels and a molten crimson slit (inspired by approved M37)",
+      "brief": "Elongated obsidian column with razor-thin molten crimson caustic slit (inspired by M57 - Piece 2)",
       "space": "full bleed portrait"
     },
     {
@@ -1184,10 +1184,70 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "pearl",
+      "accent": "slate",
       "secondary": "lavender",
       "treatment": "folded-surfaces",
-      "brief": "Infinity loop of intertwined nacreous pearlescent fluid and translucent optic glass (inspired by approved M41)",
+      "brief": "Tectonic plates of chrome slate shearing with lavender iridescent glow (inspired by M66 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M99",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Tectonic fluid slabs of mirror chrome with pale-cyan shear caustics (inspired by M66 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M100",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "ultraviolet",
+      "treatment": "folded-surfaces",
+      "brief": "Stack of laminar chrome fins with ultraviolet dispersion (inspired by M73 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M101",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "icy-blue",
+      "treatment": "folded-surfaces",
+      "brief": "Tiered fluid strata of pearlescent silver with icy-blue highlights (inspired by M73 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M102",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "charcoal",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Stepped fluid obsidian terraces with lavender iridescent sheen (inspired by M80 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M103",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Chiseled stepped ledges of chrome slate with pale-cyan caustics (inspired by M80 - Piece 2)",
       "space": "full bleed portrait"
     }
   ]
