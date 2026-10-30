@@ -1557,9 +1557,9 @@
         "liquid-geometry"
       ],
       "accent": "chrome",
-      "secondary": "icy-blue",
-      "treatment": "folded-surfaces",
-      "brief": "Asymmetric radial fin array with icy-blue specular highlights (inspired by M73 - Piece 2)",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Split-geode fluid shell of dense sculptural chrome with pale-cyan interior caustics (inspired by approved M06)",
       "space": "full bleed portrait"
     },
     {
@@ -1568,10 +1568,10 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "charcoal",
-      "secondary": "pale-cyan",
+      "accent": "slate",
+      "secondary": "icy-blue",
       "treatment": "sculptural-chrome",
-      "brief": "Helical descending fluid obsidian staircase with pale-cyan rim sheen (inspired by M80 - Piece 1)",
+      "brief": "Monolithic liquid chrome slate hydraulic rupture with icy-blue bioluminescence (inspired by approved M15)",
       "space": "full bleed portrait"
     },
     {
@@ -1580,10 +1580,142 @@
       "pillars": [
         "liquid-geometry"
       ],
-      "accent": "slate",
+      "accent": "molten-red",
+      "secondary": "charcoal",
+      "treatment": "sculptural-chrome",
+      "brief": "Deformed liquid chrome coronet splash with molten crimson caustic slit (inspired by approved M17)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M132",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "lavender",
+      "treatment": "topographic-waves",
+      "brief": "Monumental vertical cascading pearlescent fluid strata with lavender iridescence (inspired by approved M21)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M133",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "charcoal",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Radial constellation of magnetic ferrofluid spikes with icy-blue rim highlights (inspired by approved M28)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M134",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
       "secondary": "ultraviolet",
       "treatment": "sculptural-chrome",
-      "brief": "Segmented fluid shelves of chrome slate with ultraviolet caustics (inspired by M80 - Piece 2)",
+      "brief": "Conflicting orthogonal planar chrome fins with ultraviolet caustic dispersion (inspired by approved M37)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M135",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Twisted fluid Mobius infinity ribbon of pearlescent silver with pale-cyan caustics (inspired by approved M41)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M136",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Acoustic cymatic harmonic ripples across liquid chrome slate membrane (inspired by approved M49)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M137",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Cantilevered aerodynamic fluid dagger of mirror chrome with icy-blue edge glints (inspired by approved M58)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M138",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "slate",
+      "treatment": "sculptural-chrome",
+      "brief": "Hyperbolic saddle fluid surface of chrome slate with molten crimson caustic slit (inspired by approved M64)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M139",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "ultraviolet",
+      "treatment": "folded-surfaces",
+      "brief": "Tri-fold fluid origami plates of pearlescent silver with ultraviolet crevice glow (inspired by approved M72)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M140",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Suspended liquid chrome capillary filament web with pale-cyan caustics (inspired by approved M77)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M141",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "lavender",
+      "treatment": "topographic-waves",
+      "brief": "Topographic fluid terraces of chrome slate with lavender nacreous iridescence (inspired by approved M85)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M142",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Tensile Rayleigh-Plateau catenoid pinch of mirror chrome with cold icy-blue caustics (inspired by approved M97)",
       "space": "full bleed portrait"
     }
   ]
