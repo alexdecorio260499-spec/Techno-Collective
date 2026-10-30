@@ -1249,6 +1249,174 @@
       "treatment": "sculptural-chrome",
       "brief": "Chiseled stepped ledges of chrome slate with pale-cyan caustics (inspired by M80 - Piece 2)",
       "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M104",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "sculptural-chrome",
+      "brief": "Acute diagonal chevron chrome shears with icy-blue specular reflections (inspired by M23 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M105",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "charcoal",
+      "treatment": "sculptural-chrome",
+      "brief": "Fan of obsidian chrome louvers with molten crimson caustic slit (inspired by M23 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M106",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Cascading curved fluid foil sheets with pale-cyan caustics (inspired by M38 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M107",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Vertical spiraling laminar ribbons of pearlescent silver with lavender iridescence (inspired by M38 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M108",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "ultraviolet",
+      "treatment": "topographic-waves",
+      "brief": "Horizontal tectonic rupture with ultraviolet crevice glow (inspired by M43 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M109",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "icy-blue",
+      "treatment": "topographic-waves",
+      "brief": "S-curved braided chrome crests with cold icy-blue highlights (inspired by M43 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M110",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "pale-cyan",
+      "treatment": "sculptural-chrome",
+      "brief": "Dual-pinched hyperbolic catenoid column with pale-cyan caustics (inspired by M57 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M111",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "molten-red",
+      "secondary": "slate",
+      "treatment": "sculptural-chrome",
+      "brief": "Inverted teardrop fluid column with molten crimson capillary slit (inspired by M57 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M112",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Stepped tectonic thrust fault of chrome wedges with ultraviolet caustics (inspired by M66 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M113",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "lavender",
+      "treatment": "folded-surfaces",
+      "brief": "Interpenetrating fluid chrome slate slabs with lavender iridescence (inspired by M66 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M114",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "pearl",
+      "secondary": "icy-blue",
+      "treatment": "folded-surfaces",
+      "brief": "Cantilevered spiraling aero-foils with icy-blue crystalline highlights (inspired by M73 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M115",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "chrome",
+      "secondary": "pale-cyan",
+      "treatment": "folded-surfaces",
+      "brief": "Fanning planar chrome blades with pale-cyan refractive caustics (inspired by M73 - Piece 2)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M116",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "charcoal",
+      "secondary": "lavender",
+      "treatment": "sculptural-chrome",
+      "brief": "Cascading concentric fluid terraces with lavender iridescence (inspired by M80 - Piece 1)",
+      "space": "full bleed portrait"
+    },
+    {
+      "id": "RUPTURE_M117",
+      "collection": "00",
+      "pillars": [
+        "liquid-geometry"
+      ],
+      "accent": "slate",
+      "secondary": "ultraviolet",
+      "treatment": "sculptural-chrome",
+      "brief": "Alternating zig-zag fluid shelves with pale-cyan caustics & UV shadows (inspired by M80 - Piece 2)",
+      "space": "full bleed portrait"
     }
   ]
 }
