@@ -92,6 +92,11 @@ export function createCampaignView(app) {
       'edition_08_ultraviolet_rift': '/artworks/masters/RUPTURE_M35_v1.jpg',
       'edition_09_cryogenic_void': '/artworks/masters/RUPTURE_M08_v1.jpg',
       'edition_10_spectrum_mutation': '/artworks/masters/RUPTURE_M68_v1.jpg',
+      'edition_11_vertical_columns': '/artworks/masters/RUPTURE_M43_v1.jpg',
+      'edition_12_acid_emerald': '/artworks/masters/RUPTURE_M80_v1.jpg',
+      'edition_13_solar_copper': '/artworks/masters/RUPTURE_M119_v1.jpg',
+      'edition_14_bipolar_duotone': '/artworks/masters/RUPTURE_M72_v1.jpg',
+      'edition_15_inverted_monolith': '/artworks/masters/RUPTURE_M54_v1.jpg',
       'edition_00_omni': '/artworks/masters/RUPTURE_M49_v1.jpg'
     };
 
@@ -166,6 +171,41 @@ export function createCampaignView(app) {
         { title: 'COBALT', img: '/artworks/masters/RUPTURE_M84_v1.jpg' },
         { title: 'AMBER', img: '/artworks/masters/RUPTURE_M141_v1.jpg' }
       ],
+      'edition_11_vertical_columns': [
+        { title: 'COL-L', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'COL-M', img: '/artworks/masters/RUPTURE_M43_v1.jpg' },
+        { title: 'COL-R', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M74_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M128_v1.jpg' }
+      ],
+      'edition_12_acid_emerald': [
+        { title: 'EMERALD', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'LIME', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
+        { title: 'SILVER', img: '/artworks/masters/RUPTURE_M11_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M100_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M132_v1.jpg' }
+      ],
+      'edition_13_solar_copper': [
+        { title: 'AMBER', img: '/artworks/masters/RUPTURE_M141_v1.jpg' },
+        { title: 'COPPER', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'BRONZE', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M108_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_14_bipolar_duotone': [
+        { title: 'VIOLET', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'CRIMSON', img: '/artworks/masters/RUPTURE_M132_v1.jpg' },
+        { title: 'CYAN', img: '/artworks/masters/RUPTURE_M12_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
+      ],
+      'edition_15_inverted_monolith': [
+        { title: 'PLATINUM', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'VOID', img: '/artworks/masters/RUPTURE_M34_v1.jpg' },
+        { title: 'MONOLITH', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
       'edition_00_omni': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
@@ -206,6 +246,21 @@ export function createCampaignView(app) {
       'edition_10_spectrum_mutation': `Randomized Multi-Chromatic Mutation & Duotones<br>
         Edition 10: Spectrum Mutation — [Date / Secret Industrial Site]<br>
         Toxic Emerald · Crimson · Cobalt · Ultraviolet · Gold`,
+      'edition_11_vertical_columns': `3-Column Vertical Chromatic Architecture<br>
+        Edition 11: Vertical Monolith — [Date / Secret Silo Shaft]<br>
+        Left: Silver · Center: Molten Crimson · Right: Ultraviolet`,
+      'edition_12_acid_emerald': `Bio-Luminescent Acid Green & Obsidian Void<br>
+        Edition 12: Acid Emerald — [Date / Secret Industrial Plant]<br>
+        Radioactive Emerald + High-Tension Fluid Chrome`,
+      'edition_13_solar_copper': `Burnished Bronze, Molten Amber & Volcanic Heat<br>
+        Edition 13: Solar Copper — [Date / Secret Smelting Facility]<br>
+        Molten Amber + Burnished Copper · Sub-Bass Radiance`,
+      'edition_14_bipolar_duotone': `Alternating Split-Tone Duotones<br>
+        Edition 14: Bipolar Duotone — [Date / Secret Transmission Vault]<br>
+        Violet/Cyan Duotone × Molten Crimson/Solar Amber Duotone`,
+      'edition_15_inverted_monolith': `Inverted High-Contrast Platinum Mercury<br>
+        Edition 15: Inverted Platinum — [Date / Secret Terminal Bunker]<br>
+        Inverted Platinum + Obsidian Void · Stark Monolithic Impact`,
       'edition_00_omni': `Underground Electronic Music · Mauritius<br>
         Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>
         Multi-Family Survey (77 Approved Masters)`
