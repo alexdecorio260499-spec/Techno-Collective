@@ -27,27 +27,11 @@
       "basePath": "/campaign/editions/edition_01_hydraulic_void"
     },
     {
-      "id": "edition_00_omni",
-      "editionNumber": "00",
-      "title": "ARCHIVE: OMNI-SPECTRUM (ORIGINAL)",
-      "chapter": "Exploratory Prototype — Full Spectrum Survey",
-      "status": "archived",
-      "primaryFamily": {
-        "id": "all-families",
-        "name": "Multi-Family Exploratory Survey"
-      },
-      "secondaryFamilies": [],
-      "inactiveFamilies": [],
-      "conceptSummary": "The initial exploratory campaign generation sampling across all 77 approved masters indiscriminately prior to artwork-family partitioning.",
-      "postCount": 15,
-      "basePath": "/campaign/editions/edition_00_omni"
-    },
-    {
       "id": "edition_02_vitreous_resonance",
       "editionNumber": "02",
       "title": "EDITION 02: VITREOUS RESONANCE",
       "chapter": "Chapter II — Nacreous Silk & Optical Glass",
-      "status": "planned",
+      "status": "ready",
       "primaryFamily": {
         "id": "pearlescent-silver",
         "name": "Pearlescent Silver Fluid"
@@ -72,7 +56,7 @@
       "editionNumber": "03",
       "title": "EDITION 03: TOROIDAL FLUX",
       "chapter": "Chapter III — Orbital Annuli & Kinetic Loops",
-      "status": "planned",
+      "status": "ready",
       "primaryFamily": {
         "id": "reflective-globes",
         "name": "Reflective Globes & Rings"
@@ -91,6 +75,22 @@
       "conceptSummary": "Nested elliptical liquid chrome rings, circular capillary standing wave ripples, and distorted toroidal apertures suspended in deep vacuum void.",
       "postCount": 15,
       "basePath": "/campaign/editions/edition_03_toroidal_flux"
+    },
+    {
+      "id": "edition_00_omni",
+      "editionNumber": "00",
+      "title": "ARCHIVE: OMNI-SPECTRUM (ORIGINAL)",
+      "chapter": "Exploratory Prototype — Full Spectrum Survey",
+      "status": "archived",
+      "primaryFamily": {
+        "id": "all-families",
+        "name": "Multi-Family Exploratory Survey"
+      },
+      "secondaryFamilies": [],
+      "inactiveFamilies": [],
+      "conceptSummary": "The initial exploratory campaign generation sampling across all 77 approved masters indiscriminately prior to artwork-family partitioning.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_00_omni"
     }
   ]
 }

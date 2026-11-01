@@ -1,9 +1,9 @@
 // RUPTURE Studio — Instagram Campaign View Module
 // Implements:
-// 1. Multi-Edition / Generation Selector (Edition 01: Hydraulic Void [Active], Edition 00: Omni-Spectrum [Preserved], Edition 02 & 03 Previews).
+// 1. Multi-Edition / Generation Selector (Edition 01: Hydraulic Void, Edition 02: Vitreous Resonance, Edition 03: Toroidal Flux, Edition 00: Omni-Spectrum Archive).
 // 2. Artwork Families Library: Catalog of the 5 approved families with hero previews, characteristics, member galleries, and pairing compatibility.
 // 3. Event Visual Direction: Curation specification, compatibility rationale, juxtaposed reference board, and custom direction builder.
-// 4. Interactive 3-column Instagram profile feed & chronological timeline.
+// 4. Interactive 3-column Instagram profile feed & chronological timeline across ALL editions.
 // 5. Reusable campaign templates (Artist Spotlight, Countdown System, Practical Guide).
 // 6. Safe-area toggles, full-resolution inspection modal, caption copy tools, and direct download links.
 
@@ -71,8 +71,7 @@ export function createCampaignView(app) {
 
     const [man, fams] = await Promise.all([loadManifest(), loadFamilies()]);
     const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
-    const isPlanned = currentEditionMeta?.status === 'planned';
-    const posts = isPlanned ? [] : await loadEditionData(activeEditionId);
+    const posts = await loadEditionData(activeEditionId);
 
     // Profile sequence: newest first (Post 15 down to Post 01)
     const profileSequence = [...posts].reverse();
@@ -80,6 +79,64 @@ export function createCampaignView(app) {
     // Map family ID to family object for easy reference
     const familyMap = {};
     (fams.families || []).forEach(f => { familyMap[f.id] = f; });
+
+    // Edition-specific profiles & highlights
+    const editionAvatars = {
+      'edition_01_hydraulic_void': '/artworks/masters/RUPTURE_M15_v1.jpg',
+      'edition_02_vitreous_resonance': '/artworks/masters/RUPTURE_M35_v1.jpg',
+      'edition_03_toroidal_flux': '/artworks/masters/RUPTURE_M08_v1.jpg',
+      'edition_00_omni': '/artworks/masters/RUPTURE_M49_v1.jpg'
+    };
+
+    const editionHighlights = {
+      'edition_01_hydraulic_void': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M85_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_02_vitreous_resonance': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M71_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M39_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M42_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M128_v1.jpg' }
+      ],
+      'edition_03_toroidal_flux': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M61_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M88_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M52_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
+      ],
+      'edition_00_omni': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M85_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ]
+    };
+
+    const editionBios = {
+      'edition_01_hydraulic_void': `Fast · Hypnotic · Driving · Dark Groove<br>
+        Edition 01: Hydraulic Void — [Date / Secret Industrial Silo]<br>
+        Sculptural Chrome + Folded Surfaces · Custom 25 Hz Rig`,
+      'edition_02_vitreous_resonance': `Hypnotic · Ethereal · Optical Waves · Deep Groove<br>
+        Edition 02: Vitreous Resonance — [Date / Secret Coastal Hangar]<br>
+        Pearlescent Silver + Translucent Glass Membrane`,
+      'edition_03_toroidal_flux': `Relentless · Orbital · Kinetic · Sub-Bass Intensity<br>
+        Edition 03: Toroidal Flux — [Date / Secret Industrial Quarry]<br>
+        Reflective Globes & Rings + Sculptural Chrome`,
+      'edition_00_omni': `Underground Electronic Music · Mauritius<br>
+        Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>
+        Multi-Family Survey (77 Approved Masters)`
+    };
+
+    const currentAvatar = editionAvatars[activeEditionId] || '/artworks/masters/RUPTURE_M15_v1.jpg';
+    const currentHighlights = editionHighlights[activeEditionId] || editionHighlights['edition_01_hydraulic_void'];
+    const currentBio = editionBios[activeEditionId] || editionBios['edition_01_hydraulic_void'];
 
     el.innerHTML = `
       <div class="campaign-container">
@@ -91,7 +148,7 @@ export function createCampaignView(app) {
               <select id="select-edition" class="edition-select">
                 ${man.editions.map(e => `
                   <option value="${e.id}" ${e.id === activeEditionId ? 'selected' : ''}>
-                    ${e.status === 'active' ? '★ ' : e.status === 'archived' ? '● ' : '◌ '}
+                    ${e.status === 'active' ? '★ ' : e.status === 'ready' ? '✦ ' : '● '}
                     ${esc(e.title)} [${e.status.toUpperCase()}]
                   </option>
                 `).join('')}
@@ -103,12 +160,12 @@ export function createCampaignView(app) {
             ${man.editions.map(e => {
               const isActive = e.id === activeEditionId;
               const statusClass = e.status;
-              const badgeIcon = e.status === 'active' ? '★' : e.status === 'archived' ? '●' : '◌';
+              const badgeIcon = e.status === 'active' ? '★' : e.status === 'ready' ? '✦' : '●';
               return `
                 <button type="button" class="btn small edition-pill-btn ${isActive ? 'active' : ''} ${statusClass}" data-edition-id="${e.id}">
                   <span class="status-dot">${badgeIcon}</span>
                   <span>${esc(e.title.split(':')[0].trim())}</span>
-                  <span class="mono muted text-xs">${esc(e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'PREVIEW')}</span>
+                  <span class="mono muted text-xs">${esc(e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'FEED READY')}</span>
                 </button>
               `;
             }).join('')}
@@ -160,7 +217,7 @@ export function createCampaignView(app) {
                 <button type="button" class="btn small ${viewMode === 'logic' ? 'active' : ''}" data-view="logic">06 Design Logic</button>
               </div>
             </div>
-            ${(viewMode === 'grid' || viewMode === 'timeline') && !isPlanned ? `
+            ${viewMode === 'grid' || viewMode === 'timeline' ? `
             <div class="control-group">
               <span class="mono muted">FRAME:</span>
               <div class="pill-buttons">
@@ -174,13 +231,13 @@ export function createCampaignView(app) {
         <!-- ========================================== -->
         <!-- VIEW 1: INSTAGRAM PROFILE GRID (3-COL)     -->
         <!-- ========================================== -->
-        ${viewMode === 'grid' && !isPlanned ? `
+        ${viewMode === 'grid' ? `
           <div class="ig-profile-wrapper">
             <!-- Simulated Instagram Profile Header -->
             <div class="ig-profile-header">
               <div class="ig-avatar-wrap">
                 <div class="ig-avatar-ring">
-                  <img src="${activeEditionId === 'edition_01_hydraulic_void' ? '/artworks/masters/RUPTURE_M15_v1.jpg' : '/artworks/masters/RUPTURE_M49_v1.jpg'}" alt="RUPTURE profile" class="ig-avatar-img">
+                  <img src="${currentAvatar}" alt="RUPTURE profile" class="ig-avatar-img">
                 </div>
               </div>
               <div class="ig-profile-info">
@@ -201,9 +258,7 @@ export function createCampaignView(app) {
                   <div class="ig-bio-name">RUPTURE</div>
                   <div class="ig-bio-category mono muted">Underground Techno Collective · Mauritius</div>
                   <div class="ig-bio-desc">
-                    Fast · Hypnotic · Driving · Dark Groove<br>
-                    ${activeEditionId === 'edition_01_hydraulic_void' ? 'Edition 01: Hydraulic Void — [Date / Secret Industrial Silo]<br>' : 'Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>'}
-                    4 Artists · 8 Hours · Custom Multi-Point Acoustics
+                    ${currentBio}
                   </div>
                   <a href="#campaign" class="ig-bio-link">linktr.ee/rupture.mu</a>
                 </div>
@@ -212,26 +267,12 @@ export function createCampaignView(app) {
 
             <!-- Story Highlights -->
             <div class="ig-highlights">
-              <div class="highlight-item">
-                <div class="highlight-ring"><img src="/artworks/masters/RUPTURE_M54_v1.jpg" alt="Sound"></div>
-                <span class="mono">SOUND</span>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-ring"><img src="/artworks/masters/RUPTURE_M28_v1.jpg" alt="Lineup"></div>
-                <span class="mono">LINEUP</span>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-ring"><img src="/artworks/masters/RUPTURE_M80_v1.jpg" alt="The Code"></div>
-                <span class="mono">THE CODE</span>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-ring"><img src="/artworks/masters/RUPTURE_M85_v1.jpg" alt="Location"></div>
-                <span class="mono">VENUE</span>
-              </div>
-              <div class="highlight-item">
-                <div class="highlight-ring"><img src="/artworks/masters/RUPTURE_M138_v1.jpg" alt="Tickets"></div>
-                <span class="mono">TICKETS</span>
-              </div>
+              ${currentHighlights.map(h => `
+                <div class="highlight-item">
+                  <div class="highlight-ring"><img src="${h.img}" alt="${h.title}"></div>
+                  <span class="mono">${h.title}</span>
+                </div>
+              `).join('')}
             </div>
 
             <!-- Feed Tabs -->
@@ -277,7 +318,7 @@ export function createCampaignView(app) {
         <!-- ========================================== -->
         <!-- VIEW 2: CHRONOLOGICAL CAMPAIGN FLOW       -->
         <!-- ========================================== -->
-        ${viewMode === 'timeline' && !isPlanned ? `
+        ${viewMode === 'timeline' ? `
           <div class="timeline-wrapper">
             ${['PHASE 1 — INTRODUCING THE COLLECTIVE', 'PHASE 2 — EVENT ANNOUNCEMENT', 'PHASE 3 — CULTURE AND EXPERIENCE', 'PHASE 4 — BUILDING ANTICIPATION'].map((phaseName) => {
               const phasePosts = posts.filter(p => p.phase === phaseName);
@@ -320,47 +361,6 @@ export function createCampaignView(app) {
         ` : ''}
 
         <!-- ========================================== -->
-        <!-- PLANNED EDITION PREVIEW (ED 02 & 03)       -->
-        <!-- ========================================== -->
-        ${isPlanned && (viewMode === 'grid' || viewMode === 'timeline') ? `
-          <div class="planned-edition-preview">
-            <div class="planned-hero">
-              <span class="mono muted">PLANNED CHAPTER PREVIEW // FUTURE EDITION</span>
-              <h3>${esc(currentEditionMeta.title)}</h3>
-              <p class="planned-lead">${esc(currentEditionMeta.conceptSummary)}</p>
-            </div>
-
-            <div class="planned-pairing-grid">
-              <div class="planned-family-card primary">
-                <div class="mono role-tag">PRIMARY FAMILY:</div>
-                <h4>${esc(currentEditionMeta.primaryFamily.name)}</h4>
-                <p class="muted">${esc(familyMap[currentEditionMeta.primaryFamily.id]?.description || '')}</p>
-                <img src="/artworks/masters/${familyMap[currentEditionMeta.primaryFamily.id]?.heroArtwork}" alt="Primary Hero" class="planned-hero-thumb">
-              </div>
-              <div class="planned-pairing-operator">+</div>
-              <div class="planned-family-card secondary">
-                <div class="mono role-tag">SECONDARY COMPATIBLE:</div>
-                <h4>${esc(currentEditionMeta.secondaryFamilies[0].name)}</h4>
-                <p class="muted">${esc(familyMap[currentEditionMeta.secondaryFamilies[0].id]?.description || '')}</p>
-                <img src="/artworks/masters/${familyMap[currentEditionMeta.secondaryFamilies[0].id]?.heroArtwork}" alt="Secondary Hero" class="planned-hero-thumb">
-              </div>
-            </div>
-
-            <div class="planned-rules-box">
-              <div class="mono bold">CAMPAIGN RULES FOR THIS EDITION:</div>
-              <ul>
-                <li>Every post will be drawn <strong>strictly and exclusively</strong> from ${esc(currentEditionMeta.primaryFamily.name)} and ${esc(currentEditionMeta.secondaryFamilies[0].name)}.</li>
-                <li>Excluded families for this chapter: <strong>${(currentEditionMeta.inactiveFamilies || []).map(id => familyMap[id]?.name || id).join(', ')}</strong>.</li>
-                <li>Preserves 100% of RUPTURE typographic hierarchy, dual-zone 4:5 / 1:1 safe framing, and Molten Crimson rules.</li>
-              </ul>
-              <div class="planned-actions">
-                <button type="button" class="btn primary" id="btn-switch-to-ed01">Switch Back to Active Edition 01</button>
-              </div>
-            </div>
-          </div>
-        ` : ''}
-
-        <!-- ========================================== -->
         <!-- VIEW 3: ARTWORK FAMILIES LIBRARY (5)       -->
         <!-- ========================================== -->
         ${viewMode === 'families' ? `
@@ -385,8 +385,8 @@ export function createCampaignView(app) {
                         <span class="mono family-hero-badge">HERO: ${esc(fam.heroArtwork.replace('_v1.jpg', ''))}</span>
                       </div>
                       <div class="family-edition-status">
-                        ${isPrimaryInActive ? `<span class="badge primary mono">PRIMARY (EDITION 01)</span>` :
-                          isSecondaryInActive ? `<span class="badge secondary mono">SECONDARY (EDITION 01)</span>` :
+                        ${isPrimaryInActive ? `<span class="badge primary mono">PRIMARY (${esc(currentEditionMeta.title.split(':')[0])})</span>` :
+                          isSecondaryInActive ? `<span class="badge secondary mono">SECONDARY (${esc(currentEditionMeta.title.split(':')[0])})</span>` :
                           `<span class="badge muted mono">INACTIVE IN CURRENT CAMPAIGN</span>`}
                       </div>
                     </div>
@@ -446,50 +446,44 @@ export function createCampaignView(app) {
           <div class="direction-wrapper">
             <div class="direction-header">
               <div class="mono muted">EVENT VISUAL DIRECTION SPECIFICATION</div>
-              <h3>EDITION 01: HYDRAULIC VOID</h3>
-              <p>For the collective's inaugural event, the visual direction deliberately focuses on heavy, viscous liquid mercury and tectonic planar fault lines. Lighter optical films and floating rings are reserved for subsequent chapters.</p>
+              <h3>${esc(currentEditionMeta.title)}</h3>
+              <p>${esc(currentEditionMeta.conceptSummary)}</p>
             </div>
 
             <!-- Direction Pairing Matrix -->
             <div class="direction-matrix-grid">
-              <div class="direction-matrix-card active-card">
-                <div class="matrix-card-tag mono primary">PRIMARY FAMILY</div>
-                <h4>Sculptural Liquid Chrome</h4>
-                <p>Heavy, dense mercury forms exhibiting tension necks, fluid spires, and chiseled metallic pillars in deep obsidian void.</p>
-                <div class="matrix-thumbs-row">
-                  <img src="/artworks/masters/RUPTURE_M15_v1.jpg" alt="M15" title="M15: Liquid Mercury Glyph">
-                  <img src="/artworks/masters/RUPTURE_M54_v1.jpg" alt="M54" title="M54: Curling Mercury Tidal Wave">
-                  <img src="/artworks/masters/RUPTURE_M74_v1.jpg" alt="M74" title="M74: Asymmetrical Chrome Glyph">
-                  <img src="/artworks/masters/RUPTURE_M45_v1.jpg" alt="M45" title="M45: Vertical Chiseled Obelisk">
+              ${currentEditionMeta.primaryFamily ? `
+                <div class="direction-matrix-card active-card">
+                  <div class="matrix-card-tag mono primary">PRIMARY FAMILY</div>
+                  <h4>${esc(currentEditionMeta.primaryFamily.name)}</h4>
+                  <p>${esc(familyMap[currentEditionMeta.primaryFamily.id]?.description || '')}</p>
+                  <div class="matrix-thumbs-row">
+                    <img src="/artworks/masters/${familyMap[currentEditionMeta.primaryFamily.id]?.heroArtwork}" alt="Hero">
+                  </div>
                 </div>
-              </div>
+              ` : ''}
 
-              <div class="direction-matrix-card active-card">
-                <div class="matrix-card-tag mono secondary">SECONDARY COMPATIBLE FAMILY</div>
-                <h4>Folded Liquid Surfaces</h4>
-                <p>Planar faceted folds, razor-sheared laminar strata, stepped brutalist fluid terraces, and tectonic fault shelves.</p>
-                <div class="matrix-thumbs-row">
-                  <img src="/artworks/masters/RUPTURE_M23_v1.jpg" alt="M23" title="M23: Sheared Chrome Planes">
-                  <img src="/artworks/masters/RUPTURE_M38_v1.jpg" alt="M38" title="M38: Staggered Laminar Strata">
-                  <img src="/artworks/masters/RUPTURE_M73_v1.jpg" alt="M73" title="M73: Horizontal Sheared Planes">
-                  <img src="/artworks/masters/RUPTURE_M80_v1.jpg" alt="M80" title="M80: Stepped Fluid Terraces">
+              ${(currentEditionMeta.secondaryFamilies && currentEditionMeta.secondaryFamilies.length > 0) ? `
+                <div class="direction-matrix-card active-card">
+                  <div class="matrix-card-tag mono secondary">SECONDARY COMPATIBLE FAMILY</div>
+                  <h4>${esc(currentEditionMeta.secondaryFamilies[0].name)}</h4>
+                  <p>${esc(familyMap[currentEditionMeta.secondaryFamilies[0].id]?.description || '')}</p>
+                  <div class="matrix-thumbs-row">
+                    <img src="/artworks/masters/${familyMap[currentEditionMeta.secondaryFamilies[0].id]?.heroArtwork}" alt="Hero">
+                  </div>
                 </div>
-              </div>
+              ` : ''}
 
               <div class="direction-matrix-card inactive-card">
-                <div class="matrix-card-tag mono muted">INACTIVE / EXCLUDED FAMILIES (3)</div>
+                <div class="matrix-card-tag mono muted">INACTIVE / EXCLUDED FAMILIES</div>
                 <h4>Zero Permitted Occurrences</h4>
-                <p class="muted">To ensure absolute aesthetic cohesion, the following families are strictly prohibited from Edition 01:</p>
+                <p class="muted">To ensure absolute aesthetic cohesion, inactive families are strictly excluded from this campaign chapter.</p>
                 <div class="excluded-list">
-                  <div class="excluded-item">
-                    <strong>Pearlescent Silver Fluid:</strong> Soft nacreous luster reserved for Edition 02.
-                  </div>
-                  <div class="excluded-item">
-                    <strong>Translucent Glass Membrane:</strong> Vitreous transparent films reserved for Edition 02.
-                  </div>
-                  <div class="excluded-item">
-                    <strong>Reflective Globes & Rings:</strong> Toroidal kinetic loops reserved for Edition 03.
-                  </div>
+                  ${(currentEditionMeta.inactiveFamilies || []).map(infId => `
+                    <div class="excluded-item">
+                      <strong>${esc(familyMap[infId]?.name || infId)}:</strong> Strictly prohibited for this edition.
+                    </div>
+                  `).join('')}
                 </div>
               </div>
             </div>
@@ -497,19 +491,19 @@ export function createCampaignView(app) {
             <!-- Compatibility Rationale Deep Dive -->
             <div class="rationale-box">
               <div class="mono muted">COHESION RATIONALE</div>
-              <h4>Why Sculptural Liquid Chrome & Folded Surfaces Form a Coherent Chapter</h4>
+              <h4>Why This Chapter Maintains Strict Brand Cohesion</h4>
               <div class="rationale-points">
                 <div class="rationale-point">
                   <div class="mono point-num">01</div>
-                  <strong>Shared Specular Physics & Lighting Model:</strong> Both families share extreme specular contrast with high-key directional rim lights reflecting across heavy liquid metal against an infinite black void. Their reflections feel physically grounded in the same acoustic space.
+                  <strong>Consistent Brand Identity:</strong> Typography (Archivo, Helvetica Neue, JetBrains Mono), the RUPTURE logotype, grid registration marks, and technical metadata remain 100% constant across every edition.
                 </div>
                 <div class="rationale-point">
                   <div class="mono point-num">02</div>
-                  <strong>Brutalist Topography vs Organic Tension:</strong> The razor-sheared horizontal strata of Folded Surfaces provide architectural grounding and structural discipline, while Sculptural Chrome provides organic tensile fluidity, preventing the feed from feeling either too static or too chaotic.
+                  <strong>Material Nuance per Event:</strong> Each edition introduces its own tactile atmosphere — heavy chrome and tectonic plates for Edition 01, nacreous silk and optical glass for Edition 02, and orbital kinetic rings for Edition 03.
                 </div>
                 <div class="rationale-point">
                   <div class="mono point-num">03</div>
-                  <strong>Tonal Palette Alignment:</strong> Pure mirror chrome (#C0C4CC), liquid slate (#7A828E), and deep obsidian (#050505) dominate both families, with subtle icy-blue and pale-cyan caustics. Neither family relies on pastel transparency or soft-focus diffuse light.
+                  <strong>Restrained Accent Discipline:</strong> Across all editions, Molten Crimson (#FF3344) is strictly isolated to the Main Event Poster and the Last Tickets announcement.
                 </div>
               </div>
             </div>
@@ -594,7 +588,7 @@ export function createCampaignView(app) {
               <div class="template-header">
                 <span class="mono muted">DELIVERABLE 05</span>
                 <h3>02 / Reusable Countdown Visual System</h3>
-                <p>A high-velocity countdown visual framework based on the razor-sharp aerodynamic fluid dagger (RUPTURE_M58). The giant condensed numerals can be dynamically updated (7 Days, 5 Days, 3 Days, 24 Hours) while preserving kinetic tension.</p>
+                <p>A high-velocity countdown visual framework. The giant condensed numerals can be dynamically updated (7 Days, 5 Days, 3 Days, 24 Hours) while preserving kinetic tension.</p>
               </div>
               <div class="template-grid">
                 <div class="template-card">
@@ -628,7 +622,7 @@ export function createCampaignView(app) {
               <div class="template-header">
                 <span class="mono muted">DELIVERABLE 06</span>
                 <h3>03 / Reusable Practical Event Information Template</h3>
-                <p>A data-sheet layout engineered specifically for mobile screen readability. Utilizes four distinct technical data brackets (Timetable, Venue, Entry, Amenities) with high contrast against an obsidian backing panel, flanked by the vertical tensile pinch of RUPTURE_M45.</p>
+                <p>A data-sheet layout engineered specifically for mobile screen readability. Utilizes four distinct technical data brackets (Timetable, Venue, Entry, Amenities) with high contrast against an obsidian backing panel.</p>
               </div>
               <div class="template-grid single-col">
                 <div class="template-card large">
@@ -655,7 +649,7 @@ export function createCampaignView(app) {
                 <h4>Grid Rhythm & Layout Balance</h4>
                 <p>In Instagram's 3-column profile layout, neighboring posts can easily blend into a monotonous smear if not balanced. The RUPTURE campaign interlaces three distinct visual archetypes:</p>
                 <ul>
-                  <li><strong>Hero Artworks</strong> (Posts 01, 03, 05, 10, 15): Monumental liquid chrome sculptures floating in deep void with minimal typography.</li>
+                  <li><strong>Hero Artworks</strong> (Posts 01, 03, 05, 10, 15): Monumental sculptures floating in deep void with minimal typography.</li>
                   <li><strong>Typographic Statements</strong> (Posts 02, 06, 08, 09): Dense, authoritative European-style grids with high-contrast rules and structured manifesto points.</li>
                   <li><strong>Editorial Data Sheets</strong> (Posts 04, 07, 11, 12, 13, 14): Precise technical framing, GPS coordinates, timetable brackets, and urgency badges.</li>
                 </ul>
@@ -668,8 +662,8 @@ export function createCampaignView(app) {
                 <p>The collective's 77 approved artworks fall into 5 distinct families. Each campaign uses <strong>only two compatible families</strong> (one primary, one secondary), strictly excluding the other three. This produces a recognisable visual chapter per event rather than a discordant moodboard.</p>
                 <ul>
                   <li><strong>Edition 01:</strong> Sculptural Liquid Chrome + Folded Liquid Surfaces. Heavy metallic mass and tectonic plates.</li>
-                  <li><strong>Edition 02 (Preview):</strong> Pearlescent Silver Fluid + Translucent Glass Membrane. Ethereal silk and caustic refractions.</li>
-                  <li><strong>Edition 03 (Preview):</strong> Reflective Globes & Rings + Sculptural Chrome. Kinetic orbits and fluid mercury loops.</li>
+                  <li><strong>Edition 02:</strong> Pearlescent Silver Fluid + Translucent Glass Membrane. Ethereal silk and caustic refractions.</li>
+                  <li><strong>Edition 03:</strong> Reflective Globes & Rings + Sculptural Chrome. Kinetic orbits and fluid mercury loops.</li>
                 </ul>
               </div>
 
@@ -678,8 +672,8 @@ export function createCampaignView(app) {
                 <h4>The Restrained Red Rule</h4>
                 <p>Consistent with the RUPTURE brand guidelines, Molten Crimson (#FF3344) is strictly restrained across the entire 15-post suite to exactly <strong>two strategic moments</strong>:</p>
                 <ul>
-                  <li><strong>Post 05 (Main Event Poster)</strong>: A razor-thin molten crimson caustic slit runs horizontally beneath the colossal "HYDRAULIC VOID" title, establishing the hero poster as the emotional epicenter of the entire campaign. In the 3-column grid, Post 05 sits dead-center in Row 4!</li>
-                  <li><strong>Post 13 (Last Tickets)</strong>: An electric molten red indicator and status border signals capacity urgency without resorting to vulgar discount marketing graphics.</li>
+                  <li><strong>Post 05 (Main Event Poster)</strong>: A razor-thin molten crimson caustic slit runs horizontally beneath the title.</li>
+                  <li><strong>Post 13 (Last Tickets)</strong>: An electric molten red indicator and status border signals capacity urgency.</li>
                 </ul>
                 <p>Every other post strictly obeys the Pure Chrome, Liquid Slate, Icy Blue, Pale Cyan, and Lavender spectrum.</p>
               </div>
@@ -780,15 +774,6 @@ export function createCampaignView(app) {
       });
     });
 
-    // Switch to Ed 01 button from planned preview
-    const btnSwitchEd01 = el.querySelector('#btn-switch-to-ed01');
-    if (btnSwitchEd01) {
-      btnSwitchEd01.addEventListener('click', () => {
-        activeEditionId = 'edition_01_hydraulic_void';
-        render();
-      });
-    }
-
     // View mode switchers
     el.querySelectorAll('[data-view]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -883,7 +868,7 @@ export function createCampaignView(app) {
                   ${esc(post.familyRole || 'Active Family')}
                 </span>
                 <strong>${esc(post.family)}</strong>
-                <p class="muted text-xs" style="margin: 4px 0 0;">Strictly verified against Edition 01 approved visual direction rules.</p>
+                <p class="muted text-xs" style="margin: 4px 0 0;">Strictly verified against approved visual direction rules.</p>
               </div>
             </div>
           ` : ''}
