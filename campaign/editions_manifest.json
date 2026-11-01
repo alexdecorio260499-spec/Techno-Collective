@@ -77,6 +77,81 @@
       "basePath": "/campaign/editions/edition_03_toroidal_flux"
     },
     {
+      "id": "edition_04_tectonic_shear",
+      "editionNumber": "04",
+      "title": "EDITION 04: TECTONIC SHEAR",
+      "chapter": "Chapter IV — Obsidian Terraces & Brutalist Faults",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "folded-surfaces",
+        "name": "Folded Liquid Surfaces"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "sculptural-chrome",
+          "name": "Sculptural Liquid Chrome"
+        }
+      ],
+      "inactiveFamilies": [
+        "pearlescent-silver",
+        "translucent-glass",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Monolithic stepped obsidian terraces, brutalist planar fluid faults, razor-creased metallic drapery, and high-tensile chrome ribbons engineered for deep, raw percussive techno rhythms.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_04_tectonic_shear"
+    },
+    {
+      "id": "edition_05_caustic_wave",
+      "editionNumber": "05",
+      "title": "EDITION 05: CAUSTIC WAVE",
+      "chapter": "Chapter V — Optical Glass Sails & Nacreous Cymatics",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "translucent-glass",
+        "name": "Translucent Glass Membrane"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "pearlescent-silver",
+          "name": "Pearlescent Silver Fluid"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "folded-surfaces",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Diaphanous silica glass sails, iridescent cymatic fluid waveforms, and prismatic caustic focal fields channeling hypnotic rolling sub-bass and deep spatial resonance.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_05_caustic_wave"
+    },
+    {
+      "id": "edition_06_orbital_annulus",
+      "editionNumber": "06",
+      "title": "EDITION 06: ORBITAL ANNULUS",
+      "chapter": "Chapter VI — Concentric Torus & Vitreous Spheres",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "reflective-globes",
+        "name": "Reflective Globes & Rings"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "translucent-glass",
+          "name": "Translucent Glass Membrane"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "folded-surfaces",
+        "pearlescent-silver"
+      ],
+      "conceptSummary": "Nested liquid mercury rings, levitating optic silica globes, and kinetic toroidal apertures refracting the dark void for futuristic, fast polyrhythmic techno excursions.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_06_orbital_annulus"
+    },
+    {
       "id": "edition_00_omni",
       "editionNumber": "00",
       "title": "ARCHIVE: OMNI-SPECTRUM (ORIGINAL)",

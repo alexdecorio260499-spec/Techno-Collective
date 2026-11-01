@@ -85,6 +85,9 @@ export function createCampaignView(app) {
       'edition_01_hydraulic_void': '/artworks/masters/RUPTURE_M15_v1.jpg',
       'edition_02_vitreous_resonance': '/artworks/masters/RUPTURE_M35_v1.jpg',
       'edition_03_toroidal_flux': '/artworks/masters/RUPTURE_M08_v1.jpg',
+      'edition_04_tectonic_shear': '/artworks/masters/RUPTURE_M34_v1.jpg',
+      'edition_05_caustic_wave': '/artworks/masters/RUPTURE_M40_v1.jpg',
+      'edition_06_orbital_annulus': '/artworks/masters/RUPTURE_M11_v1.jpg',
       'edition_00_omni': '/artworks/masters/RUPTURE_M49_v1.jpg'
     };
 
@@ -110,6 +113,27 @@ export function createCampaignView(app) {
         { title: 'VENUE', img: '/artworks/masters/RUPTURE_M52_v1.jpg' },
         { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
       ],
+      'edition_04_tectonic_shear': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M34_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M60_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M45_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M142_v1.jpg' }
+      ],
+      'edition_05_caustic_wave': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M40_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M94_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M06_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M132_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M140_v1.jpg' }
+      ],
+      'edition_06_orbital_annulus': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M11_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M39_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M18_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M87_v1.jpg' }
+      ],
       'edition_00_omni': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
@@ -129,6 +153,15 @@ export function createCampaignView(app) {
       'edition_03_toroidal_flux': `Relentless · Orbital · Kinetic · Sub-Bass Intensity<br>
         Edition 03: Toroidal Flux — [Date / Secret Industrial Quarry]<br>
         Reflective Globes & Rings + Sculptural Chrome`,
+      'edition_04_tectonic_shear': `Percussive · Brutalist · Obsidian Strata · High Velocity<br>
+        Edition 04: Tectonic Shear — [Date / Secret Industrial Fault]<br>
+        Folded Liquid Surfaces + Sculptural Chrome · Relentless Raw Pressure`,
+      'edition_05_caustic_wave': `Diaphanous · Prismatic · Nacreous Drift · Sub-Bass Hypnosis<br>
+        Edition 05: Caustic Wave — [Date / Secret Coastal Void]<br>
+        Translucent Glass Membrane + Pearlescent Silver Fluid · Pure Optical Sound`,
+      'edition_06_orbital_annulus': `Toroidal · Polyrhythmic · Liquid Mercury · Spatial Suspension<br>
+        Edition 06: Orbital Annulus — [Date / Secret Offshore Platform]<br>
+        Reflective Globes & Rings + Translucent Glass Membrane · Concentric Acceleration`,
       'edition_00_omni': `Underground Electronic Music · Mauritius<br>
         Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>
         Multi-Family Survey (77 Approved Masters)`
