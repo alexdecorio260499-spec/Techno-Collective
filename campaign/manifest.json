@@ -1,0 +1,158 @@
+{
+  "campaignTitle": "RUPTURE EDITION 01 // HYDRAULIC VOID",
+  "concept": "Liquid Geometry / Underground Techno Collective",
+  "location": "Mauritius",
+  "aspectRatio": "4:5 (1080x1350) with 1:1 square crop safe area (1080x1080)",
+  "posts": [
+    {
+      "id": "01",
+      "filename": "RUPTURE_IG_POST_01.jpg",
+      "filenamePng": "RUPTURE_IG_POST_01.png",
+      "squareCrop": "RUPTURE_IG_POST_01_sq.jpg",
+      "title": "The First Signal",
+      "phase": "Phase 1: Introducing the Collective",
+      "referenceArtwork": "RUPTURE_M15_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "02",
+      "filename": "RUPTURE_IG_POST_02.jpg",
+      "filenamePng": "RUPTURE_IG_POST_02.png",
+      "squareCrop": "RUPTURE_IG_POST_02_sq.jpg",
+      "title": "The Manifesto",
+      "phase": "Phase 1: Introducing the Collective",
+      "referenceArtwork": "RUPTURE_M23_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "03",
+      "filename": "RUPTURE_IG_POST_03.jpg",
+      "filenamePng": "RUPTURE_IG_POST_03.png",
+      "squareCrop": "RUPTURE_IG_POST_03_sq.jpg",
+      "title": "The Name / Identity",
+      "phase": "Phase 1: Introducing the Collective",
+      "referenceArtwork": "RUPTURE_M21_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "04",
+      "filename": "RUPTURE_IG_POST_04.jpg",
+      "filenamePng": "RUPTURE_IG_POST_04.png",
+      "squareCrop": "RUPTURE_IG_POST_04_sq.jpg",
+      "title": "Save The Date",
+      "phase": "Phase 2: Event Announcement",
+      "referenceArtwork": "RUPTURE_M37_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "05",
+      "filename": "RUPTURE_IG_POST_05.jpg",
+      "filenamePng": "RUPTURE_IG_POST_05.png",
+      "squareCrop": "RUPTURE_IG_POST_05_sq.jpg",
+      "title": "The Main Event Poster",
+      "phase": "Phase 2: Event Announcement",
+      "referenceArtwork": "RUPTURE_M43_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "06",
+      "filename": "RUPTURE_IG_POST_06.jpg",
+      "filenamePng": "RUPTURE_IG_POST_06.png",
+      "squareCrop": "RUPTURE_IG_POST_06_sq.jpg",
+      "title": "The Lineup",
+      "phase": "Phase 2: Event Announcement",
+      "referenceArtwork": "RUPTURE_M28_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "07",
+      "filename": "RUPTURE_IG_POST_07.jpg",
+      "filenamePng": "RUPTURE_IG_POST_07.png",
+      "squareCrop": "RUPTURE_IG_POST_07_sq.jpg",
+      "title": "Artist Spotlight",
+      "phase": "Phase 2: Event Announcement",
+      "referenceArtwork": "RUPTURE_M41_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "08",
+      "filename": "RUPTURE_IG_POST_08.jpg",
+      "filenamePng": "RUPTURE_IG_POST_08.png",
+      "squareCrop": "RUPTURE_IG_POST_08_sq.jpg",
+      "title": "The Sound",
+      "phase": "Phase 3: Culture & Experience",
+      "referenceArtwork": "RUPTURE_M49_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "09",
+      "filename": "RUPTURE_IG_POST_09.jpg",
+      "filenamePng": "RUPTURE_IG_POST_09.png",
+      "squareCrop": "RUPTURE_IG_POST_09_sq.jpg",
+      "title": "The Rules / The Code",
+      "phase": "Phase 3: Culture & Experience",
+      "referenceArtwork": "RUPTURE_M80_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "10",
+      "filename": "RUPTURE_IG_POST_10.jpg",
+      "filenamePng": "RUPTURE_IG_POST_10.png",
+      "squareCrop": "RUPTURE_IG_POST_10_sq.jpg",
+      "title": "The Experience",
+      "phase": "Phase 3: Culture & Experience",
+      "referenceArtwork": "RUPTURE_M06_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "11",
+      "filename": "RUPTURE_IG_POST_11.jpg",
+      "filenamePng": "RUPTURE_IG_POST_11.png",
+      "squareCrop": "RUPTURE_IG_POST_11_sq.jpg",
+      "title": "Venue / Location Reveal",
+      "phase": "Phase 3: Culture & Experience",
+      "referenceArtwork": "RUPTURE_M85_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "12",
+      "filename": "RUPTURE_IG_POST_12.jpg",
+      "filenamePng": "RUPTURE_IG_POST_12.png",
+      "squareCrop": "RUPTURE_IG_POST_12_sq.jpg",
+      "title": "The Countdown (7 Days)",
+      "phase": "Phase 4: Building Anticipation",
+      "referenceArtwork": "RUPTURE_M58_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "13",
+      "filename": "RUPTURE_IG_POST_13.jpg",
+      "filenamePng": "RUPTURE_IG_POST_13.png",
+      "squareCrop": "RUPTURE_IG_POST_13_sq.jpg",
+      "title": "Last Tickets / Reminder",
+      "phase": "Phase 4: Building Anticipation",
+      "referenceArtwork": "RUPTURE_M138_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "14",
+      "filename": "RUPTURE_IG_POST_14.jpg",
+      "filenamePng": "RUPTURE_IG_POST_14.png",
+      "squareCrop": "RUPTURE_IG_POST_14_sq.jpg",
+      "title": "Final Information",
+      "phase": "Phase 4: Building Anticipation",
+      "referenceArtwork": "RUPTURE_M97_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    },
+    {
+      "id": "15",
+      "filename": "RUPTURE_IG_POST_15.jpg",
+      "filenamePng": "RUPTURE_IG_POST_15.png",
+      "squareCrop": "RUPTURE_IG_POST_15_sq.jpg",
+      "title": "Tomorrow / Tonight",
+      "phase": "Phase 4: Building Anticipation",
+      "referenceArtwork": "RUPTURE_M17_v1.jpg",
+      "dimensions": "1080x1350 (4:5) / 1080x1080 (1:1 safe crop)"
+    }
+  ]
+}

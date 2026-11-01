@@ -460,3 +460,138 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
 .ref-chip .name { font-size: 10.5px; font-family: var(--mono); text-transform: uppercase; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
 .ref-chip input { margin: 0; }
 
+
+
+/* ==========================================================================
+   05 INSTAGRAM EVENT CAMPAIGN STYLES
+   ========================================================================== */
+
+.campaign-container { display: flex; flex-direction: column; gap: 28px; max-width: 1200px; margin: 0 auto; }
+.campaign-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line-2); }
+.campaign-header-title h2 { margin: 6px 0 8px; font-size: 28px; font-weight: 900; letter-spacing: -0.02em; }
+.campaign-tagline { color: var(--grey); margin: 0; max-width: 600px; font-size: 14px; }
+.campaign-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.control-group { display: flex; align-items: center; gap: 10px; }
+.pill-buttons { display: flex; gap: 4px; background: var(--ink); padding: 3px; border: 1px solid var(--line); border-radius: var(--radius); }
+.pill-buttons .btn { background: transparent; border: none; color: var(--grey); font-family: var(--mono); font-size: 11px; padding: 6px 12px; cursor: pointer; border-radius: 2px; transition: all 0.2s ease; }
+.pill-buttons .btn:hover { color: var(--white); }
+.pill-buttons .btn.active { background: var(--line-2); color: var(--white); font-weight: 700; }
+
+/* ---------- 01 PROFILE FEED SIMULATION ---------- */
+.ig-profile-wrapper { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(16px, 3vw, 36px); max-width: 980px; margin: 0 auto; width: 100%; }
+.ig-profile-header { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 4vw, 48px); align-items: center; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.ig-avatar-wrap { display: grid; place-content: center; }
+.ig-avatar-ring { width: clamp(84px, 11vw, 130px); height: clamp(84px, 11vw, 130px); border-radius: 50%; padding: 4px; background: linear-gradient(135deg, var(--grey), var(--line-2), var(--cyan)); }
+.ig-avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; background: var(--black); }
+.ig-profile-info { display: flex; flex-direction: column; gap: 14px; }
+.ig-username-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.ig-username { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+.ig-badge { font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; padding: 3px 8px; background: var(--line); border: 1px solid var(--line-2); color: var(--cyan); }
+.ig-actions { display: flex; gap: 8px; }
+.ig-actions .btn { font-size: 12px; padding: 6px 16px; }
+.ig-stats-row { display: flex; gap: 24px; font-size: 14px; }
+.ig-stats-row strong { font-weight: 700; color: var(--white); }
+.ig-bio { font-size: 13.5px; line-height: 1.5; display: flex; flex-direction: column; gap: 4px; }
+.ig-bio-name { font-weight: 700; letter-spacing: 0.05em; }
+.ig-bio-link { color: var(--cyan); text-decoration: none; font-family: var(--mono); font-size: 12px; margin-top: 4px; }
+.ig-bio-link:hover { text-decoration: underline; }
+
+.ig-highlights { display: flex; gap: 24px; overflow-x: auto; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.highlight-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+.highlight-ring { width: 64px; height: 64px; border-radius: 50%; padding: 2px; background: var(--line-2); }
+.highlight-ring img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.highlight-item span { font-size: 10px; color: var(--grey); }
+
+.ig-feed-tabs { display: flex; justify-content: center; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.ig-feed-tab { display: flex; align-items: center; gap: 8px; padding: 14px 20px; font-size: 12px; color: var(--grey); border-top: 2px solid transparent; cursor: pointer; }
+.ig-feed-tab.active { color: var(--white); border-top: 2px solid var(--white); }
+
+.ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(4px, 1.2vw, 14px); }
+.ig-grid-item { position: relative; background: var(--ink); overflow: hidden; cursor: pointer; border: 1px solid transparent; transition: transform 0.2s ease, border-color 0.2s ease; }
+.ig-grid.aspect-square .ig-grid-item { aspect-ratio: 1 / 1; }
+.ig-grid.aspect-portrait .ig-grid-item { aspect-ratio: 4 / 5; }
+.ig-grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.ig-grid-item:hover img { transform: scale(1.03); }
+.ig-grid-item.has-red-accent { box-shadow: 0 0 0 1px color-mix(in srgb, var(--molten) 40%, transparent); }
+.ig-grid-item.center-hero { box-shadow: 0 0 0 1px var(--line-2); }
+
+.ig-grid-overlay { position: absolute; inset: 0; background: rgba(5, 6, 8, 0.88); opacity: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 16px; transition: opacity 0.25s ease; pointer-events: none; }
+.ig-grid-item:hover .ig-grid-overlay, .ig-grid-item:focus .ig-grid-overlay { opacity: 1; pointer-events: auto; }
+.ig-overlay-header { display: flex; justify-content: space-between; align-items: center; }
+.ig-post-badge { font-size: 10px; padding: 2px 6px; background: var(--line); color: var(--white); }
+.ig-red-dot { font-size: 9px; color: var(--molten); font-weight: 700; }
+.ig-overlay-title { font-size: 15px; font-weight: 700; line-height: 1.3; color: var(--white); }
+.ig-overlay-meta { font-size: 10px; }
+.ig-overlay-stats { display: flex; gap: 14px; font-size: 12px; font-weight: 600; }
+.ig-inspect-btn { width: 100%; text-align: center; }
+
+/* ---------- 02 TIMELINE FLOW ---------- */
+.timeline-wrapper { display: flex; flex-direction: column; gap: 36px; }
+.timeline-phase-block { display: flex; flex-direction: column; gap: 16px; }
+.phase-header { display: flex; align-items: baseline; gap: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line-2); }
+.phase-num { color: var(--cyan); font-size: 11px; }
+.phase-title { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; }
+.phase-count { margin-left: auto; font-size: 10px; }
+.timeline-posts-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.timeline-post-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: border-color 0.2s ease; }
+.timeline-post-card:hover { border-color: var(--line-2); }
+.timeline-card-image { position: relative; background: var(--ink); overflow: hidden; }
+.timeline-posts-row.aspect-square .timeline-card-image { aspect-ratio: 1 / 1; }
+.timeline-posts-row.aspect-portrait .timeline-card-image { aspect-ratio: 4 / 5; }
+.timeline-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.card-tag { position: absolute; top: 8px; right: 8px; background: rgba(5, 6, 8, 0.85); padding: 3px 8px; font-size: 10px; border: 1px solid var(--line-2); }
+.timeline-card-info { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card-timing { font-size: 10px; }
+.card-title { margin: 0; font-size: 15px; font-weight: 800; }
+.card-theme { font-size: 12px; color: var(--grey); margin: 0; line-height: 1.4; flex: 1; }
+.card-art-link { font-size: 11px; padding: 6px 0; }
+.card-art-link a { color: var(--cyan); text-decoration: none; }
+.card-art-link a:hover { text-decoration: underline; }
+
+/* ---------- 03 TEMPLATES SHOWCASE ---------- */
+.templates-showcase { display: flex; flex-direction: column; gap: 48px; }
+.template-section { display: flex; flex-direction: column; gap: 18px; }
+.template-header h3 { margin: 6px 0 8px; font-size: 20px; font-weight: 800; }
+.template-header p { color: var(--grey); font-size: 13.5px; max-width: 800px; margin: 0; line-height: 1.5; }
+.template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.template-grid.single-col { grid-template-columns: 1fr; max-width: 600px; }
+.template-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
+.template-card img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--ink); }
+.template-meta { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+
+/* ---------- 04 DESIGN LOGIC ---------- */
+.logic-wrapper { display: flex; flex-direction: column; gap: 24px; }
+.logic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.logic-card { background: var(--panel); border: 1px solid var(--line); padding: 24px; border-radius: var(--radius); display: flex; flex-direction: column; gap: 12px; }
+.logic-num { font-size: 18px; color: var(--cyan); }
+.logic-card h4 { margin: 0; font-size: 17px; font-weight: 800; }
+.logic-card p { color: var(--grey); font-size: 13.5px; line-height: 1.6; margin: 0; }
+.logic-card ul { padding-left: 18px; margin: 0; color: var(--grey); font-size: 13px; line-height: 1.6; }
+.logic-card strong { color: var(--white); }
+
+/* ---------- CAMPAIGN MODAL ---------- */
+.campaign-modal { background: var(--panel); color: var(--white); border: 1px solid var(--line-2); border-radius: var(--radius); max-width: 1280px; width: 95vw; max-height: 90vh; padding: 0; overflow: hidden; }
+.campaign-modal::backdrop { background: rgba(5, 5, 5, 0.88); backdrop-filter: blur(12px); }
+.campaign-modal-inner { display: grid; grid-template-columns: 1fr 1.2fr; max-height: 90vh; overflow: hidden; }
+@media (max-width: 900px) { .campaign-modal-inner { grid-template-columns: 1fr; overflow-y: auto; } }
+.modal-left { background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); padding: 20px; overflow: hidden; }
+.modal-image-stage { position: relative; display: flex; justify-content: center; align-items: center; max-height: calc(90vh - 110px); overflow: hidden; }
+.modal-full-img { max-height: calc(90vh - 120px); width: auto; max-width: 100%; object-fit: contain; }
+.safe-crop-overlay { position: absolute; inset: 0; display: none; flex-direction: column; pointer-events: none; }
+.modal-image-stage.show-crop-guide .safe-crop-overlay { display: flex; }
+.crop-top-mask, .crop-bottom-mask { background: rgba(0, 0, 0, 0.65); flex: 1; }
+.crop-center-box { aspect-ratio: 1 / 1; width: 100%; border: 2px dashed var(--cyan); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 12px; }
+.crop-center-box span { background: rgba(5, 5, 5, 0.85); padding: 3px 8px; font-size: 10px; color: var(--cyan); }
+.modal-image-tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); }
+.download-group { display: flex; gap: 8px; }
+.modal-right { padding: 28px; overflow-y: auto; display: flex; flex-direction: column; gap: 22px; }
+.modal-header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.modal-header-row h3 { margin: 6px 0 0; font-size: 22px; font-weight: 800; }
+.close-modal-btn { background: transparent; border: none; font-size: 18px; cursor: pointer; color: var(--grey); }
+.close-modal-btn:hover { color: var(--white); }
+.modal-section { display: flex; flex-direction: column; gap: 10px; }
+.art-ref-box { display: flex; gap: 14px; background: var(--ink); padding: 12px; border: 1px solid var(--line); align-items: center; }
+.art-ref-thumb { width: 60px; height: 75px; object-fit: cover; flex-shrink: 0; }
+.spec-detail-box { background: var(--ink); padding: 14px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
+.caption-header-row { display: flex; justify-content: space-between; align-items: center; }
+.caption-text-box { background: var(--ink); border: 1px solid var(--line); padding: 16px; font-family: var(--sans); font-size: 13px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; max-height: 240px; overflow-y: auto; color: var(--offwhite); margin: 0; }

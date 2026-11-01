@@ -1,3 +1,5 @@
+import { createCampaignView } from './campaign.js';
+
 // RUPTURE prompt engine — inlined for standalone zero-dependency browser execution.
 function rng(seed) {
   let a = seed >>> 0;
@@ -767,7 +769,8 @@ function renderExport() {
 }
 
 // ---------- router ----------
-const VIEWS = { system: renderSystem, gallery: renderGallery, generate: renderGenerate, export: renderExport };
+const campaignView = createCampaignView();
+const VIEWS = { system: renderSystem, gallery: renderGallery, generate: renderGenerate, export: renderExport, campaign: () => campaignView.render() };
 const currentView = () => (VIEWS[location.hash.slice(1)] ? location.hash.slice(1) : 'system');
 function rerenderView() { VIEWS[currentView()](); }
 

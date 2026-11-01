@@ -73,6 +73,12 @@ async function build() {
   cpSync(path.join(ROOT, 'references'), path.join(DIST, 'references'), { recursive: true });
   console.log('✓ Copied references directory');
 
+  // 8. Copy campaign assets
+  if (existsSync(path.join(ROOT, 'campaign'))) {
+    cpSync(path.join(ROOT, 'campaign'), path.join(DIST, 'campaign'), { recursive: true });
+    console.log('✓ Copied campaign directory');
+  }
+
   console.log('✨ Build complete! Static site ready in dist/ directory.');
 }
 

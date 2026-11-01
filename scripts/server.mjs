@@ -199,6 +199,7 @@ async function processUploadItem(body) {
 // ---------- router ----------
 
 const routes = [
+  ['GET', /^\/api\/campaign$/, async () => JSON.parse(await fs.readFile(path.join(ROOT, 'campaign/campaign_data.json'), 'utf8'))],
   ['GET', /^\/api\/state$/, async () => ({
     mode: mode(), model: provider?.model || null,
     identity: store.identity, collection: store.collection, manifest: store.manifest, queue: store.queue,
@@ -245,7 +246,7 @@ const server = http.createServer(async (req, res) => {
       if (!file || !existsSync(file)) return json(res, 404, { error: 'Export not found — export it first' });
       return serveFile(res, file, { 'Content-Disposition': `attachment; filename="${path.basename(file)}"` });
     }
-    for (const dir of ['artworks', 'exports', 'data', 'references']) {
+    for (const dir of ['artworks', 'exports', 'data', 'references', 'campaign']) {
       if (p.startsWith(`/${dir}/`)) {
         const file = safeJoin(path.join(ROOT, dir), p.slice(dir.length + 2));
         return file ? serveFile(res, file) : json(res, 403, { error: 'Forbidden' });
