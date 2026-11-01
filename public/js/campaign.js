@@ -88,6 +88,10 @@ export function createCampaignView(app) {
       'edition_04_tectonic_shear': '/artworks/masters/RUPTURE_M34_v1.jpg',
       'edition_05_caustic_wave': '/artworks/masters/RUPTURE_M40_v1.jpg',
       'edition_06_orbital_annulus': '/artworks/masters/RUPTURE_M11_v1.jpg',
+      'edition_07_chromatic_strata': '/artworks/masters/RUPTURE_M54_v1.jpg',
+      'edition_08_ultraviolet_rift': '/artworks/masters/RUPTURE_M35_v1.jpg',
+      'edition_09_cryogenic_void': '/artworks/masters/RUPTURE_M08_v1.jpg',
+      'edition_10_spectrum_mutation': '/artworks/masters/RUPTURE_M68_v1.jpg',
       'edition_00_omni': '/artworks/masters/RUPTURE_M49_v1.jpg'
     };
 
@@ -134,6 +138,34 @@ export function createCampaignView(app) {
         { title: 'VENUE', img: '/artworks/masters/RUPTURE_M18_v1.jpg' },
         { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M87_v1.jpg' }
       ],
+      'edition_07_chromatic_strata': [
+        { title: 'SILVER', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'RED', img: '/artworks/masters/RUPTURE_M43_v1.jpg' },
+        { title: 'CYAN', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'PURPLE', img: '/artworks/masters/RUPTURE_M85_v1.jpg' },
+        { title: 'AMBER', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_08_ultraviolet_rift': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M101_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M41_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M42_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M128_v1.jpg' }
+      ],
+      'edition_09_cryogenic_void': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M08_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M02_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M52_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
+      ],
+      'edition_10_spectrum_mutation': [
+        { title: 'EMERALD', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
+        { title: 'CRIMSON', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'DUOTONE', img: '/artworks/masters/RUPTURE_M132_v1.jpg' },
+        { title: 'COBALT', img: '/artworks/masters/RUPTURE_M84_v1.jpg' },
+        { title: 'AMBER', img: '/artworks/masters/RUPTURE_M141_v1.jpg' }
+      ],
       'edition_00_omni': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
@@ -162,6 +194,18 @@ export function createCampaignView(app) {
       'edition_06_orbital_annulus': `Toroidal · Polyrhythmic · Liquid Mercury · Spatial Suspension<br>
         Edition 06: Orbital Annulus — [Date / Secret Offshore Platform]<br>
         Reflective Globes & Rings + Translucent Glass Membrane · Concentric Acceleration`,
+      'edition_07_chromatic_strata': `Tiered Chromatic Strata · Multi-Spectral Energy<br>
+        Edition 07: Chromatic Strata — [Date / Secret Industrial Quarry]<br>
+        Horizontal Spectrum: Silver · Red · Cyan · Purple · Amber`,
+      'edition_08_ultraviolet_rift': `Acid Violet · Deep Orchid · Electric Blacklight Void<br>
+        Edition 08: Ultraviolet Rift — [Date / Secret Industrial Warehouse]<br>
+        Translucent Glass + Pearlescent Silver · Laser Lavender Frequencies`,
+      'edition_09_cryogenic_void': `Sub-Zero Cyan · Deep Cobalt · Arctic Ice Precision<br>
+        Edition 09: Cryogenic Void — [Date / Secret Coastal Hangar]<br>
+        Reflective Globes + Sculptural Chrome · Clinical 25 Hz Impact`,
+      'edition_10_spectrum_mutation': `Randomized Multi-Chromatic Mutation & Duotones<br>
+        Edition 10: Spectrum Mutation — [Date / Secret Industrial Site]<br>
+        Toxic Emerald · Crimson · Cobalt · Ultraviolet · Gold`,
       'edition_00_omni': `Underground Electronic Music · Mauritius<br>
         Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>
         Multi-Family Survey (77 Approved Masters)`

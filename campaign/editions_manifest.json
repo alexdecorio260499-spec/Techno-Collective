@@ -152,6 +152,97 @@
       "basePath": "/campaign/editions/edition_06_orbital_annulus"
     },
     {
+      "id": "edition_07_chromatic_strata",
+      "editionNumber": "07",
+      "title": "EDITION 07: CHROMATIC STRATA",
+      "chapter": "Chapter VII — Tiered Chromatic Rows (Silver / Red / Cyan / Purple / Amber)",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "sculptural-chrome",
+        "name": "Sculptural Liquid Chrome"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "folded-surfaces",
+          "name": "Folded Liquid Surfaces"
+        },
+        {
+          "id": "translucent-glass",
+          "name": "Translucent Glass Membrane"
+        }
+      ],
+      "inactiveFamilies": [],
+      "conceptSummary": "Horizontal chromatic strata across the 3-column Instagram profile grid: Row 1 Silver Mercury, Row 2 Molten Crimson, Row 3 Cryogenic Cyan, Row 4 Ultraviolet Purple, Row 5 Solar Amber.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_07_chromatic_strata"
+    },
+    {
+      "id": "edition_08_ultraviolet_rift",
+      "editionNumber": "08",
+      "title": "EDITION 08: ULTRAVIOLET RIFT",
+      "chapter": "Chapter VIII — Acid Violet, Dark Orchid & Deep Blacklight Void",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "pearlescent-silver",
+        "name": "Pearlescent Silver Fluid"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "translucent-glass",
+          "name": "Translucent Glass Membrane"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "folded-surfaces",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Immersive ultraviolet blacklight spectrum: acid violet fluid swells, diaphanous glass membranes, and searing neon magenta highlights for dark, hypnotic warehouse excursions.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_08_ultraviolet_rift"
+    },
+    {
+      "id": "edition_09_cryogenic_void",
+      "editionNumber": "09",
+      "title": "EDITION 09: CRYOGENIC VOID",
+      "chapter": "Chapter IX — Sub-Zero Cyan, Oceanic Cobalt & Polar Ice",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "reflective-globes",
+        "name": "Reflective Globes & Rings"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "sculptural-chrome",
+          "name": "Sculptural Liquid Chrome"
+        }
+      ],
+      "inactiveFamilies": [
+        "pearlescent-silver",
+        "translucent-glass",
+        "folded-surfaces"
+      ],
+      "conceptSummary": "Glacial cryogenic cyan, deep oceanic cobalt, and mirror chrome rings engineered for sub-zero, fast, clinical, razor-sharp industrial percussion.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_09_cryogenic_void"
+    },
+    {
+      "id": "edition_10_spectrum_mutation",
+      "editionNumber": "10",
+      "title": "EDITION 10: SPECTRUM MUTATION",
+      "chapter": "Chapter X — Randomized Multi-Chromatic Mutation & Duotones",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "all-families",
+        "name": "Multi-Family Chromatic Mutation"
+      },
+      "secondaryFamilies": [],
+      "inactiveFamilies": [],
+      "conceptSummary": "Maximum chromatic randomization across every single post in the grid: toxic emerald, molten crimson, duotone purple/cyan, cryogenic blue, solar amber, and hyper-silver.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_10_spectrum_mutation"
+    },
+    {
       "id": "edition_00_omni",
       "editionNumber": "00",
       "title": "ARCHIVE: OMNI-SPECTRUM (ORIGINAL)",
