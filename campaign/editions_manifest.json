@@ -357,6 +357,131 @@
       "basePath": "/campaign/editions/edition_15_inverted_monolith"
     },
     {
+      "id": "edition_16_vitreous_chrome",
+      "editionNumber": "16",
+      "title": "EDITION 16: PRISMATIC CHROME",
+      "chapter": "Chapter XVI — Vitreous Membranes & Liquid Platinum Hydraulics",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "translucent-glass",
+        "name": "Translucent Glass Membrane"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "sculptural-chrome",
+          "name": "Sculptural Liquid Chrome"
+        }
+      ],
+      "inactiveFamilies": [
+        "folded-surfaces",
+        "pearlescent-silver",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Gossamer-thin vitreous optical glass membranes and internal light caustics colliding with heavy liquid platinum hydraulics and mirror chrome spires.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_16_vitreous_chrome"
+    },
+    {
+      "id": "edition_17_nacreous_strata",
+      "editionNumber": "17",
+      "title": "EDITION 17: NACREOUS STRATA",
+      "chapter": "Chapter XVII — Topographic Faults & Nacreous Silk",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "folded-surfaces",
+        "name": "Folded Liquid Surfaces"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "pearlescent-silver",
+          "name": "Pearlescent Silver Fluid"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "reflective-globes",
+        "translucent-glass"
+      ],
+      "conceptSummary": "Brutalist planar fluid shelves and stepped tectonic fault terraces rendered in soft diffuse nacreous silver luster and velvety fluid silk.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_17_nacreous_strata"
+    },
+    {
+      "id": "edition_18_toroidal_fault",
+      "editionNumber": "18",
+      "title": "EDITION 18: TOROIDAL FAULT",
+      "chapter": "Chapter XVIII — Kinetic Annuli & Sheared Tectonic Terraces",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "reflective-globes",
+        "name": "Reflective Globes & Rings"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "folded-surfaces",
+          "name": "Folded Liquid Surfaces"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "pearlescent-silver",
+        "translucent-glass"
+      ],
+      "conceptSummary": "Concentric toroidal liquid chrome rings and capillary standing wave ripples shearing through stepped brutalist fluid terraces and planar obsidian faults.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_18_toroidal_fault"
+    },
+    {
+      "id": "edition_19_nacreous_annulus",
+      "editionNumber": "19",
+      "title": "EDITION 19: NACREOUS ANNULUS",
+      "chapter": "Chapter XIX — Opaline Toroids & Soft-Luster Kinetic Loops",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "pearlescent-silver",
+        "name": "Pearlescent Silver Fluid"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "reflective-globes",
+          "name": "Reflective Globes & Rings"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "folded-surfaces",
+        "translucent-glass"
+      ],
+      "conceptSummary": "Luminous opaline pearlescent fluid and soft diffuse violet sheens coating suspended liquid chrome rings, orbital loops, and capillary beads.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_19_nacreous_annulus"
+    },
+    {
+      "id": "edition_20_tectonic_membrane",
+      "editionNumber": "20",
+      "title": "EDITION 20: TECTONIC MEMBRANE",
+      "chapter": "Chapter XX — Planar Faults & Vitreous Dispersion",
+      "status": "ready",
+      "primaryFamily": {
+        "id": "folded-surfaces",
+        "name": "Folded Liquid Surfaces"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "translucent-glass",
+          "name": "Translucent Glass Membrane"
+        }
+      ],
+      "inactiveFamilies": [
+        "sculptural-chrome",
+        "pearlescent-silver",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Stepped obsidian fluid fault terraces draped with diaphanous optical glass sheets and radioactive emerald dispersion lines for intense subterranean velocity.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_20_tectonic_membrane"
+    },
+    {
       "id": "edition_00_omni",
       "editionNumber": "00",
       "title": "ARCHIVE: OMNI-SPECTRUM (ORIGINAL)",

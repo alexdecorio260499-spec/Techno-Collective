@@ -97,6 +97,11 @@ export function createCampaignView(app) {
       'edition_13_solar_copper': '/artworks/masters/RUPTURE_M119_v1.jpg',
       'edition_14_bipolar_duotone': '/artworks/masters/RUPTURE_M72_v1.jpg',
       'edition_15_inverted_monolith': '/artworks/masters/RUPTURE_M54_v1.jpg',
+      'edition_16_vitreous_chrome': '/artworks/masters/RUPTURE_M06_v1.jpg',
+      'edition_17_nacreous_strata': '/artworks/masters/RUPTURE_M35_v1.jpg',
+      'edition_18_toroidal_fault': '/artworks/masters/RUPTURE_M08_v1.jpg',
+      'edition_19_nacreous_annulus': '/artworks/masters/RUPTURE_M71_v1.jpg',
+      'edition_20_tectonic_membrane': '/artworks/masters/RUPTURE_M21_v1.jpg',
       'edition_00_omni': '/artworks/masters/RUPTURE_M49_v1.jpg'
     };
 
@@ -206,6 +211,41 @@ export function createCampaignView(app) {
         { title: 'VENUE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
         { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
       ],
+      'edition_16_vitreous_chrome': [
+        { title: 'GLASS', img: '/artworks/masters/RUPTURE_M06_v1.jpg' },
+        { title: 'CHROME', img: '/artworks/masters/RUPTURE_M45_v1.jpg' },
+        { title: 'CAUSTIC', img: '/artworks/masters/RUPTURE_M12_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M42_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M64_v1.jpg' }
+      ],
+      'edition_17_nacreous_strata': [
+        { title: 'PEARL', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'STRATA', img: '/artworks/masters/RUPTURE_M23_v1.jpg' },
+        { title: 'SILK', img: '/artworks/masters/RUPTURE_M71_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M121_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_18_toroidal_fault': [
+        { title: 'ORBITAL', img: '/artworks/masters/RUPTURE_M08_v1.jpg' },
+        { title: 'FAULT', img: '/artworks/masters/RUPTURE_M34_v1.jpg' },
+        { title: 'TOROID', img: '/artworks/masters/RUPTURE_M11_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M103_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
+      ],
+      'edition_19_nacreous_annulus': [
+        { title: 'OPALINE', img: '/artworks/masters/RUPTURE_M71_v1.jpg' },
+        { title: 'SPIRAL', img: '/artworks/masters/RUPTURE_M16_v1.jpg' },
+        { title: 'ANNULUS', img: '/artworks/masters/RUPTURE_M59_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M112_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M02_v1.jpg' }
+      ],
+      'edition_20_tectonic_membrane': [
+        { title: 'TECTONIC', img: '/artworks/masters/RUPTURE_M21_v1.jpg' },
+        { title: 'MEMBRANE', img: '/artworks/masters/RUPTURE_M06_v1.jpg' },
+        { title: 'DISPERSION', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M77_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M55_v1.jpg' }
+      ],
       'edition_00_omni': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
@@ -261,6 +301,21 @@ export function createCampaignView(app) {
       'edition_15_inverted_monolith': `Inverted High-Contrast Platinum Mercury<br>
         Edition 15: Inverted Platinum — [Date / Secret Terminal Bunker]<br>
         Inverted Platinum + Obsidian Void · Stark Monolithic Impact`,
+      'edition_16_vitreous_chrome': `Vitreous Membranes & Liquid Platinum Hydraulics<br>
+        Edition 16: Prismatic Chrome — [Date / Secret Industrial Silo]<br>
+        Translucent Glass Membrane + Sculptural Liquid Chrome`,
+      'edition_17_nacreous_strata': `Topographic Faults & Nacreous Silk<br>
+        Edition 17: Nacreous Strata — [Date / Secret Industrial Quarry]<br>
+        Folded Liquid Surfaces + Pearlescent Silver Fluid`,
+      'edition_18_toroidal_fault': `Kinetic Annuli & Sheared Tectonic Terraces<br>
+        Edition 18: Toroidal Fault — [Date / Secret Terminal Fault]<br>
+        Reflective Globes & Rings + Folded Liquid Surfaces`,
+      'edition_19_nacreous_annulus': `Opaline Toroids & Soft-Luster Kinetic Loops<br>
+        Edition 19: Nacreous Annulus — [Date / Secret Coastal Void]<br>
+        Pearlescent Silver Fluid + Reflective Globes & Rings`,
+      'edition_20_tectonic_membrane': `Planar Faults & Vitreous Dispersion<br>
+        Edition 20: Tectonic Membrane — [Date / Secret Subterranean Plant]<br>
+        Folded Liquid Surfaces + Translucent Glass Membrane`,
       'edition_00_omni': `Underground Electronic Music · Mauritius<br>
         Edition 00: Omni-Spectrum Prototype — Exploratory Generation<br>
         Multi-Family Survey (77 Approved Masters)`
