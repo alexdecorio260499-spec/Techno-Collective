@@ -10,6 +10,7 @@
 export function createCampaignView(app) {
   let manifest = null;
   let familiesData = null;
+  let groupsData = null;
   let activeEditionId = 'edition_01_hydraulic_void';
   const editionsCache = {};
   let viewMode = 'grid'; // 'grid' | 'timeline' | 'families' | 'direction' | 'templates' | 'logic'
@@ -52,6 +53,219 @@ export function createCampaignView(app) {
     return familiesData;
   }
 
+  async function loadGroups() {
+    try {
+      const res = await fetch('/api/groups');
+      if (!res.ok) throw new Error('Failed to load groups');
+      const data = await res.json();
+      groupsData = data.groups || [];
+    } catch (err) {
+      console.error(err);
+      groupsData = [];
+    }
+    return groupsData;
+  }
+
+  function generate15PostsFromGroup(group) {
+    const artIds = [...(group.artworkIds || [])];
+    if (!artIds.length) return [];
+
+    // Shuffle artIds randomly
+    const shuffled = [...artIds].sort(() => Math.random() - 0.5);
+
+    const phaseDefs = [
+      {
+        id: '01',
+        title: 'THE FIRST SIGNAL',
+        timing: 'Day 01 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Mysterious introduction, anomaly detection, curiosity',
+        copy: (g) => `Signal 001.\n\nAn anomaly detected in the soundscape.\n\nNot everything needs to follow the predictable pattern. A new frequency is entering the Mauritian underground: ${g.name}.\n\nNo announcements yet. Just a shift in atmospheric pressure.\n\nSound is arriving.\n\n// RUPTURE COLLECTIVE\n// STYLE CHAPTER: ${g.name.toUpperCase()}\n// CURATED GROUP DEPLOYMENT\n\n#rupturecollective #undergroundtechno #mauritiustechno #hypnotictechno #liquidgeometry`
+      },
+      {
+        id: '02',
+        title: 'THE MANIFESTO',
+        timing: 'Day 03 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Collective philosophy, breaking predictable conventions, freedom of expression',
+        copy: (g) => `We do not repeat. We do not conform.\n\nOur manifesto:\n\n[01] BREAKING AWAY FROM THE PREDICTABLE.\nRejecting commercial club formulas, VIP divisions, and predictable playlists.\n\n[02] A SPACE FOR HYPNOTIC & DRIVING TECHNO.\nCurating fast, dark, groove-laden rhythms with acoustic integrity.\n\n[03] AN INCLUSIVE, LIBERATED COMMUNITY.\nA dancefloor built on safety, mutual respect, zero judgement, and complete bodily freedom.\n\n[04] NO BOUNDARIES. NO EXPECTATIONS.\nCome for the music. Leave your ego outside.\n\nThis is our foundation.\n\n// RUPTURE // ${g.name.toUpperCase()}\n\n#rupturemanifesto #undergroundculture #technocollective #mauritiuselectronic #noharassment #saferspace`
+      },
+      {
+        id: '03',
+        title: 'THE NAME / IDENTITY',
+        timing: 'Day 06 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Brand identity, origin, underground techno philosophy',
+        copy: (g) => `RUPTURE.\n\nTo break. To interrupt the expected.\n\nA collective dedicated to underground electronic music, uncompromising sound systems, and an open, liberated community.\n\nRooted in Mauritius. Connected to European underground culture.\n\nWe exist to create a space that did not exist before.\n\nArtwork style: ${g.name}.\n${g.description}\n\n#rupture #technoidentity #undergroundmusic #mauritiussound #collectiveculture`
+      },
+      {
+        id: '04',
+        title: 'SAVE THE DATE',
+        timing: 'Day 08 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'First official date and location announcement',
+        copy: (g) => `SAVE THE DATE.\n\nRUPTURE PRESENTS: ${g.name.toUpperCase()} EDITION\n[Date TBC — 22:00 till Late]\n\nSecret Industrial Location — Mauritius.\nCoordinates released to ticket holders on the day.\n\nMark your calendar. Prepare your mind.\n\nCapacity strictly limited to preserve space, sound quality, and atmosphere.\n\nTicket pre-registration opens soon via link in bio.\n\n#savethedate #ruptureevent #undergroundparty #mauritiustechno #secretlocation #technomaus`
+      },
+      {
+        id: '05',
+        title: 'THE MAIN EVENT POSTER',
+        timing: 'Day 10 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'Primary promotional poster, full billing and event overview',
+        copy: (g) => `RUPTURE — ${g.name.toUpperCase()}\n\n[Date] // 22:00 – 06:00 // Secret Industrial Location\n\nLINEUP:\n▪ [INTERNATIONAL GUEST] (Berlin / Live Modular Set)\n▪ [RESIDENT 01] (Fast Hypnotic Techno)\n▪ [RESIDENT 02] (Dark Groovy Techno)\n▪ [SPECIAL GUEST] (Sub-bass / Experimental Opening)\n\nSOUND:\nCustom 25 Hz Sub-Bass Array. Precision engineered for physical presence.\n\nTICKETS:\nPre-sale Tier 1 available now via link in bio.\nNo VIP. No tables. No guest list.\n\nArtwork Curated from Group: ${g.name}\n\n#rupture01 #mainposter #undergroundtechno #lineupannouncement #technorave #mauritiusnightlife`
+      },
+      {
+        id: '06',
+        title: 'THE LINEUP',
+        timing: 'Day 13 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'Full roster and musical narrative',
+        copy: (g) => `The sound of the night.\n\nA continuous 8-hour progression designed to take the room somewhere unexpected.\n\n22:00 – 00:00 // [RESIDENT 02] — Atmospheric, textured, deep groove opening\n00:00 – 02:00 // [SPECIAL GUEST] — Hypnotic, rolling, tension-building techno\n02:00 – 04:30 // [HEADLINER] — Fast, driving, relentless peak-time modular set\n04:30 – 06:00 // [RESIDENT 01] — Dark, emotional, hypnotic closing journey\n\nEvery set serves the room, not individual ego.\n\nTickets in bio.\n\n#lineup #technodjs #modulartechno #undergroundmusic #curatedsound #rupturecollective`
+      },
+      {
+        id: '07',
+        title: 'SOUND SYSTEM (25 HZ)',
+        timing: 'Day 16 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Audio fidelity, sub-bass physics, custom tuning',
+        copy: (g) => `The sound is not background. It is the experience.\n\nWe have commissioned a custom acoustic rig specifically tuned for this space:\n\n▪ Subwoofers tuned to 25 Hz — bass you feel in your chest, not just your ears.\n▪ Point-source mid/high array for surgical clarity at high SPL.\n▪ Acoustic treatment to minimise slapback echo in the industrial space.\n▪ Sound engineered by producers who understand techno dynamics.\n\nEar protection available at the door.\n\nBring your hearing. We will take care of the rest.\n\n#soundsystem #25hz #acoustics #audiophiletechno #subbass #customrig #rupturesound`
+      },
+      {
+        id: '08',
+        title: 'THE SANCTUARY / CODE OF CONDUCT',
+        timing: 'Day 18 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Safer space policy, inclusivity, zero harassment',
+        copy: (g) => `The dancefloor is a sacred space.\n\nOur house rules are non-negotiable:\n\n[01] NO PHOTO / NO VIDEO POLICY ON THE DANCEFLOOR.\nPhone cameras will be taped at entry. Be present.\n\n[02] ZERO TOLERANCE FOR HARASSMENT.\nAny form of racism, sexism, homophobia, transphobia, or unwanted physical contact results in immediate removal.\n\n[03] LOOK AFTER ONE ANOTHER.\nIf you or someone around you needs assistance, alert our awareness team wearing cyan bands.\n\n[04] DRESS TO EXPRESS, NOT TO IMPRESS.\nCome as you are. All bodies, all identities welcome.\n\n#saferspace #dancefloorcode #nopolicies #awareness #respect #consent #technoculture`
+      },
+      {
+        id: '09',
+        title: 'ARTIST SPOTLIGHT',
+        timing: 'Day 20 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Artist feature, sound profile, production preview',
+        copy: (g) => `Spotlight: [HEADLINER / LIVE ACT]\n\nPerforming an exclusive live hardware set at RUPTURE.\n\nKnown for releases on seminal European underground labels and marathon sets across subterranean European clubs, their sound is characterised by:\n▪ Analog modular synthesizers running live sequences\n▪ Hypnotic, polyrhythmic percussion\n▪ Relentless 138-142 BPM forward drive\n▪ Atmospheric textures drawn from industrial soundscapes\n\nNo pre-recorded USBs. Pure real-time creation on the dancefloor.\n\nListen to their preview mix via link in bio.\n\n#artistspotlight #modulartechno #hardwarelive #analogsynth #berlintechno #rupturepresents`
+      },
+      {
+        id: '10',
+        title: 'VENUE / SPACE REVEAL',
+        timing: 'Day 22 (Week -1)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Raw industrial architecture, secret setting tease',
+        copy: (g) => `The space is as much a performer as the artists.\n\nWe spent four months scouting locations across the island before choosing this one.\n\nWhat to expect:\n▪ High-ceiling raw concrete structure\n▪ Minimal, non-distracting lighting (red & amber washes only)\n▪ Dedicated quiet / recovery area outside the main room\n▪ Proper ventilation and clean facilities\n▪ No flashing strobe overload — lighting follows the music, not the other way around\n\nCoordinates revealed 12 hours before doors.\n\n#venuereveal #industrialspace #brutalistarchitecture #secretlocation #mauritiusspaces #rupturevenue`
+      },
+      {
+        id: '11',
+        title: 'LOCATION COORDINATES',
+        timing: 'Day 24 (Week -1)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Logistical mystery, GPS coordinate release mechanism',
+        copy: (g) => `20°XX'XX.X"S // 57°XX'XX.X"E\n\nHow the location release works:\n\n[1] Check your registered ticket email on the morning of the event.\n[2] Exact GPS coordinates, parking instructions, and arrival advice will be delivered at 10:00 AM.\n[3] No tickets will be sold at the door. If you do not have a ticket, do not travel.\n[4] Designated shuttle service will run from central pickup points.\n\nThe location will surprise you.\n\n#secretcoordinates #locationreveal #gpscoordinates #technomystery #industrialmauritius #rupturelocation`
+      },
+      {
+        id: '12',
+        title: '7 DAYS COUNTDOWN',
+        timing: 'Day 25 (T-minus 7 Days)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'T-minus one week urgency and energy',
+        copy: (g) => `SEVEN DAYS.\n\nOne week until the first frequency drop.\n\nThe system is in transit. The space is being prepared. The artists are en route.\n\nAre you ready?\n\nTier 2 tickets 78% claimed. Do not wait for the final tier.\n\nLink in bio.\n\n#7days #countdown #oneweek #technorave #mauritiusevents #ruptureanticipation`
+      },
+      {
+        id: '13',
+        title: 'LAST TICKETS ANNOUNCEMENT',
+        timing: 'Day 28 (T-minus 3 Days)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Final ticket availability warning, strict capacity notice',
+        copy: (g) => `FINAL 50 TICKETS.\n\nCapacity will not be extended. Once these are gone, the door is closed.\n\nWe chose our venue capacity deliberately. We will not oversell for profit at the expense of dancefloor space, air quality, or sound experience.\n\nIf you plan to be in the room, secure your entry now.\n\nlinktr.ee/rupture.mu\n\n#lasttickets #finaltier #soldoutwarning #strictlylimited #capacitruled #rupturecountdown`
+      },
+      {
+        id: '14',
+        title: 'PRACTICAL LOGISTICS',
+        timing: 'Day 30 (T-minus 1 Day)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Essential checklist: timetable, transport, lockers, hydration',
+        copy: (g) => `Everything you need to know for tomorrow night:\n\nDOORS: 22:00 (strictly no entry after 02:00)\nLOCATION: Check your ticket confirmation email for GPS drop\nPARKING: On-site parking available — carpooling encouraged\nBAR: Cashless only (cards, Juice, Blink accepted)\nWATER: Free filtered water stations all night — bring reusable bottles\nWARDROBE: Secure coat & bag check on site\nHEALTH: First aid & awareness team present at all times\n\nRest up tonight. You will need your energy.\n\n#practicallogistics #eventinfo #technoguide #eventchecklist #knowbeforeyougo #ruptureprep`
+      },
+      {
+        id: '15',
+        title: 'DAY OF EVENT SUMMONS',
+        timing: 'Day 31 (Tonight)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Tonight is the night — final call to the community',
+        copy: (g) => `TONIGHT.\n\nThe frequency is set. The space is waiting.\n\n22:00 // Secret Location // Mauritius\n\nLeave your expectations at the door. Bring your energy, your respect, and your openness.\n\nSee you in the dark.\n\n// RUPTURE COLLECTIVE\n// STYLE CHAPTER: ${g.name.toUpperCase()}\n\n#tonight #doorsopen #seeyouinthedark #technofamily #mauritiustechno #firstedition #rupture`
+      }
+    ];
+
+    return phaseDefs.map((def, idx) => {
+      const artId = shuffled[idx % shuffled.length];
+      const artFileName = `${artId}_v1.jpg`;
+      return {
+        id: def.id,
+        fileStem: artId,
+        phase: def.phase,
+        title: def.title,
+        timing: def.timing,
+        theme: def.theme,
+        artwork: artFileName,
+        artworkTitle: `${artId} (Curated from Group: ${group.name})`,
+        family: group.name,
+        familyId: group.id,
+        familyRole: 'Curated Group Member',
+        palette: `Obsidian Void + ${group.name} + Accents`,
+        typography: 'Helvetica Neue Condensed Bold 68pt + SFNSMono 20pt',
+        safeArea: 'Centered artwork composition with safe crop zone',
+        caption: def.copy(group)
+      };
+    });
+  }
+
+  async function randomiseFromGroup(groupId) {
+    const grps = await loadGroups();
+    const group = grps.find(g => g.id === groupId);
+    if (!group || !group.artworkIds || !group.artworkIds.length) {
+      alert('This group has no artworks yet. Please assign artworks in the Gallery first.');
+      return;
+    }
+
+    const dynamicId = `group_edition_${group.id}`;
+    const posts = generate15PostsFromGroup(group);
+    editionsCache[dynamicId] = posts;
+
+    const man = await loadManifest();
+    let edMeta = man.editions.find(e => e.id === dynamicId);
+    if (!edMeta) {
+      edMeta = {
+        id: dynamicId,
+        editionNumber: 'GRP',
+        title: `GROUP: ${group.name.toUpperCase()}`,
+        chapter: `CURATED STYLE GROUP // ${group.artworkIds.length} ARTWORKS`,
+        tagline: group.description,
+        conceptSummary: `Dynamic underground techno campaign randomised entirely from curated artwork group "${group.name}". All 15 posts are mapped across the 4-phase rollout using ${group.artworkIds.length} approved style-matched artworks.`,
+        status: 'ready',
+        isDynamicGroup: true,
+        groupId: group.id,
+        groupName: group.name,
+        groupColor: group.color || '#7AE7FF',
+        group: group,
+        basePath: '',
+        primaryFamily: { id: group.id, name: group.name },
+        secondaryFamilies: [],
+        inactiveFamilies: []
+      };
+      man.editions.unshift(edMeta);
+    } else {
+      edMeta.title = `GROUP: ${group.name.toUpperCase()}`;
+      edMeta.tagline = group.description;
+      edMeta.groupColor = group.color || '#7AE7FF';
+      edMeta.group = group;
+    }
+
+    activeEditionId = dynamicId;
+    viewMode = 'grid';
+    location.hash = '#campaign';
+    await render();
+  }
+
   async function loadEditionData(editionId) {
     if (editionsCache[editionId]) return editionsCache[editionId];
     try {
@@ -69,7 +283,7 @@ export function createCampaignView(app) {
     const el = document.getElementById('view-campaign');
     if (!el) return;
 
-    const [man, fams] = await Promise.all([loadManifest(), loadFamilies()]);
+    const [man, fams, grps] = await Promise.all([loadManifest(), loadFamilies(), loadGroups()]);
     const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
     const posts = await loadEditionData(activeEditionId);
 
@@ -144,6 +358,116 @@ export function createCampaignView(app) {
       'edition_06_orbital_annulus': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M11_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M39_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M84_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M87_v1.jpg' }
+      ],
+      'edition_07_chromatic_strata': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M43_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M23_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M119_v1.jpg' }
+      ],
+      'edition_08_ultraviolet_rift': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M73_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M100_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M108_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M127_v1.jpg' }
+      ],
+      'edition_09_cryogenic_void': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M08_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M17_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M58_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M83_v1.jpg' }
+      ],
+      'edition_10_spectrum_mutation': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M43_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M108_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_11_vertical_columns': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M43_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M128_v1.jpg' }
+      ],
+      'edition_12_acid_emerald': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M100_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M55_v1.jpg' }
+      ],
+      'edition_13_solar_copper': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M141_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M100_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_14_bipolar_duotone': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M72_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M132_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M98_v1.jpg' }
+      ],
+      'edition_15_inverted_monolith': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_16_vitreous_chrome': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M06_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M15_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M103_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_17_nacreous_strata': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M35_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M23_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M40_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_18_toroidal_fault': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M08_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M61_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M141_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_19_nacreous_annulus': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M71_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M24_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M12_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_20_tectonic_membrane': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M21_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M106_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M119_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ],
+      'edition_00_omni': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M49_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M80_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M85_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M138_v1.jpg' }
+      ]
+    };
         { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M68_v1.jpg' },
         { title: 'VENUE', img: '/artworks/masters/RUPTURE_M18_v1.jpg' },
         { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M87_v1.jpg' }
@@ -321,9 +645,23 @@ export function createCampaignView(app) {
         Multi-Family Survey (77 Approved Masters)`
     };
 
-    const currentAvatar = editionAvatars[activeEditionId] || '/artworks/masters/RUPTURE_M15_v1.jpg';
-    const currentHighlights = editionHighlights[activeEditionId] || editionHighlights['edition_01_hydraulic_void'];
-    const currentBio = editionBios[activeEditionId] || editionBios['edition_01_hydraulic_void'];
+    const currentAvatar = currentEditionMeta.isDynamicGroup
+      ? `/artworks/masters/${posts[4]?.artwork || posts[0]?.artwork || 'RUPTURE_M15_v1.jpg'}`
+      : (editionAvatars[activeEditionId] || '/artworks/masters/RUPTURE_M15_v1.jpg');
+
+    const currentHighlights = currentEditionMeta.isDynamicGroup ? [
+      { title: 'STYLE', img: `/artworks/masters/${posts[0]?.artwork || 'RUPTURE_M15_v1.jpg'}` },
+      { title: 'LINEUP', img: `/artworks/masters/${posts[5]?.artwork || 'RUPTURE_M28_v1.jpg'}` },
+      { title: 'THE CODE', img: `/artworks/masters/${posts[7]?.artwork || 'RUPTURE_M80_v1.jpg'}` },
+      { title: 'SOUND', img: `/artworks/masters/${posts[6]?.artwork || 'RUPTURE_M54_v1.jpg'}` },
+      { title: 'TICKETS', img: `/artworks/masters/${posts[12]?.artwork || 'RUPTURE_M138_v1.jpg'}` }
+    ] : (editionHighlights[activeEditionId] || editionHighlights['edition_01_hydraulic_void']);
+
+    const currentBio = currentEditionMeta.isDynamicGroup
+      ? `Underground Electronic Music · Mauritius<br>
+        Curated Style Group: ${esc(currentEditionMeta.groupName || 'Custom Style')}<br>
+        Randomized Campaign · ${esc(currentEditionMeta.tagline || '')}`
+      : (editionBios[activeEditionId] || editionBios['edition_01_hydraulic_void']);
 
     el.innerHTML = `
       <div class="campaign-container">
@@ -335,29 +673,54 @@ export function createCampaignView(app) {
               <select id="select-edition" class="edition-select">
                 ${man.editions.map(e => `
                   <option value="${e.id}" ${e.id === activeEditionId ? 'selected' : ''}>
-                    ${e.status === 'active' ? '★ ' : e.status === 'ready' ? '✦ ' : '● '}
-                    ${esc(e.title)} [${e.status.toUpperCase()}]
+                    ${e.isDynamicGroup ? '★ ' : e.status === 'active' ? '★ ' : e.status === 'ready' ? '✦ ' : '● '}
+                    ${esc(e.title)} [${e.isDynamicGroup ? 'GROUP RANDOM' : e.status.toUpperCase()}]
                   </option>
                 `).join('')}
               </select>
             </div>
           </div>
 
+          <div class="edition-selector-label" style="margin-left:auto; display:flex; align-items:center; gap:8px;">
+            <span class="mono muted">RANDOMISE FROM GROUP:</span>
+            <select id="select-randomise-group" class="edition-select" style="min-width: 190px;">
+              <option value="">— Select Artwork Group —</option>
+              ${(groupsData || []).map(g => `<option value="${g.id}">✦ ${esc(g.name)} (${(g.artworkIds||[]).length})</option>`).join('')}
+            </select>
+            <button type="button" class="btn small primary" id="btn-trigger-group-randomise">⚡ Randomise Grid</button>
+          </div>
+
           <div class="edition-pills-row">
             ${man.editions.map(e => {
               const isActive = e.id === activeEditionId;
               const statusClass = e.status;
-              const badgeIcon = e.status === 'active' ? '★' : e.status === 'ready' ? '✦' : '●';
+              const badgeIcon = e.isDynamicGroup ? '⚡' : e.status === 'active' ? '★' : e.status === 'ready' ? '✦' : '●';
               return `
                 <button type="button" class="btn small edition-pill-btn ${isActive ? 'active' : ''} ${statusClass}" data-edition-id="${e.id}">
                   <span class="status-dot">${badgeIcon}</span>
                   <span>${esc(e.title.split(':')[0].trim())}</span>
-                  <span class="mono muted text-xs">${esc(e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'FEED READY')}</span>
+                  <span class="mono muted text-xs">${esc(e.isDynamicGroup ? 'GROUP' : e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'FEED READY')}</span>
                 </button>
               `;
             }).join('')}
           </div>
         </div>
+
+        ${currentEditionMeta.isDynamicGroup ? `
+          <div class="campaign-dynamic-group-banner">
+            <div class="campaign-dynamic-title">
+              <span class="group-color-dot" style="background:${currentEditionMeta.groupColor || '#7AE7FF'}; width:14px; height:14px;"></span>
+              <div>
+                <strong>CAMPAIGN RANDOMIZED FROM: ${esc(currentEditionMeta.groupName || 'GROUP')}</strong>
+                <div class="mono muted text-xs">${posts.length} posts generated from ${currentEditionMeta.group?.artworkIds?.length || 0} style-matched group artworks</div>
+              </div>
+            </div>
+            <div class="campaign-dynamic-controls">
+              <button type="button" class="btn primary" id="btn-rerandomise-group">⚡ Re-Randomise Grid</button>
+              <a href="#gallery" class="btn">Back to Gallery</a>
+            </div>
+          </div>
+        ` : ''}
 
         <!-- CAMPAIGN HERO & METADATA -->
         <div class="campaign-header">
@@ -474,7 +837,9 @@ export function createCampaignView(app) {
             <div class="ig-grid ${aspectMode === 'portrait' ? 'aspect-portrait' : 'aspect-square'}">
               ${profileSequence.map((p) => {
                 const basePath = currentEditionMeta.basePath;
-                const imgSrc = aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`;
+                const imgSrc = currentEditionMeta.isDynamicGroup
+                  ? `/artworks/masters/${p.artwork}`
+                  : (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`);
                 const isCenterHero = p.id === '05';
                 const hasRedCaustic = p.id === '05' || p.id === '13';
                 const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
@@ -519,7 +884,9 @@ export function createCampaignView(app) {
                   <div class="timeline-posts-row ${aspectMode === 'portrait' ? 'aspect-portrait' : 'aspect-square'}">
                     ${phasePosts.map(p => {
                       const basePath = currentEditionMeta.basePath;
-                      const imgSrc = aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`;
+                      const imgSrc = currentEditionMeta.isDynamicGroup
+                        ? `/artworks/masters/${p.artwork}`
+                        : (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`);
                       const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
                       return `
                         <div class="timeline-post-card" data-post-id="${p.id}">
@@ -991,6 +1358,23 @@ export function createCampaignView(app) {
       });
     }
 
+    // Group randomisation triggers
+    const selectGroup = el.querySelector('#select-randomise-group');
+    const btnGroup = el.querySelector('#btn-trigger-group-randomise');
+    if (btnGroup && selectGroup) {
+      btnGroup.addEventListener('click', () => {
+        const gid = selectGroup.value;
+        if (!gid) return alert('Please select an artwork group from the dropdown.');
+        randomiseFromGroup(gid);
+      });
+    }
+    const btnRerand = el.querySelector('#btn-rerandomise-group');
+    if (btnRerand && currentEditionMeta.isDynamicGroup) {
+      btnRerand.addEventListener('click', () => {
+        randomiseFromGroup(currentEditionMeta.groupId);
+      });
+    }
+
     // Post inspection triggers
     el.querySelectorAll('[data-post-id]').forEach(card => {
       card.addEventListener('click', (e) => {
@@ -1008,6 +1392,15 @@ export function createCampaignView(app) {
 
     const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
     const basePath = currentEditionMeta.basePath;
+    const modalImgSrc = currentEditionMeta.isDynamicGroup
+      ? `/artworks/masters/${post.artwork}`
+      : `${basePath}/posts/${post.fileStem}.jpg`;
+    const dlJpg = currentEditionMeta.isDynamicGroup
+      ? `/artworks/masters/${post.artwork}`
+      : `${basePath}/posts/${post.fileStem}.jpg`;
+    const dlPng = currentEditionMeta.isDynamicGroup
+      ? `/artworks/masters/${post.artwork}`
+      : `${basePath}/posts/${post.fileStem}.png`;
 
     const modal = document.getElementById('campaign-modal');
     if (!modal) return;
@@ -1016,7 +1409,7 @@ export function createCampaignView(app) {
       <div class="campaign-modal-inner">
         <div class="modal-left">
           <div class="modal-image-stage ${showCropGuide ? 'show-crop-guide' : ''}">
-            <img src="${basePath}/posts/${post.fileStem}.jpg" alt="${esc(post.title)}" class="modal-full-img">
+            <img src="${modalImgSrc}" alt="${esc(post.title)}" class="modal-full-img">
             <div class="safe-crop-overlay">
               <div class="crop-top-mask"></div>
               <div class="crop-center-box"><span class="mono">1:1 PROFILE CROP SAFE AREA</span></div>
@@ -1028,8 +1421,8 @@ export function createCampaignView(app) {
               ${showCropGuide ? 'Hide 1:1 Safe Crop Guide' : 'Show 1:1 Safe Crop Guide'}
             </button>
             <div class="download-group">
-              <a href="${basePath}/posts/${post.fileStem}.jpg" download="${post.fileStem}.jpg" class="btn small">Download JPG</a>
-              <a href="${basePath}/posts/${post.fileStem}.png" download="${post.fileStem}.png" class="btn small primary">Download PNG (1080×1350)</a>
+              <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small">Download JPG</a>
+              <a href="${dlPng}" download="${post.fileStem}.png" class="btn small primary">Download ${currentEditionMeta.isDynamicGroup ? 'Artwork' : 'PNG (1080×1350)'}</a>
             </div>
           </div>
         </div>
@@ -1049,13 +1442,13 @@ export function createCampaignView(app) {
           <!-- Artwork Family Assignment -->
           ${post.family ? `
             <div class="modal-section">
-              <div class="mono muted">ARTWORK FAMILY ASSIGNMENT:</div>
+              <div class="mono muted">ARTWORK GROUP / FAMILY ASSIGNMENT:</div>
               <div class="modal-family-box">
                 <span class="role-badge ${post.familyRole?.toLowerCase().includes('primary') ? 'primary-role' : 'secondary-role'}">
-                  ${esc(post.familyRole || 'Active Family')}
+                  ${esc(post.familyRole || 'Curated Group Member')}
                 </span>
                 <strong>${esc(post.family)}</strong>
-                <p class="muted text-xs" style="margin: 4px 0 0;">Strictly verified against approved visual direction rules.</p>
+                <p class="muted text-xs" style="margin: 4px 0 0;">Matched against curated artwork group specifications.</p>
               </div>
             </div>
           ` : ''}
@@ -1109,5 +1502,6 @@ export function createCampaignView(app) {
     if (!modal.open) modal.showModal();
   }
 
-  return { render };
+  return { render, randomiseFromGroup, loadGroups };
+}
 }

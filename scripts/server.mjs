@@ -204,8 +204,30 @@ const routes = [
     mode: mode(), model: provider?.model || null,
     identity: store.identity, collection: store.collection, manifest: store.manifest, queue: store.queue,
     references: store.references?.items || [],
+    groups: store.groups?.groups || [],
     exports: await fs.readdir(path.join(ROOT, 'exports')).then((l) => l.filter((f) => /^RUPTURE_.*\.(png|jpg)$/.test(f))).catch(() => []),
   })],
+  ['GET', /^\/api\/groups$/, async () => ({ groups: store.groups?.groups || [] })],
+  ['POST', /^\/api\/groups$/, async (_m, body) => store.createGroup(body)],
+  ['PUT', /^\/api\/groups\/([\w-]+)$/, async ([, id], body) => store.updateGroup(id, body)],
+  ['DELETE', /^\/api\/groups\/([\w-]+)$/, async ([, id]) => store.deleteGroup(id)],
+  ['POST', /^\/api\/groups\/([\w-]+)\/toggle$/, async ([, id], body) => store.toggleArtworkInGroup(id, body.artworkId)],
+  ['POST', /^\/api\/groups\/([\w-]+)\/artworks$/, async ([, id], body) => {
+    if (body.action === 'toggle') return store.toggleArtworkInGroup(id, body.artworkId);
+    if (body.action === 'set') return store.setGroupArtworks(id, body.artworkIds || []);
+    if (body.action === 'add') {
+      const grp = store.groups?.groups?.find((g) => g.id === id);
+      const existing = grp ? grp.artworkIds || [] : [];
+      return store.setGroupArtworks(id, [...existing, ...(body.artworkIds || [])]);
+    }
+    if (body.action === 'remove') {
+      const removeSet = new Set(body.artworkIds || []);
+      const grp = store.groups?.groups?.find((g) => g.id === id);
+      const existing = grp ? grp.artworkIds || [] : [];
+      return store.setGroupArtworks(id, existing.filter((a) => !removeSet.has(a)));
+    }
+    return store.updateGroup(id, body);
+  }],
   ['POST', /^\/api\/upload$/, async (_m, body) => handleUpload(body)],
   ['DELETE', /^\/api\/references\/([\w-]+)$/, async ([, id]) => store.deleteReference(id)],
   ['POST', /^\/api\/prompt$/, async (_m, body) => resolveRequest(body, body.target)],

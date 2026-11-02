@@ -14,14 +14,16 @@ async function build() {
   const collectionPath = path.join(ROOT, 'data/collection.json');
   const manifestPath = path.join(ROOT, 'data/manifest.json');
   const referencesPath = path.join(ROOT, 'data/references.json');
+  const groupsPath = path.join(ROOT, 'data/artwork_groups.json');
   const queuePath = path.join(ROOT, 'queue/jobs.json');
   const exportsDir = path.join(ROOT, 'exports');
 
-  const [identityRaw, collectionRaw, manifestRaw, referencesRaw, queueRaw, exportFiles] = await Promise.all([
+  const [identityRaw, collectionRaw, manifestRaw, referencesRaw, groupsRaw, queueRaw, exportFiles] = await Promise.all([
     fs.readFile(identityPath, 'utf8').catch(() => '{}'),
     fs.readFile(collectionPath, 'utf8').catch(() => '{}'),
     fs.readFile(manifestPath, 'utf8').catch(() => '{}'),
     fs.readFile(referencesPath, 'utf8').catch(() => '{"items":[]}'),
+    fs.readFile(groupsPath, 'utf8').catch(() => '{"groups":[]}'),
     fs.readFile(queuePath, 'utf8').catch(() => '[]'),
     fs.readdir(exportsDir).then((l) => l.filter((f) => /^RUPTURE_.*\.(png|jpg)$/.test(f))).catch(() => []),
   ]);
@@ -30,6 +32,7 @@ async function build() {
   const collection = JSON.parse(collectionRaw);
   const manifest = JSON.parse(manifestRaw);
   const references = JSON.parse(referencesRaw);
+  const groupsData = JSON.parse(groupsRaw);
   const queue = JSON.parse(queueRaw);
 
   const state = {
@@ -40,6 +43,7 @@ async function build() {
     manifest,
     queue: Array.isArray(queue) ? queue : [],
     references: references.items || [],
+    groups: groupsData.groups || [],
     exports: exportFiles,
   };
 

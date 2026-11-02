@@ -538,8 +538,20 @@ function bindGenerate() {
   });
 }
 
-// ---------- GALLERY ----------
-const F = { collection: 'all', treatment: '', accent: '', status: 'all' };
+// ---------- GALLERY & ARTWORK GROUPS ----------
+let selectMode = false;
+const selectedArtworks = new Set();
+let activeEditingGroupId = null;
+
+function getGroups() {
+  return S?.groups || [];
+}
+
+function getArtworkGroups(artId) {
+  return (S?.groups || []).filter((g) => (g.artworkIds || []).includes(artId));
+}
+
+const F = { collection: 'all', treatment: '', accent: '', status: 'all', group: 'all' };
 
 function filtered() {
   return items().filter((it) => {
@@ -548,6 +560,10 @@ function filtered() {
     if (F.accent && it.accent !== F.accent && it.secondary !== F.accent) return false;
     const st = it.entry?.status || 'empty';
     if (F.status !== 'all' && st !== F.status) return false;
+    if (F.group && F.group !== 'all') {
+      const grp = (S.groups || []).find((g) => g.id === F.group);
+      if (!grp || !(grp.artworkIds || []).includes(it.id)) return false;
+    }
     return true;
   });
 }
@@ -556,13 +572,28 @@ function card(it) {
   const e = it.entry;
   const src = imgUrl(e);
   const st = e?.status || 'empty';
-  return `<button class="card" data-open="${it.id}" aria-label="Open ${it.id}">
-    <div class="frame">
-      ${src ? `<img src="${src}" alt="${esc(it.id)}" loading="lazy">` : `<div class="empty"><span class="tag">Not generated</span><span>${esc(it.brief)}</span></div>`}
-      ${st === 'approved' ? '<span class="flag approved">Approved</span>' : e?.pending ? '<span class="flag pending">Queued</span>' : ''}
+  const isSelected = selectedArtworks.has(it.id);
+  const artGroups = getArtworkGroups(it.id);
+
+  return `<div class="card ${isSelected ? 'is-selected' : ''}" data-id="${it.id}">
+    ${selectMode ? `
+      <div class="card-select-checkbox ${isSelected ? 'checked' : ''}" data-select-toggle="${it.id}" aria-label="Select ${it.id}">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+    ` : ''}
+    <div class="card-body" data-open="${it.id}" aria-label="Open ${it.id}" style="cursor:pointer;">
+      <div class="frame">
+        ${src ? `<img src="${src}" alt="${esc(it.id)}" loading="lazy">` : `<div class="empty"><span class="tag">Not generated</span><span>${esc(it.brief)}</span></div>`}
+        ${st === 'approved' ? '<span class="flag approved">Approved</span>' : e?.pending ? '<span class="flag pending">Queued</span>' : ''}
+        ${artGroups.length ? `
+          <div class="card-groups-dots" title="Groups: ${esc(artGroups.map(g => g.name).join(', '))}">
+            ${artGroups.slice(0, 4).map(g => `<span class="card-group-pill" style="background:${g.color || '#7AE7FF'}"></span>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+      <div class="meta"><span class="id">${it.id.replace('RUPTURE_', '')}</span><span class="dots">${dotsFor(it)}</span></div>
     </div>
-    <div class="meta"><span class="id">${it.id.replace('RUPTURE_', '')}</span><span class="dots">${dotsFor(it)}</span></div>
-  </button>`;
+  </div>`;
 }
 
 function renderGallery() {
@@ -596,14 +627,104 @@ function renderGallery() {
   ];
   const hasX = items().some((i) => i.collection === 'X');
   const segBtn = (key, val, label) => `<button class="chip" data-f="${key}" data-v="${val}" aria-pressed="${F[key] === val}">${label}</button>`;
+  
+  const allGroups = getGroups();
+  const activeGrp = allGroups.find(g => g.id === F.group);
+
   $('#view-gallery').innerHTML = `
-    <div class="section-head"><div><p class="eyebrow">Gallery · ${esc(I.conceptTitle)}</p><h2>Liquid Geometry Collection</h2></div></div>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Gallery · ${esc(I.conceptTitle)}</p>
+        <h2>Liquid Geometry Collection</h2>
+      </div>
+      <div class="groups-actions-row">
+        <button type="button" class="btn primary" id="btn-create-group">+ Create Artwork Group</button>
+        <button type="button" class="btn ${selectMode ? 'active' : ''}" id="btn-toggle-select-mode">${selectMode ? 'Exit Selection Mode' : 'Batch Select Mode'}</button>
+      </div>
+    </div>
+
+    <!-- ARTWORK GROUPS SHELF -->
+    <div class="groups-section">
+      <div class="groups-section-head">
+        <div class="groups-title-group">
+          <h3 class="groups-section-title">
+            <span>Curated Artwork Groups (${allGroups.length})</span>
+            <span class="mono muted text-xs">// REGROUP SIMILAR STYLES & RANDOMISE DEDICATED CAMPAIGNS</span>
+          </h3>
+          <p class="groups-section-subtitle">
+            Regroup artworks that share the same visual style and material aesthetic. Once grouped, you can instantly randomise an entire 15-post Instagram event campaign using only that style's pool.
+          </p>
+        </div>
+      </div>
+
+      <div class="groups-grid">
+        ${allGroups.map((g) => {
+          const memberCount = (g.artworkIds || []).length;
+          const isCurrentFilter = F.group === g.id;
+          const previewThumbs = (g.artworkIds || []).slice(0, 4).map((aid) => {
+            return `<img src="/artworks/masters/${aid}_v1.jpg" alt="${esc(aid)}" class="group-thumb-item" title="${esc(aid)}">`;
+          }).join('');
+
+          return `
+            <div class="group-card ${isCurrentFilter ? 'is-active-filter' : ''}" style="border-left: 3px solid ${g.color || '#7AE7FF'};">
+              <div class="group-card-top">
+                <div class="group-card-header">
+                  <div class="group-name-row">
+                    <span class="group-color-dot" style="background:${g.color || '#7AE7FF'};"></span>
+                    <h4 class="group-card-title">${esc(g.name)}</h4>
+                  </div>
+                  <span class="group-count-badge">${memberCount} arts</span>
+                </div>
+                <p class="group-card-desc">${esc(g.description || 'No description.')}</p>
+              </div>
+
+              <div class="group-card-preview-row">
+                <div class="group-thumb-stack">
+                  ${previewThumbs || '<span class="mono muted text-xs">No artworks</span>'}
+                </div>
+                <div class="group-card-actions">
+                  <button type="button" class="btn small group-btn-randomise" data-randomise-group="${g.id}" title="Randomise Instagram Campaign from this Group">⚡ Randomise Campaign</button>
+                  <button type="button" class="btn small" data-filter-group="${g.id}" title="${isCurrentFilter ? 'Clear Filter' : 'Filter Gallery'}">${isCurrentFilter ? 'Showing' : 'View'}</button>
+                  <button type="button" class="btn small" data-edit-group="${g.id}" title="Edit Group">Edit</button>
+                  <button type="button" class="btn small" data-delete-group="${g.id}" title="Delete Group" style="color:var(--molten);">✕</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('') || '<p class="muted">No groups created yet. Click "+ Create Artwork Group" above to start grouping your artworks.</p>'}
+      </div>
+    </div>
+
+    <!-- ACTIVE GROUP FILTER BANNER -->
+    ${activeGrp ? `
+      <div class="group-filter-banner">
+        <div class="group-filter-info">
+          <span class="group-filter-tag" style="background:${activeGrp.color || '#7AE7FF'};">ACTIVE STYLE GROUP</span>
+          <div class="group-filter-details">
+            <strong>${esc(activeGrp.name)} (${(activeGrp.artworkIds||[]).length} artworks)</strong>
+            <span>${esc(activeGrp.description)}</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button type="button" class="btn small group-btn-randomise" data-randomise-group="${activeGrp.id}">⚡ Randomise Instagram Campaign from this Group</button>
+          <button type="button" class="btn small" data-edit-group="${activeGrp.id}">Manage Artworks</button>
+          <button type="button" class="btn small" id="btn-clear-group-filter">Clear Filter ✕</button>
+        </div>
+      </div>
+    ` : ''}
+
     <div class="filters">
+      <div class="row">
+        <span class="mono">Group Filter</span>
+        ${segBtn('group', 'all', 'All Groups')}
+        ${allGroups.map((g) => `<button class="chip" data-f="group" data-v="${g.id}" aria-pressed="${F.group === g.id}"><span class="dot" style="background:${g.color || '#7AE7FF'}"></span>${esc(g.name)} (${(g.artworkIds||[]).length})</button>`).join('')}
+      </div>
       <div class="row"><span class="mono">Collection</span>${segBtn('collection', 'all', 'All')}${S.collection.collections.map((c) => segBtn('collection', c.id, `${c.id === '00' ? '' : c.id + ' '}${c.name}`)).join('')}${hasX ? segBtn('collection', 'X', 'Explorations') : ''}</div>
       <div class="row"><span class="mono">Material</span>${segBtn('treatment', '', 'Any')}${I.treatments.map((t) => segBtn('treatment', t.id, esc(t.name))).join('')}</div>
       <div class="row"><span class="mono">Refraction</span>${segBtn('accent', '', 'Any')}${I.accents.map((a) => `<button class="chip" data-f="accent" data-v="${a.id}" aria-pressed="${F.accent === a.id}"><span class="dot" style="background:${a.hex}"></span>${esc(a.name)}</button>`).join('')}</div>
       <div class="row"><span class="mono">Status</span>${['all', 'approved', 'draft', 'empty'].map((s) => segBtn('status', s, { all: 'All', approved: 'Approved Artwork', draft: 'Unapproved / Review', empty: 'Not generated' }[s])).join('')}</div>
     </div>
+
     ${lanes.filter((l) => l.items.length).map((l) => `
       <section class="lane lane-${l.id}">
         <div class="lane-head">
@@ -618,10 +739,139 @@ function renderGallery() {
         </div>
         <div class="grid">${l.items.map(card).join('')}</div>
       </section>
-    `).join('') || '<p class="muted">No artworks match these filters.</p>'}`;
+    `).join('') || '<p class="muted">No artworks match these filters.</p>'}
 
+    <!-- MULTI-SELECT FLOATING BAR -->
+    ${selectMode ? `
+      <div class="select-bar">
+        <span class="select-bar-count">${selectedArtworks.size} artworks selected</span>
+        <div class="select-bar-actions">
+          <select id="select-add-to-group" class="edition-select" style="padding: 4px 8px; font-size: 11px;">
+            <option value="">Add to Group ▾</option>
+            ${allGroups.map(g => `<option value="${g.id}">✦ ${esc(g.name)}</option>`).join('')}
+          </select>
+          <button type="button" class="btn small primary" id="btn-group-from-selection">+ New Group from Selection</button>
+          <button type="button" class="btn small" id="btn-select-all-filtered">Select All Filtered</button>
+          <button type="button" class="btn small" id="btn-deselect-all">Deselect All</button>
+          <button type="button" class="btn small" id="btn-exit-select-mode">✕ Exit</button>
+        </div>
+      </div>
+    ` : ''}
+  `;
+
+  // Filter click handlers
   $$('[data-f]').forEach((b) => b.addEventListener('click', () => { F[b.dataset.f] = b.dataset.v; renderGallery(); }));
-  $$('#view-gallery [data-open]').forEach((b) => b.addEventListener('click', () => openLightbox(b.dataset.open)));
+  
+  // Card click handlers
+  $$('#view-gallery [data-open]').forEach((b) => {
+    b.addEventListener('click', () => {
+      if (selectMode) {
+        const id = b.dataset.open;
+        if (selectedArtworks.has(id)) selectedArtworks.delete(id);
+        else selectedArtworks.add(id);
+        renderGallery();
+        return;
+      }
+      openLightbox(b.dataset.open);
+    });
+  });
+
+  // Select checkbox toggle handlers
+  $$('[data-select-toggle]').forEach((b) => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = b.dataset.selectToggle;
+      if (selectedArtworks.has(id)) selectedArtworks.delete(id);
+      else selectedArtworks.add(id);
+      renderGallery();
+    });
+  });
+
+  // Group card action handlers
+  $$('[data-randomise-group]').forEach((b) => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const gid = b.dataset.randomiseGroup;
+      campaignView.randomiseFromGroup(gid);
+    });
+  });
+
+  $$('[data-filter-group]').forEach((b) => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const gid = b.dataset.filterGroup;
+      F.group = F.group === gid ? 'all' : gid;
+      renderGallery();
+    });
+  });
+
+  $$('[data-edit-group]').forEach((b) => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openGroupDialog(b.dataset.editGroup);
+    });
+  });
+
+  $$('[data-delete-group]').forEach((b) => {
+    b.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const gid = b.dataset.deleteGroup;
+      const grp = getGroups().find(g => g.id === gid);
+      if (!confirm(`Are you sure you want to delete group "${grp?.name || gid}"?`)) return;
+      await api(`/api/groups/${gid}`, { method: 'DELETE' });
+      if (F.group === gid) F.group = 'all';
+      await refresh();
+      toast('Group deleted');
+      renderGallery();
+    });
+  });
+
+  $('#btn-create-group')?.addEventListener('click', () => openGroupDialog());
+  $('#btn-toggle-select-mode')?.addEventListener('click', () => {
+    selectMode = !selectMode;
+    if (!selectMode) selectedArtworks.clear();
+    renderGallery();
+  });
+  $('#btn-clear-group-filter')?.addEventListener('click', () => {
+    F.group = 'all';
+    renderGallery();
+  });
+
+  // Multi-select bar action handlers
+  $('#select-add-to-group')?.addEventListener('change', async (e) => {
+    const gid = e.target.value;
+    if (!gid || !selectedArtworks.size) return;
+    await api(`/api/groups/${gid}/artworks`, {
+      method: 'POST',
+      body: { action: 'add', artworkIds: [...selectedArtworks] }
+    });
+    const grp = getGroups().find(g => g.id === gid);
+    toast(`Added ${selectedArtworks.size} artwork(s) to ${grp?.name || 'group'}`);
+    await refresh();
+    selectedArtworks.clear();
+    renderGallery();
+  });
+
+  $('#btn-group-from-selection')?.addEventListener('click', () => {
+    if (!selectedArtworks.size) return toast('Select artworks first', true);
+    openGroupDialog(null, [...selectedArtworks]);
+  });
+
+  $('#btn-select-all-filtered')?.addEventListener('click', () => {
+    filtered().forEach(i => selectedArtworks.add(i.id));
+    renderGallery();
+  });
+
+  $('#btn-deselect-all')?.addEventListener('click', () => {
+    selectedArtworks.clear();
+    renderGallery();
+  });
+
+  $('#btn-exit-select-mode')?.addEventListener('click', () => {
+    selectMode = false;
+    selectedArtworks.clear();
+    renderGallery();
+  });
 }
 
 // ---------- LIGHTBOX ----------
@@ -641,6 +891,8 @@ function renderLightbox() {
   const v = activeVersion(e);
   const src = imgUrl(e);
   const art = S.collection.artworks.find((a) => a.id === it.id);
+  const allGroups = getGroups();
+
   $('#lightbox').innerHTML = `<div class="lb">
     <div class="lb-stage">
       ${src ? `<img src="${src}" alt="${esc(it.id)}">` : `<div class="none"><div><p class="mono">Not generated yet</p><p class="hint">${esc(it.brief)}</p></div></div>`}
@@ -655,6 +907,24 @@ function renderLightbox() {
         <button class="btn" data-act="export-jpg" ${src ? '' : 'disabled'}>Export JPEG</button>
         <button class="btn" data-act="safe" aria-pressed="${LB.safe}">${LB.safe ? 'Hide' : 'Show'} safe zones</button>
       </div>
+
+      <!-- ARTWORK GROUPS IN LIGHTBOX -->
+      <div class="lb-groups-block">
+        <div class="lb-groups-title">
+          <span>Style Groups</span>
+          <button type="button" class="btn small" data-act="lb-new-group" style="padding:2px 8px; font-size:10px;">+ New Group</button>
+        </div>
+        <div class="lb-groups-pills">
+          ${allGroups.map((g) => {
+            const isMember = (g.artworkIds || []).includes(it.id);
+            return `<button type="button" class="lb-group-chip ${isMember ? 'is-member' : ''}" data-toggle-group="${g.id}">
+              <span class="group-color-dot" style="background:${g.color || '#7AE7FF'}; width:7px; height:7px;"></span>
+              <span>${isMember ? '✓ ' : '+ '}${esc(g.name)}</span>
+            </button>`;
+          }).join('') || '<span class="muted" style="font-size:11px;">No groups yet. Click "+ New Group" to create one.</span>'}
+        </div>
+      </div>
+
       <dl class="kv">
         <dt>Status</dt><dd><span class="status-txt ${e?.status || 'empty'}">${e?.status === 'draft' ? 'Unapproved' : e?.status || 'empty'}</span>${e?.pending ? ' · queued' : ''}</dd>
         <dt>Concept</dt><dd>${esc(S.identity.conceptTitle)}</dd>
@@ -681,6 +951,185 @@ function renderLightbox() {
   </div>`;
 }
 
+function openGroupDialog(groupId = null, preselectedArtworks = []) {
+  const dlg = $('#group-dialog');
+  if (!dlg) return;
+  const group = groupId ? getGroups().find(g => g.id === groupId) : null;
+  activeEditingGroupId = groupId;
+
+  let currentArtworkIds = new Set(
+    group ? (group.artworkIds || []) : preselectedArtworks
+  );
+  let selectedColor = group?.color || '#7AE7FF';
+
+  const approvedArtworks = items().filter(i => i.entry?.status === 'approved' && i.collection === '00');
+
+  function renderGroupModal() {
+    dlg.innerHTML = `
+      <div class="group-modal">
+        <div class="group-modal-head">
+          <div>
+            <p class="mono muted text-xs">// ARTWORK STYLE CURATION</p>
+            <h2>${group ? `Edit Group: ${esc(group.name)}` : 'Create New Artwork Group'}</h2>
+          </div>
+          <button type="button" class="btn small close" data-dlg-close="group-dialog">✕</button>
+        </div>
+
+        <form id="group-form" class="group-form-grid">
+          <div class="field">
+            <label class="mono muted text-xs">GROUP NAME:</label>
+            <input type="text" id="group-name" required value="${esc(group?.name || '')}" placeholder="e.g. Sculptural Chrome Spires & Hydraulic Fluid" style="width:100%; padding:8px 12px; background:var(--ink); border:1px solid var(--line-2); color:var(--white); border-radius:var(--radius);">
+          </div>
+
+          <div class="field">
+            <label class="mono muted text-xs">STYLE DESCRIPTION & VISUAL CUES:</label>
+            <textarea id="group-desc" rows="2" placeholder="Describe the common visual characteristics, lighting, surface behavior, and materials..." style="width:100%; padding:8px 12px; background:var(--ink); border:1px solid var(--line-2); color:var(--white); border-radius:var(--radius);">${esc(group?.description || '')}</textarea>
+          </div>
+
+          <div class="field">
+            <label class="mono muted text-xs">GROUP COLOR ACCENT / BADGE:</label>
+            <div class="group-color-picker">
+              ${[
+                { hex: '#7AE7FF', name: 'Pale Cyan' },
+                { hex: '#FF5C5C', name: 'Molten Crimson' },
+                { hex: '#C8B6FF', name: 'Lavender Glass' },
+                { hex: '#5CE1FF', name: 'Cryo Blue' },
+                { hex: '#E0E0E0', name: 'Nacreous White' },
+                { hex: '#70FFBE', name: 'Acid Emerald' },
+                { hex: '#FFAA40', name: 'Solar Amber' },
+                { hex: '#8E94A0', name: 'Brutalist Slate' }
+              ].map(c => `
+                <button type="button" class="group-color-swatch ${selectedColor === c.hex ? 'active' : ''}" data-color="${c.hex}" style="background:${c.hex};" title="${c.name}"></button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="group-artworks-picker">
+            <div class="group-artworks-toolbar">
+              <label class="mono muted text-xs">ASSIGN ARTWORKS (<span id="pick-count">${currentArtworkIds.size}</span> / ${approvedArtworks.length} selected):</label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="picker-search" placeholder="Filter artworks..." style="padding:4px 8px; font-size:11px; background:var(--ink); border:1px solid var(--line-2); color:var(--white); border-radius:var(--radius);">
+                <button type="button" class="btn small" id="btn-pick-all">Select All Approved</button>
+                <button type="button" class="btn small" id="btn-clear-picks">Clear</button>
+              </div>
+            </div>
+
+            <div class="group-artworks-grid" id="picker-grid">
+              ${approvedArtworks.map(art => {
+                const isChecked = currentArtworkIds.has(art.id);
+                return `
+                  <div class="art-pick-item ${isChecked ? 'selected' : ''}" data-pick-id="${art.id}" data-search="${art.id.toLowerCase()} ${esc(art.brief).toLowerCase()}">
+                    <img src="/artworks/masters/${art.id}_v1.jpg" alt="${esc(art.id)}" class="art-pick-thumb" loading="lazy">
+                    <div class="art-pick-meta">
+                      <span class="mono bold">${esc(art.id.replace('RUPTURE_', ''))}</span>
+                      <span class="mono ${isChecked ? 'cyan' : 'muted'}">${isChecked ? '✓ IN' : '+'}</span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:12px; justify-content:flex-end;">
+            <button type="button" class="btn" data-dlg-close="group-dialog">Cancel</button>
+            <button type="submit" class="btn primary" id="btn-save-group">${group ? 'Save Changes' : 'Create Group'}</button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    // Bind color swatch clicks
+    dlg.querySelectorAll('.group-color-swatch').forEach(sw => {
+      sw.addEventListener('click', () => {
+        selectedColor = sw.dataset.color;
+        dlg.querySelectorAll('.group-color-swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+      });
+    });
+
+    // Search filter in picker
+    const searchInput = dlg.querySelector('#picker-search');
+    searchInput?.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      dlg.querySelectorAll('.art-pick-item').forEach(el => {
+        const text = el.dataset.search;
+        el.style.display = !q || text.includes(q) ? 'flex' : 'none';
+      });
+    });
+
+    // Pick item toggle
+    dlg.querySelectorAll('.art-pick-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const aid = item.dataset.pickId;
+        const metaSpan = item.querySelector('.art-pick-meta span:last-child');
+        if (currentArtworkIds.has(aid)) {
+          currentArtworkIds.delete(aid);
+          item.classList.remove('selected');
+          if (metaSpan) { metaSpan.textContent = '+'; metaSpan.className = 'mono muted'; }
+        } else {
+          currentArtworkIds.add(aid);
+          item.classList.add('selected');
+          if (metaSpan) { metaSpan.textContent = '✓ IN'; metaSpan.className = 'mono cyan'; }
+        }
+        const cnt = dlg.querySelector('#pick-count');
+        if (cnt) cnt.textContent = currentArtworkIds.size;
+      });
+    });
+
+    // Select all / clear picks
+    dlg.querySelector('#btn-pick-all')?.addEventListener('click', () => {
+      approvedArtworks.forEach(a => currentArtworkIds.add(a.id));
+      renderGroupModal();
+    });
+    dlg.querySelector('#btn-clear-picks')?.addEventListener('click', () => {
+      currentArtworkIds.clear();
+      renderGroupModal();
+    });
+
+    // Close button
+    dlg.querySelectorAll('[data-dlg-close]').forEach(b => {
+      b.addEventListener('click', () => dlg.close());
+    });
+
+    // Submit form
+    dlg.querySelector('#group-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const saveBtn = dlg.querySelector('#btn-save-group');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving…';
+      try {
+        const name = dlg.querySelector('#group-name').value.trim();
+        const description = dlg.querySelector('#group-desc').value.trim();
+        const payload = {
+          name,
+          description,
+          color: selectedColor,
+          artworkIds: [...currentArtworkIds]
+        };
+
+        if (group) {
+          await api(`/api/groups/${group.id}`, { method: 'PUT', body: payload });
+          toast(`Updated group: ${name}`);
+        } else {
+          await api('/api/groups', { method: 'POST', body: payload });
+          toast(`Created group: ${name}`);
+        }
+
+        await refresh();
+        dlg.close();
+        renderGallery();
+      } catch (err) {
+        toast(err.message, true);
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Group';
+      }
+    });
+  }
+
+  renderGroupModal();
+  if (!dlg.open) dlg.showModal();
+}
+
 async function downloadExport(id, format) {
   const r = await api(`/api/export/${id}?format=${format}`, { method: 'POST' });
   const a = document.createElement('a');
@@ -697,6 +1146,24 @@ function bindLightbox() {
     if (ev.target === dlg) return dlg.close();
     const ver = ev.target.closest('[data-ver]');
     if (ver) { await api(`/api/activate/${LB.id}`, { method: 'POST', body: { v: Number(ver.dataset.ver) } }); await refresh(); return renderLightbox(); }
+    
+    // Group chip toggle in lightbox
+    const grpChip = ev.target.closest('[data-toggle-group]');
+    if (grpChip) {
+      const gid = grpChip.dataset.toggleGroup;
+      const res = await api(`/api/groups/${gid}/toggle`, { method: 'POST', body: { artworkId: LB.id } });
+      await refresh();
+      toast(res.inGroup ? `Added to ${res.group.name}` : `Removed from ${res.group.name}`);
+      renderLightbox();
+      renderGallery();
+      return;
+    }
+    const newGrpBtn = ev.target.closest('[data-act="lb-new-group"]');
+    if (newGrpBtn) {
+      openGroupDialog(null, [LB.id]);
+      return;
+    }
+
     const btn = ev.target.closest('[data-act]');
     if (!btn) return;
     const act = btn.dataset.act;
