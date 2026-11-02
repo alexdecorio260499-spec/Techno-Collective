@@ -6235,7 +6235,7 @@
         "RUPTURE_M141"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-02T08:00:00.000Z"
+      "updatedAt": "2026-11-02T08:49:51.265Z"
     },
     {
       "id": "group_nacreous_silk",
@@ -6260,6 +6260,55 @@
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
       "updatedAt": "2026-11-02T08:00:00.000Z"
+    },
+    {
+      "id": "group_mvz0v9jc_xll4",
+      "name": "Group Test 1",
+      "description": "",
+      "color": "#7AE7FF",
+      "artworkIds": [
+        "RUPTURE_M21",
+        "RUPTURE_M23",
+        "RUPTURE_M24",
+        "RUPTURE_M34",
+        "RUPTURE_M35",
+        "RUPTURE_M38",
+        "RUPTURE_M39",
+        "RUPTURE_M43",
+        "RUPTURE_M42",
+        "RUPTURE_M41",
+        "RUPTURE_M66",
+        "RUPTURE_M71",
+        "RUPTURE_M73",
+        "RUPTURE_M74",
+        "RUPTURE_M80",
+        "RUPTURE_M78",
+        "RUPTURE_M86",
+        "RUPTURE_M77",
+        "RUPTURE_M87",
+        "RUPTURE_M92",
+        "RUPTURE_M94",
+        "RUPTURE_M95",
+        "RUPTURE_M100",
+        "RUPTURE_M99",
+        "RUPTURE_M98",
+        "RUPTURE_M101",
+        "RUPTURE_M102",
+        "RUPTURE_M103",
+        "RUPTURE_M106",
+        "RUPTURE_M108",
+        "RUPTURE_M114",
+        "RUPTURE_M113",
+        "RUPTURE_M112",
+        "RUPTURE_M117",
+        "RUPTURE_M119",
+        "RUPTURE_M120",
+        "RUPTURE_M126",
+        "RUPTURE_M127",
+        "RUPTURE_M128"
+      ],
+      "createdAt": "2026-11-02T08:53:57.384Z",
+      "updatedAt": "2026-11-02T08:55:17.728Z"
     }
   ],
   "exports": [

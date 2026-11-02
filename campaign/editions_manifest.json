@@ -1,6 +1,37 @@
 {
-  "activeEditionId": "edition_01_hydraulic_void",
+  "activeEditionId": "edition_grp_01_group_test_1",
   "editions": [
+    {
+      "id": "edition_grp_01_group_test_1",
+      "editionNumber": "G1",
+      "title": "EDITION G1: GROUP TEST 1 // TRANSMISSION 01",
+      "chapter": "Curated Style Chapter — Liquid Chrome & Tectonic Strata",
+      "status": "active",
+      "primaryFamily": {
+        "id": "sculptural-chrome",
+        "name": "Sculptural Liquid Chrome"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "folded-surfaces",
+          "name": "Folded Liquid Surfaces"
+        },
+        {
+          "id": "tectonic-faults",
+          "name": "Tectonic Faults & Strata"
+        }
+      ],
+      "inactiveFamilies": [
+        "pearlescent-silver",
+        "translucent-glass"
+      ],
+      "conceptSummary": "Complete 15-post event announcement campaign curated exclusively from the user's Group 1 (39 style-matched artworks). High-tension liquid mercury spires, horizontal razor-sheared chrome strata, and molten crimson acoustic accents configured as an authentic underground techno party rollout.",
+      "postCount": 15,
+      "basePath": "/campaign/editions/edition_grp_01_group_test_1",
+      "groupId": "group_mvz0v9jc_xll4",
+      "groupName": "Group Test 1",
+      "groupColor": "#7AE7FF"
+    },
     {
       "id": "edition_01_hydraulic_void",
       "editionNumber": "01",

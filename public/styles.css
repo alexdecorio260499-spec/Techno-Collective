@@ -525,6 +525,69 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
 .ig-overlay-stats { display: flex; gap: 14px; font-size: 12px; font-weight: 600; }
 .ig-inspect-btn { width: 100%; text-align: center; }
 
+/* Dynamic party flyer overlay for on-the-fly randomisation */
+.flyer-card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(8,9,12,0.85) 0%, rgba(8,9,12,0.15) 35%, rgba(8,9,12,0.92) 100%);
+  pointer-events: none;
+  border: 1px solid rgba(122, 231, 255, 0.22);
+}
+.flyer-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--white);
+  letter-spacing: 0.06em;
+}
+.flyer-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+  background: rgba(18, 22, 28, 0.9);
+  border: 1px solid var(--line-2);
+  color: var(--cyan);
+}
+.flyer-badge.badge-red {
+  background: rgba(255, 51, 68, 0.25);
+  border-color: var(--molten);
+  color: var(--molten);
+  font-weight: 700;
+}
+.flyer-card-center {
+  margin-top: auto;
+  margin-bottom: 8px;
+}
+.flyer-card-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+}
+.flyer-card-sub {
+  font-size: 10px;
+  color: var(--cyan);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+.flyer-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  color: var(--grey);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 6px;
+}
+
 /* ---------- 02 TIMELINE FLOW ---------- */
 .timeline-wrapper { display: flex; flex-direction: column; gap: 36px; }
 .timeline-phase-block { display: flex; flex-direction: column; gap: 16px; }

@@ -227,6 +227,14 @@ export function createCampaignView(app) {
       return;
     }
 
+    if (group.id === 'group_mvz0v9jc_xll4' || group.name.toLowerCase().includes('group test 1') || group.name.toLowerCase().includes('group 1')) {
+      activeEditionId = 'edition_grp_01_group_test_1';
+      viewMode = 'grid';
+      location.hash = '#campaign';
+      await render();
+      return;
+    }
+
     const dynamicId = `group_edition_${group.id}`;
     const posts = generate15PostsFromGroup(group);
     editionsCache[dynamicId] = posts;
@@ -296,6 +304,7 @@ export function createCampaignView(app) {
 
     // Edition-specific profiles & highlights
     const editionAvatars = {
+      'edition_grp_01_group_test_1': '/artworks/masters/RUPTURE_M43_v1.jpg',
       'edition_01_hydraulic_void': '/artworks/masters/RUPTURE_M15_v1.jpg',
       'edition_02_vitreous_resonance': '/artworks/masters/RUPTURE_M35_v1.jpg',
       'edition_03_toroidal_flux': '/artworks/masters/RUPTURE_M08_v1.jpg',
@@ -320,6 +329,13 @@ export function createCampaignView(app) {
     };
 
     const editionHighlights = {
+      'edition_grp_01_group_test_1': [
+        { title: 'SOUND', img: '/artworks/masters/RUPTURE_M78_v1.jpg' },
+        { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M86_v1.jpg' },
+        { title: 'THE CODE', img: '/artworks/masters/RUPTURE_M38_v1.jpg' },
+        { title: 'VENUE', img: '/artworks/masters/RUPTURE_M99_v1.jpg' },
+        { title: 'TICKETS', img: '/artworks/masters/RUPTURE_M119_v1.jpg' }
+      ],
       'edition_01_hydraulic_void': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M54_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M28_v1.jpg' },
@@ -470,6 +486,9 @@ export function createCampaignView(app) {
     };
 
     const editionBios = {
+      'edition_grp_01_group_test_1': `Underground Electronic Music · Mauritius<br>
+        Transmission 01: Group Test 1 — Friday · 24 April [Secret Industrial Silo]<br>
+        Curated Style Group · 4 Artists · Custom 25 Hz Rig · No Photos`,
       'edition_01_hydraulic_void': `Fast · Hypnotic · Driving · Dark Groove<br>
         Edition 01: Hydraulic Void — [Date / Secret Industrial Silo]<br>
         Sculptural Chrome + Folded Surfaces · Custom 25 Hz Rig`,
@@ -727,15 +746,32 @@ export function createCampaignView(app) {
             <div class="ig-grid ${aspectMode === 'portrait' ? 'aspect-portrait' : 'aspect-square'}">
               ${profileSequence.map((p) => {
                 const basePath = currentEditionMeta.basePath;
-                const imgSrc = currentEditionMeta.isDynamicGroup
-                  ? `/artworks/masters/${p.artwork}`
-                  : (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`);
+                const isDynamic = currentEditionMeta.isDynamicGroup && (!basePath || !basePath.length);
+                const imgSrc = (basePath && basePath.length)
+                  ? (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`)
+                  : `/artworks/masters/${p.artwork}`;
                 const isCenterHero = p.id === '05';
                 const hasRedCaustic = p.id === '05' || p.id === '13';
                 const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
                 return `
                   <div class="ig-grid-item ${hasRedCaustic ? 'has-red-accent' : ''} ${isCenterHero ? 'center-hero' : ''}" data-post-id="${p.id}" tabindex="0">
                     <img src="${imgSrc}" alt="${esc(p.title)}" loading="lazy">
+                    ${isDynamic ? `
+                      <div class="flyer-card-overlay">
+                        <div class="flyer-card-top mono">
+                          <span>RUPTURE // ${p.id}</span>
+                          <span class="flyer-badge ${hasRedCaustic ? 'badge-red' : ''}">${p.id === '05' ? 'MAIN POSTER' : p.id === '04' ? 'SAVE DATE' : p.id === '13' ? 'LAST 50' : p.id === '15' ? 'TONIGHT' : esc(p.phase.split('—')[0].trim())}</span>
+                        </div>
+                        <div class="flyer-card-center">
+                          <div class="flyer-card-title">${esc(p.title)}</div>
+                          <div class="flyer-card-sub mono">${esc(p.timing.split('(')[0].trim())}</div>
+                        </div>
+                        <div class="flyer-card-bottom mono">
+                          <span>${esc(currentEditionMeta.groupName || 'GROUP')}</span>
+                          <span>25 HZ RIG</span>
+                        </div>
+                      </div>
+                    ` : ''}
                     <div class="ig-grid-overlay">
                       <div class="ig-overlay-header">
                         <span class="mono ig-post-badge">POST ${p.id}</span>
@@ -774,9 +810,9 @@ export function createCampaignView(app) {
                   <div class="timeline-posts-row ${aspectMode === 'portrait' ? 'aspect-portrait' : 'aspect-square'}">
                     ${phasePosts.map(p => {
                       const basePath = currentEditionMeta.basePath;
-                      const imgSrc = currentEditionMeta.isDynamicGroup
-                        ? `/artworks/masters/${p.artwork}`
-                        : (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`);
+                      const imgSrc = (basePath && basePath.length)
+                        ? (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`)
+                        : `/artworks/masters/${p.artwork}`;
                       const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
                       return `
                         <div class="timeline-post-card" data-post-id="${p.id}">
@@ -1282,15 +1318,16 @@ export function createCampaignView(app) {
 
     const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
     const basePath = currentEditionMeta.basePath;
-    const modalImgSrc = currentEditionMeta.isDynamicGroup
-      ? `/artworks/masters/${post.artwork}`
-      : `${basePath}/posts/${post.fileStem}.jpg`;
-    const dlJpg = currentEditionMeta.isDynamicGroup
-      ? `/artworks/masters/${post.artwork}`
-      : `${basePath}/posts/${post.fileStem}.jpg`;
-    const dlPng = currentEditionMeta.isDynamicGroup
-      ? `/artworks/masters/${post.artwork}`
-      : `${basePath}/posts/${post.fileStem}.png`;
+    const hasBasePath = Boolean(basePath && basePath.length);
+    const modalImgSrc = hasBasePath
+      ? `${basePath}/posts/${post.fileStem}.jpg`
+      : `/artworks/masters/${post.artwork}`;
+    const dlJpg = hasBasePath
+      ? `${basePath}/posts/${post.fileStem}.jpg`
+      : `/artworks/masters/${post.artwork}`;
+    const dlPng = hasBasePath
+      ? `${basePath}/posts/${post.fileStem}.png`
+      : `/artworks/masters/${post.artwork}`;
 
     const modal = document.getElementById('campaign-modal');
     if (!modal) return;
