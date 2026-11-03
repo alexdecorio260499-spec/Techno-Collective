@@ -714,14 +714,14 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
   border-color: var(--grey);
   color: var(--white);
 }
-.edition-pill-btn.active {
-  background: var(--white);
-  color: var(--black);
-  border-color: var(--white);
+.edition-pill-btn.is-selected {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  border-color: var(--white) !important;
   font-weight: 700;
 }
-.edition-pill-btn.active .mono {
-  color: var(--black);
+.edition-pill-btn.is-selected .mono {
+  color: var(--black) !important;
 }
 .status-dot {
   font-size: 10px;
@@ -747,10 +747,10 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
   background: rgba(255, 92, 92, 0.85);
   transform: scale(1.15);
 }
-.edition-pill-btn.active .pill-delete-btn {
+.edition-pill-btn.is-selected .pill-delete-btn {
   color: #444;
 }
-.edition-pill-btn.active .pill-delete-btn:hover {
+.edition-pill-btn.is-selected .pill-delete-btn:hover {
   color: #fff;
   background: #ff5c5c;
 }

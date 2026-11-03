@@ -645,12 +645,16 @@ export function createCampaignView(app) {
             <span class="mono muted">CAMPAIGN GENERATION / EDITION:</span>
             <div class="edition-dropdown-wrap">
               <select id="select-edition" class="edition-select">
-                ${man.editions.map(e => `
-                  <option value="${e.id}" ${e.id === activeEditionId ? 'selected' : ''}>
-                    ${e.isDynamicGroup ? '★ ' : e.status === 'active' ? '★ ' : e.status === 'ready' ? '✦ ' : '● '}
-                    ${esc(e.title)} [${e.isDynamicGroup ? 'GROUP RANDOM' : e.status.toUpperCase()}]
-                  </option>
-                `).join('')}
+                ${man.editions.map(e => {
+                  const isCur = e.id === activeEditionId;
+                  const icon = isCur ? '★ ' : e.isDynamicGroup ? '⚡ ' : e.editionNumber === '00' ? '● ' : '✦ ';
+                  const statusTag = isCur ? 'ACTIVE' : e.isDynamicGroup ? 'GROUP RANDOM' : e.editionNumber === '00' ? 'ARCHIVE' : 'READY';
+                  return `
+                    <option value="${e.id}" ${isCur ? 'selected' : ''}>
+                      ${icon}${esc(e.title)} [${statusTag}]
+                    </option>
+                  `;
+                }).join('')}
               </select>
             </div>
             <button type="button" class="btn small danger btn-delete-current-edition" id="btn-delete-edition" title="Delete current campaign edition" style="display:inline-flex; align-items:center; gap:6px; color:#ff5c5c; border-color:rgba(255,92,92,0.35); background:rgba(255,92,92,0.08); font-weight:600;">
@@ -671,13 +675,14 @@ export function createCampaignView(app) {
           <div class="edition-pills-row">
             ${man.editions.map(e => {
               const isActive = e.id === activeEditionId;
-              const statusClass = e.status;
-              const badgeIcon = e.isDynamicGroup ? '⚡' : e.status === 'active' ? '★' : e.status === 'ready' ? '✦' : '●';
+              const statusClass = `status-${e.status || 'ready'}`;
+              const badgeIcon = isActive ? '★' : e.isDynamicGroup ? '⚡' : e.editionNumber === '00' ? '●' : '✦';
+              const labelText = isActive ? 'ACTIVE' : e.isDynamicGroup ? 'GROUP' : e.editionNumber === '00' ? 'ARCHIVE' : 'FEED READY';
               return `
-                <button type="button" class="btn small edition-pill-btn ${isActive ? 'active' : ''} ${statusClass}" data-edition-id="${e.id}">
+                <button type="button" class="btn small edition-pill-btn ${isActive ? 'is-selected' : ''} ${statusClass}" data-edition-id="${e.id}">
                   <span class="status-dot">${badgeIcon}</span>
                   <span>${esc(e.title.split(':')[0].trim())}</span>
-                  <span class="mono muted text-xs">${esc(e.isDynamicGroup ? 'GROUP' : e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'FEED READY')}</span>
+                  <span class="mono muted text-xs">${esc(labelText)}</span>
                   <span class="pill-delete-btn" data-delete-edition-id="${e.id}" title="Delete ${esc(e.title)}">✕</span>
                 </button>
               `;
@@ -706,8 +711,8 @@ export function createCampaignView(app) {
         <div class="campaign-header">
           <div class="campaign-header-title">
             <div class="edition-meta-badge-row">
-              <span class="badge ${currentEditionMeta.status === 'active' ? 'api' : 'queue'} mono">
-                ${currentEditionMeta.status === 'active' ? 'ACTIVE VISUAL DIRECTION' : currentEditionMeta.status.toUpperCase()}
+              <span class="badge api mono">
+                ACTIVE VISUAL DIRECTION
               </span>
               <span class="mono muted">${esc(currentEditionMeta.chapter)}</span>
               <button type="button" class="btn small danger btn-delete-current-edition" style="margin-left:auto; display:inline-flex; align-items:center; gap:5px; color:#ff5c5c; border-color:rgba(255,92,92,0.35); background:rgba(255,92,92,0.08); font-size:11px;" title="Delete this campaign edition">
