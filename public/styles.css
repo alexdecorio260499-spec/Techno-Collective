@@ -726,6 +726,43 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
 .status-dot {
   font-size: 10px;
 }
+.pill-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  margin-left: 6px;
+  border-radius: 50%;
+  font-size: 9px;
+  line-height: 1;
+  color: var(--grey);
+  opacity: 0.5;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.pill-delete-btn:hover {
+  opacity: 1;
+  color: #fff;
+  background: rgba(255, 92, 92, 0.85);
+  transform: scale(1.15);
+}
+.edition-pill-btn.active .pill-delete-btn {
+  color: #444;
+}
+.edition-pill-btn.active .pill-delete-btn:hover {
+  color: #fff;
+  background: #ff5c5c;
+}
+.btn-delete-current-edition {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-delete-current-edition:hover {
+  background: rgba(255, 92, 92, 0.22) !important;
+  border-color: #ff5c5c !important;
+  color: #ffffff !important;
+}
 .edition-meta-badge-row {
   display: flex;
   align-items: center;

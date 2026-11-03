@@ -27,10 +27,19 @@ export function createCampaignView(app) {
     return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
-  async function loadManifest() {
-    if (manifest) return manifest;
+  function showToast(msg, isErr = false) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.className = `show ${isErr ? 'err' : ''}`;
+    clearTimeout(showToast.t);
+    showToast.t = setTimeout(() => (t.className = ''), 3200);
+  }
+
+  async function loadManifest(force = false) {
+    if (manifest && !force) return manifest;
     try {
-      const res = await fetch('/campaign/editions_manifest.json');
+      const res = await fetch(`/campaign/editions_manifest.json?_t=${Date.now()}`);
       if (!res.ok) throw new Error('Failed to load editions manifest');
       manifest = await res.json();
     } catch (err) {
@@ -272,6 +281,62 @@ export function createCampaignView(app) {
     viewMode = 'grid';
     location.hash = '#campaign';
     await render();
+  }
+
+  async function deleteEdition(editionId) {
+    const targetId = editionId || activeEditionId;
+    const man = await loadManifest();
+    const targetMeta = man.editions.find(e => e.id === targetId);
+
+    if (!targetMeta) {
+      showToast(`Campaign edition "${targetId}" not found`, true);
+      return false;
+    }
+
+    if (man.editions.length <= 1) {
+      showToast('Cannot delete the only remaining campaign edition', true);
+      alert('Cannot delete the only remaining campaign edition. At least one edition must be retained.');
+      return false;
+    }
+
+    const title = targetMeta.title || targetId;
+    const confirmed = confirm(`Are you sure you want to delete campaign edition:\n\n"${title}"?\n\nThis will permanently remove this 15-post event campaign.`);
+    if (!confirmed) return false;
+
+    try {
+      // If it is purely an in-memory dynamic group edition without backend files
+      if (targetMeta.isDynamicGroup && (!targetMeta.basePath || !targetMeta.basePath.length)) {
+        man.editions = man.editions.filter(e => e.id !== targetId);
+        delete editionsCache[targetId];
+        if (activeEditionId === targetId) {
+          activeEditionId = man.editions[0].id;
+        }
+        showToast(`Deleted dynamic edition: ${title}`);
+        await render();
+        return true;
+      }
+
+      // Persistent edition on server
+      const res = await fetch(`/api/campaign/editions/${encodeURIComponent(targetId)}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete campaign edition');
+
+      delete editionsCache[targetId];
+      manifest = null; // Invalidate cache so loadManifest re-fetches updated list
+      activeEditionId = data.activeEditionId || (man.editions.find(e => e.id !== targetId)?.id) || 'edition_01_hydraulic_void';
+
+      showToast(`Deleted campaign edition: ${title}`);
+      await render();
+      return true;
+    } catch (err) {
+      console.error(err);
+      showToast(err.message, true);
+      alert(`Error deleting edition: ${err.message}`);
+      return false;
+    }
   }
 
   async function loadEditionData(editionId) {
@@ -588,6 +653,10 @@ export function createCampaignView(app) {
                 `).join('')}
               </select>
             </div>
+            <button type="button" class="btn small danger btn-delete-current-edition" id="btn-delete-edition" title="Delete current campaign edition" style="display:inline-flex; align-items:center; gap:6px; color:#ff5c5c; border-color:rgba(255,92,92,0.35); background:rgba(255,92,92,0.08); font-weight:600;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
+              <span>Delete Edition</span>
+            </button>
           </div>
 
           <div class="edition-selector-label" style="margin-left:auto; display:flex; align-items:center; gap:8px;">
@@ -609,6 +678,7 @@ export function createCampaignView(app) {
                   <span class="status-dot">${badgeIcon}</span>
                   <span>${esc(e.title.split(':')[0].trim())}</span>
                   <span class="mono muted text-xs">${esc(e.isDynamicGroup ? 'GROUP' : e.editionNumber === '00' ? 'ARCHIVE' : e.editionNumber === '01' ? 'ACTIVE' : 'FEED READY')}</span>
+                  <span class="pill-delete-btn" data-delete-edition-id="${e.id}" title="Delete ${esc(e.title)}">✕</span>
                 </button>
               `;
             }).join('')}
@@ -626,6 +696,7 @@ export function createCampaignView(app) {
             </div>
             <div class="campaign-dynamic-controls">
               <button type="button" class="btn primary" id="btn-rerandomise-group">⚡ Re-Randomise Grid</button>
+              <button type="button" class="btn danger btn-delete-current-edition" title="Delete this dynamic edition">✕ Delete Edition</button>
               <a href="#gallery" class="btn">Back to Gallery</a>
             </div>
           </div>
@@ -639,6 +710,10 @@ export function createCampaignView(app) {
                 ${currentEditionMeta.status === 'active' ? 'ACTIVE VISUAL DIRECTION' : currentEditionMeta.status.toUpperCase()}
               </span>
               <span class="mono muted">${esc(currentEditionMeta.chapter)}</span>
+              <button type="button" class="btn small danger btn-delete-current-edition" style="margin-left:auto; display:inline-flex; align-items:center; gap:5px; color:#ff5c5c; border-color:rgba(255,92,92,0.35); background:rgba(255,92,92,0.08); font-size:11px;" title="Delete this campaign edition">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                <span>Delete Edition</span>
+              </button>
             </div>
             <h2>${esc(currentEditionMeta.title)}</h2>
             <p class="campaign-tagline">${esc(currentEditionMeta.conceptSummary)}</p>
@@ -1246,9 +1321,27 @@ export function createCampaignView(app) {
       });
     }
 
+    // Delete edition buttons (topbar, dynamic banner, header)
+    el.querySelectorAll('.btn-delete-current-edition').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        deleteEdition(activeEditionId);
+      });
+    });
+
+    // Delete edition icon on pills
+    el.querySelectorAll('.pill-delete-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idToDelete = btn.dataset.deleteEditionId;
+        deleteEdition(idToDelete);
+      });
+    });
+
     // Edition pill buttons
     el.querySelectorAll('.edition-pill-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', (e) => {
+        if (e.target.closest('.pill-delete-btn')) return;
         activeEditionId = btn.dataset.editionId;
         render();
       });
@@ -1429,5 +1522,8 @@ export function createCampaignView(app) {
     if (!modal.open) modal.showModal();
   }
 
-  return { render, randomiseFromGroup, loadGroups };
+  // Expose deleteEdition function globally on window for direct programmatic/console access
+  window.ruptureDeleteCampaignEdition = deleteEdition;
+
+  return { render, randomiseFromGroup, loadGroups, deleteEdition };
 }

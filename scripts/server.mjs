@@ -196,9 +196,50 @@ async function processUploadItem(body) {
   return { ok: true, type: 'reference', item };
 }
 
+// ---------- campaign editions ----------
+
+async function deleteCampaignEdition(id) {
+  const manPath1 = path.join(ROOT, 'campaign/editions_manifest.json');
+  const manPath2 = path.join(ROOT, 'public/campaign/editions_manifest.json');
+  let manifest = null;
+  try {
+    manifest = JSON.parse(await fs.readFile(manPath1, 'utf8'));
+  } catch (err) {
+    throw httpError(404, 'Editions manifest not found');
+  }
+
+  const editionIndex = (manifest.editions || []).findIndex((e) => e.id === id);
+  if (editionIndex === -1) {
+    throw httpError(404, `Campaign edition '${id}' not found`);
+  }
+  if (manifest.editions.length <= 1) {
+    throw httpError(400, 'Cannot delete the only remaining campaign edition');
+  }
+
+  const [removed] = manifest.editions.splice(editionIndex, 1);
+  if (manifest.activeEditionId === id) {
+    manifest.activeEditionId = manifest.editions[0].id;
+  }
+
+  const manifestStr = JSON.stringify(manifest, null, 2);
+  await fs.writeFile(manPath1, manifestStr, 'utf8');
+  if (existsSync(path.dirname(manPath2))) {
+    await fs.writeFile(manPath2, manifestStr, 'utf8');
+  }
+
+  // Remove files associated with the edition if directory exists
+  const dir1 = path.join(ROOT, 'campaign/editions', id);
+  const dir2 = path.join(ROOT, 'public/campaign/editions', id);
+  await fs.rm(dir1, { recursive: true, force: true }).catch(() => {});
+  await fs.rm(dir2, { recursive: true, force: true }).catch(() => {});
+
+  return { ok: true, deleted: id, edition: removed, activeEditionId: manifest.activeEditionId, editions: manifest.editions };
+}
+
 // ---------- router ----------
 
 const routes = [
+  ['DELETE', /^\/api\/campaign\/editions\/([\w-]+)$/, async ([, id]) => deleteCampaignEdition(id)],
   ['GET', /^\/api\/campaign$/, async () => JSON.parse(await fs.readFile(path.join(ROOT, 'campaign/campaign_data.json'), 'utf8'))],
   ['GET', /^\/api\/state$/, async () => ({
     mode: mode(), model: provider?.model || null,
