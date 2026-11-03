@@ -339,6 +339,160 @@ export function createCampaignView(app) {
     }
   }
 
+  async function swapPostArtwork(postId, buttonEl = null) {
+    const man = await loadManifest();
+    const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
+    const posts = editionsCache[activeEditionId] || [];
+    const normalizedPid = String(postId).padStart(2, '0');
+    const post = posts.find(p => String(p.id).padStart(2, '0') === normalizedPid || p.id === postId);
+    if (!post) {
+      showToast(`Post ${postId} not found`, true);
+      return;
+    }
+
+    // Set UI loading state
+    if (buttonEl) {
+      buttonEl.classList.add('loading');
+      buttonEl.disabled = true;
+      buttonEl.dataset.origText = buttonEl.textContent;
+      buttonEl.textContent = '⏳ Swapping...';
+    }
+    const gridItem = document.querySelector(`.ig-grid-item[data-post-id="${post.id}"]`);
+    if (gridItem) gridItem.classList.add('is-swapping');
+    const timelineCard = document.querySelector(`.timeline-post-card[data-post-id="${post.id}"]`);
+    if (timelineCard) timelineCard.classList.add('is-swapping');
+
+    try {
+      // Dynamic in-memory group edition (without disk files)
+      if (currentEditionMeta.isDynamicGroup && (!currentEditionMeta.basePath || !currentEditionMeta.basePath.length)) {
+        const grps = await loadGroups();
+        const group = grps.find(g => g.id === currentEditionMeta.groupId) || currentEditionMeta.group;
+        const artIds = group?.artworkIds || [];
+        if (!artIds.length) {
+          throw new Error('No candidate artworks found in this group.');
+        }
+        const currentArtId = post.artwork.replace(/_v\d+\.jpg$/, '');
+        const usedOtherIds = new Set(posts.filter(p => p !== post).map(p => p.artwork.replace(/_v\d+\.jpg$/, '')));
+        const unused = artIds.filter(id => id !== currentArtId && !usedOtherIds.has(id));
+        let selectedId;
+        if (unused.length > 0) {
+          selectedId = unused[Math.floor(Math.random() * unused.length)];
+        } else {
+          const others = artIds.filter(id => id !== currentArtId);
+          selectedId = others.length ? others[Math.floor(Math.random() * others.length)] : currentArtId;
+        }
+
+        post.artwork = `${selectedId}_v1.jpg`;
+        post.artworkTitle = `${selectedId} (Curated from Group: ${group.name})`;
+        post.fileStem = selectedId;
+
+        updatePostDom(post, selectedId, currentArtId, { batchSource: { name: group.name } });
+        showToast(`✓ Swapped Post ${post.id} artwork: ${currentArtId} → ${selectedId}`);
+        return;
+      }
+
+      // Persistent server edition
+      const res = await fetch(`/api/campaign/editions/${encodeURIComponent(activeEditionId)}/swap-post-artwork`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId: post.id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to swap post artwork');
+
+      // Update in-memory cached post
+      Object.assign(post, data.post);
+
+      updatePostDom(post, data.swappedTo, data.swappedFrom, data);
+      showToast(`✓ Post ${post.id} artwork swapped to ${data.swappedTo} (${data.batchSource?.name || 'batch'})`);
+    } catch (err) {
+      console.error(err);
+      showToast(err.message, true);
+    } finally {
+      if (buttonEl) {
+        buttonEl.classList.remove('loading');
+        buttonEl.disabled = false;
+        buttonEl.textContent = buttonEl.dataset.origText || '🔀 Swap Art';
+      }
+      if (gridItem) {
+        gridItem.classList.remove('is-swapping');
+        gridItem.classList.add('swap-success');
+        setTimeout(() => gridItem.classList.remove('swap-success'), 1800);
+      }
+      if (timelineCard) {
+        timelineCard.classList.remove('is-swapping');
+        timelineCard.classList.add('swap-success');
+        setTimeout(() => timelineCard.classList.remove('swap-success'), 1800);
+      }
+    }
+  }
+
+  function updatePostDom(post, newArtId, oldArtId, data = {}) {
+    const currentEditionMeta = manifest?.editions?.find(e => e.id === activeEditionId) || manifest?.editions?.[0];
+    const basePath = currentEditionMeta?.basePath;
+    const ts = Date.now();
+
+    const gridImgSrc = (basePath && basePath.length)
+      ? (aspectMode === 'sq' ? `${basePath}/posts/${post.fileStem}_sq.jpg?_t=${ts}` : `${basePath}/posts/${post.fileStem}.jpg?_t=${ts}`)
+      : `/artworks/masters/${post.artwork}?_t=${ts}`;
+
+    const modalImgSrc = (basePath && basePath.length)
+      ? `${basePath}/posts/${post.fileStem}.jpg?_t=${ts}`
+      : `/artworks/masters/${post.artwork}?_t=${ts}`;
+
+    // Update 3-column Grid
+    const gridItem = document.querySelector(`.ig-grid-item[data-post-id="${post.id}"]`);
+    if (gridItem) {
+      const img = gridItem.querySelector('img');
+      if (img) img.src = gridImgSrc;
+      const famBadge = gridItem.querySelector('.ig-family-badge');
+      if (famBadge && post.family) famBadge.textContent = post.family;
+      const titleEl = gridItem.querySelector('.ig-overlay-title');
+      if (titleEl && post.title) titleEl.textContent = post.title;
+    }
+
+    // Update Timeline Card
+    const timelineCard = document.querySelector(`.timeline-post-card[data-post-id="${post.id}"]`);
+    if (timelineCard) {
+      const img = timelineCard.querySelector('.timeline-card-image img');
+      if (img) img.src = gridImgSrc;
+      const refLink = timelineCard.querySelector('.card-art-link a');
+      if (refLink) {
+        refLink.href = `/artworks/masters/${post.artwork}`;
+        refLink.textContent = post.artwork.replace('_v1.jpg', '');
+      }
+      const famTag = timelineCard.querySelector('.card-family-tag');
+      if (famTag && post.family) famTag.textContent = post.family;
+    }
+
+    // Update open modal if inspecting this post
+    const modal = document.getElementById('campaign-modal');
+    if (modal && modal.open && activePostId === post.id) {
+      const modalFullImg = modal.querySelector('.modal-full-img');
+      if (modalFullImg) modalFullImg.src = modalImgSrc;
+
+      const artThumb = modal.querySelector('.art-ref-thumb');
+      if (artThumb) artThumb.src = `/artworks/masters/${post.artwork}?_t=${ts}`;
+
+      const artTitle = modal.querySelector('.art-ref-title');
+      if (artTitle) artTitle.textContent = post.artwork.replace('_v1.jpg', '');
+
+      const artDesc = modal.querySelector('.art-ref-desc');
+      if (artDesc) artDesc.textContent = post.artworkTitle;
+
+      const artLink = modal.querySelector('.art-ref-link');
+      if (artLink) artLink.href = `/artworks/masters/${post.artwork}`;
+
+      const famName = modal.querySelector('.modal-family-box strong');
+      if (famName && post.family) famName.textContent = post.family;
+
+      const dlJpg = modal.querySelector('.btn-dl-jpg');
+      if (dlJpg) dlJpg.href = modalImgSrc;
+      const dlPng = modal.querySelector('.btn-dl-png');
+      if (dlPng) dlPng.href = (basePath && basePath.length) ? `${basePath}/posts/${post.fileStem}.png?_t=${ts}` : `/artworks/masters/${post.artwork}?_t=${ts}`;
+    }
+  }
+
   async function loadEditionData(editionId) {
     if (editionsCache[editionId]) return editionsCache[editionId];
     try {
@@ -864,7 +1018,10 @@ export function createCampaignView(app) {
                         <span>❤️ ${240 + parseInt(p.id, 10) * 37}</span>
                         <span>💬 ${18 + parseInt(p.id, 10) * 4}</span>
                       </div>
-                      <button type="button" class="btn small primary ig-inspect-btn">Inspect Post</button>
+                      <div class="ig-overlay-actions">
+                        <button type="button" class="btn small primary ig-inspect-btn">Inspect Post</button>
+                        <button type="button" class="btn small ig-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
+                      </div>
                     </div>
                   </div>
                 `;
@@ -908,7 +1065,10 @@ export function createCampaignView(app) {
                             <div class="card-art-link mono">
                               <span class="muted">Ref:</span> <a href="/artworks/masters/${p.artwork}" target="_blank">${esc(p.artwork.replace('_v1.jpg', ''))}</a>
                             </div>
-                            <button type="button" class="btn small card-inspect-btn">Inspect & Copy Caption</button>
+                            <div class="timeline-card-actions">
+                              <button type="button" class="btn small card-inspect-btn">Inspect Post</button>
+                              <button type="button" class="btn small card-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
+                            </div>
                           </div>
                         </div>
                       `;
@@ -1399,9 +1559,20 @@ export function createCampaignView(app) {
       });
     }
 
+    // Swap artwork triggers on grid & timeline
+    el.querySelectorAll('[data-swap-post-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const pid = btn.dataset.swapPostId;
+        swapPostArtwork(pid, btn);
+      });
+    });
+
     // Post inspection triggers
     el.querySelectorAll('[data-post-id]').forEach(card => {
       card.addEventListener('click', (e) => {
+        if (e.target.closest('[data-swap-post-id]')) return;
         if (e.target.tagName === 'A' && e.target.getAttribute('download') !== null) return;
         const id = card.dataset.postId;
         openModal(id, posts, man, fams);
@@ -1427,6 +1598,14 @@ export function createCampaignView(app) {
       ? `${basePath}/posts/${post.fileStem}.png`
       : `/artworks/masters/${post.artwork}`;
 
+    let batchLabel = 'Current Batch';
+    if (currentEditionMeta.groupId) {
+      const grp = (groupsData || []).find(g => g.id === currentEditionMeta.groupId) || currentEditionMeta.group;
+      batchLabel = grp ? `${grp.name} (${grp.artworkIds?.length || 0} styles)` : 'Curated Group';
+    } else if (currentEditionMeta.primaryFamily) {
+      batchLabel = currentEditionMeta.primaryFamily.name || 'Curated Family';
+    }
+
     const modal = document.getElementById('campaign-modal');
     if (!modal) return;
 
@@ -1445,9 +1624,12 @@ export function createCampaignView(app) {
             <button type="button" class="btn small ${showCropGuide ? 'active' : ''}" id="btn-toggle-crop">
               ${showCropGuide ? 'Hide 1:1 Safe Crop Guide' : 'Show 1:1 Safe Crop Guide'}
             </button>
+            <button type="button" class="btn small ig-stage-swap-btn" data-swap-post-id="${post.id}" title="Swap with another random artwork from current batch">
+              🔀 Swap Artwork
+            </button>
             <div class="download-group">
-              <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small">Download JPG</a>
-              <a href="${dlPng}" download="${post.fileStem}.png" class="btn small primary">Download ${currentEditionMeta.isDynamicGroup ? 'Artwork' : 'PNG (1080×1350)'}</a>
+              <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small btn-dl-jpg">Download JPG</a>
+              <a href="${dlPng}" download="${post.fileStem}.png" class="btn small primary btn-dl-png">Download ${currentEditionMeta.isDynamicGroup ? 'Artwork' : 'PNG (1080×1350)'}</a>
             </div>
           </div>
         </div>
@@ -1478,14 +1660,23 @@ export function createCampaignView(app) {
             </div>
           ` : ''}
 
-          <div class="modal-section">
-            <div class="mono muted">APPROVED MASTER ARTWORK PROVENANCE:</div>
+          <div class="modal-section modal-artwork-section">
+            <div class="modal-artwork-provenance-header">
+              <span class="mono muted">APPROVED MASTER ARTWORK PROVENANCE:</span>
+              <button type="button" class="btn small ig-modal-swap-btn" id="btn-modal-swap-artwork" data-swap-post-id="${post.id}" title="Select a different random artwork from current batch">
+                <span class="swap-icon">🔀</span> Swap Artwork from Batch
+              </button>
+            </div>
             <div class="art-ref-box">
               <img src="/artworks/masters/${post.artwork}" alt="${esc(post.artworkTitle)}" class="art-ref-thumb">
               <div>
-                <strong>${esc(post.artwork.replace('_v1.jpg', ''))}</strong>
-                <p class="muted text-sm">${esc(post.artworkTitle)}</p>
-                <a href="/artworks/masters/${post.artwork}" target="_blank" class="mono text-sm">View Master Artwork ↗</a>
+                <strong class="art-ref-title">${esc(post.artwork.replace('_v1.jpg', ''))}</strong>
+                <p class="muted text-sm art-ref-desc">${esc(post.artworkTitle)}</p>
+                <div class="art-ref-links mono text-xs">
+                  <a href="/artworks/masters/${post.artwork}" target="_blank" class="art-ref-link">View Master Artwork ↗</a>
+                  <span class="muted">·</span>
+                  <span class="batch-source-label muted">Batch: ${esc(batchLabel)}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1516,6 +1707,13 @@ export function createCampaignView(app) {
       showCropGuide = !showCropGuide;
       openModal(id, posts, man, fams);
     });
+    modal.querySelectorAll('[data-swap-post-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        swapPostArtwork(post.id, btn);
+      });
+    });
     modal.querySelector('#btn-copy-caption').addEventListener('click', () => {
       navigator.clipboard.writeText(post.caption).then(() => {
         const btn = modal.querySelector('#btn-copy-caption');
@@ -1527,8 +1725,9 @@ export function createCampaignView(app) {
     if (!modal.open) modal.showModal();
   }
 
-  // Expose deleteEdition function globally on window for direct programmatic/console access
+  // Expose deleteEdition and swapPostArtwork globally on window for direct programmatic/console access
   window.ruptureDeleteCampaignEdition = deleteEdition;
+  window.ruptureSwapPostArtwork = swapPostArtwork;
 
-  return { render, randomiseFromGroup, loadGroups, deleteEdition };
+  return { render, randomiseFromGroup, loadGroups, deleteEdition, swapPostArtwork };
 }

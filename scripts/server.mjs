@@ -236,10 +236,183 @@ async function deleteCampaignEdition(id) {
   return { ok: true, deleted: id, edition: removed, activeEditionId: manifest.activeEditionId, editions: manifest.editions };
 }
 
+async function swapCampaignPostArtwork(editionId, body = {}) {
+  const { postId, newArtworkId } = body;
+  if (!postId) {
+    throw httpError(400, 'postId is required');
+  }
+
+  const manPath1 = path.join(ROOT, 'campaign/editions_manifest.json');
+  let manifest = null;
+  try {
+    manifest = JSON.parse(await fs.readFile(manPath1, 'utf8'));
+  } catch (err) {
+    throw httpError(404, 'Editions manifest not found');
+  }
+
+  const edition = (manifest.editions || []).find((e) => e.id === editionId);
+  if (!edition) {
+    throw httpError(404, `Campaign edition '${editionId}' not found`);
+  }
+
+  const dataPath1 = path.join(ROOT, 'campaign/editions', editionId, 'edition_data.json');
+  const dataPath2 = path.join(ROOT, 'public/campaign/editions', editionId, 'edition_data.json');
+
+  let posts = null;
+  try {
+    posts = JSON.parse(await fs.readFile(dataPath1, 'utf8'));
+  } catch (err) {
+    throw httpError(404, `Edition data for '${editionId}' not found on server`);
+  }
+
+  const normalizedPid = String(postId).padStart(2, '0');
+  const postIndex = posts.findIndex((p) => String(p.id).padStart(2, '0') === normalizedPid || p.id === postId);
+  if (postIndex === -1) {
+    throw httpError(404, `Post '${postId}' not found in edition '${editionId}'`);
+  }
+  const post = posts[postIndex];
+  const oldArtwork = post.artwork;
+  const currentArtId = oldArtwork.replace(/_v\d+\.jpg$/, '').replace(/\.(jpg|png)$/, '');
+
+  // 1. Gather candidate artworks for the current batch
+  let candidateIds = [];
+  let batchSource = { type: 'unknown', name: 'Current Batch', count: 0 };
+
+  // Load groups data
+  let groupsData = [];
+  try {
+    const grpJson = JSON.parse(await fs.readFile(path.join(ROOT, 'data/artwork_groups.json'), 'utf8'));
+    groupsData = grpJson.groups || [];
+  } catch {}
+
+  // Load families data
+  let familiesData = [];
+  try {
+    const famJson = JSON.parse(await fs.readFile(path.join(ROOT, 'data/artwork_families.json'), 'utf8'));
+    familiesData = famJson.families || [];
+  } catch {}
+
+  // Load manifest data for notes & metadata
+  let manifestData = { artworks: {} };
+  try {
+    manifestData = JSON.parse(await fs.readFile(path.join(ROOT, 'data/manifest.json'), 'utf8'));
+  } catch {}
+
+  if (edition.groupId) {
+    const grp = groupsData.find((g) => g.id === edition.groupId);
+    if (grp && grp.artworkIds?.length) {
+      candidateIds = [...grp.artworkIds];
+      batchSource = { type: 'group', name: grp.name, id: grp.id, count: candidateIds.length };
+    }
+  }
+
+  if (!candidateIds.length && edition.primaryFamily) {
+    const pFamId = edition.primaryFamily.id || edition.primaryFamily;
+    const sFamIds = (edition.secondaryFamilies || []).map((sf) => sf.id || sf);
+    const targetFamilyIds = new Set([pFamId, ...sFamIds]);
+    
+    const matchingFamilies = familiesData.filter((f) => targetFamilyIds.has(f.id));
+    const allFamArtworks = [];
+    matchingFamilies.forEach((f) => {
+      (f.artworks || []).forEach((a) => allFamArtworks.push(a.id));
+    });
+    if (allFamArtworks.length) {
+      candidateIds = Array.from(new Set(allFamArtworks));
+      batchSource = { type: 'family', name: matchingFamilies[0]?.name || 'Artwork Families', count: candidateIds.length };
+    }
+  }
+
+  // Fallback if still empty: all approved master artworks
+  if (!candidateIds.length) {
+    candidateIds = Object.keys(manifestData.artworks || {});
+    batchSource = { type: 'all', name: 'All Masters', count: candidateIds.length };
+  }
+
+  // 2. Select replacement artwork
+  const usedOtherIds = new Set(
+    posts.filter((_, idx) => idx !== postIndex).map((p) => p.artwork.replace(/_v\d+\.jpg$/, '').replace(/\.(jpg|png)$/, ''))
+  );
+
+  let selectedId = null;
+  if (newArtworkId && candidateIds.includes(newArtworkId)) {
+    selectedId = newArtworkId;
+  } else {
+    // Prefer unused in current edition
+    const unusedCandidates = candidateIds.filter((id) => id !== currentArtId && !usedOtherIds.has(id));
+    if (unusedCandidates.length > 0) {
+      selectedId = unusedCandidates[Math.floor(Math.random() * unusedCandidates.length)];
+    } else {
+      const otherCandidates = candidateIds.filter((id) => id !== currentArtId);
+      selectedId = otherCandidates.length ? otherCandidates[Math.floor(Math.random() * otherCandidates.length)] : currentArtId;
+    }
+  }
+
+  // 3. Resolve artwork metadata
+  const newFileName = `${selectedId}_v1.jpg`;
+  
+  // Find title & description
+  let artNote = '';
+  const artEntry = manifestData.artworks?.[selectedId];
+  if (artEntry && artEntry.versions && artEntry.versions[0]) {
+    artNote = artEntry.versions[0].note || artEntry.versions[0].prompt || '';
+  }
+  let artTitle = artNote ? `${selectedId} (${artNote})` : `${selectedId} (Curated from ${batchSource.name})`;
+
+  // Find family info
+  const owningFam = familiesData.find((f) => (f.artworks || []).some((a) => a.id === selectedId));
+  if (owningFam) {
+    post.family = owningFam.name;
+    post.familyId = owningFam.id;
+  } else if (batchSource.type === 'group') {
+    post.family = batchSource.name;
+  }
+
+  post.artwork = newFileName;
+  post.artworkTitle = artTitle;
+
+  // 4. Persist updated edition_data.json
+  const updatedDataStr = JSON.stringify(posts, null, 2);
+  await fs.writeFile(dataPath1, updatedDataStr, 'utf8');
+  if (existsSync(path.dirname(dataPath2))) {
+    await fs.writeFile(dataPath2, updatedDataStr, 'utf8');
+  }
+
+  // 5. If rendered post images exist on disk, re-render flyer via python script
+  const postsDir1 = path.join(ROOT, 'campaign/editions', editionId, 'posts');
+  if (existsSync(postsDir1)) {
+    try {
+      const pyScript = path.join(ROOT, 'scripts/render_campaign_post.py');
+      await run('python3', [
+        pyScript,
+        '--edition', editionId,
+        '--post', String(post.id),
+        '--artwork', newFileName,
+        '--title', post.title || '',
+        '--family', post.family || '',
+        '--role', post.familyRole || ''
+      ]);
+    } catch (renderErr) {
+      console.error('Warning: failed to re-render post flyer:', renderErr.message);
+    }
+  }
+
+  return {
+    ok: true,
+    editionId,
+    post,
+    swappedFrom: currentArtId,
+    swappedTo: selectedId,
+    batchSource,
+    totalBatch: candidateIds.length,
+    remainingUnused: candidateIds.filter((id) => !usedOtherIds.has(id) && id !== selectedId).length
+  };
+}
+
 // ---------- router ----------
 
 const routes = [
   ['DELETE', /^\/api\/campaign\/editions\/([\w-]+)$/, async ([, id]) => deleteCampaignEdition(id)],
+  ['POST', /^\/api\/campaign\/editions\/([\w-]+)\/swap-post-artwork$/, async ([, id], body) => swapCampaignPostArtwork(id, body)],
   ['GET', /^\/api\/campaign$/, async () => JSON.parse(await fs.readFile(path.join(ROOT, 'campaign/campaign_data.json'), 'utf8'))],
   ['GET', /^\/api\/state$/, async () => ({
     mode: mode(), model: provider?.model || null,
