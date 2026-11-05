@@ -1581,9 +1581,9 @@ export function createCampaignView(app) {
   }
 
   function openModal(id, posts, man, fams) {
-    const post = posts.find(p => p.id === id);
+    const post = posts.find(p => String(p.id).padStart(2, '0') === String(id).padStart(2, '0') || p.id === id);
     if (!post) return;
-    activePostId = id;
+    activePostId = post.id;
 
     const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
     const basePath = currentEditionMeta.basePath;
@@ -1610,6 +1610,7 @@ export function createCampaignView(app) {
     if (!modal) return;
 
     modal.innerHTML = `
+      <button type="button" class="btn-modal-close-floating close-modal-btn" aria-label="Close dialog" title="Close post inspector (Esc)">✕</button>
       <div class="campaign-modal-inner">
         <div class="modal-left">
           <div class="modal-image-stage ${showCropGuide ? 'show-crop-guide' : ''}">
@@ -1643,7 +1644,7 @@ export function createCampaignView(app) {
                 CAMPAIGN: ${esc(currentEditionMeta.title)}
               </div>
             </div>
-            <button type="button" class="btn small close-modal-btn" aria-label="Close dialog">✕</button>
+            <button type="button" class="btn small close-modal-btn" aria-label="Close dialog">Close ✕</button>
           </div>
 
           <!-- Artwork Family Assignment -->
@@ -1697,12 +1698,38 @@ export function createCampaignView(app) {
             </div>
             <pre class="caption-text-box" id="caption-content">${esc(post.caption)}</pre>
           </div>
+
+          <div class="modal-section modal-footer-close-row">
+            <button type="button" class="btn close-modal-btn close-modal-footer-btn" aria-label="Close dialog">
+              ← Close Post Inspector
+            </button>
+          </div>
         </div>
       </div>
     `;
 
-    // Bind modal buttons
-    modal.querySelector('.close-modal-btn').addEventListener('click', () => modal.close());
+    // Bind all close buttons
+    modal.querySelectorAll('.close-modal-btn').forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        modal.close();
+      };
+    });
+
+    // Close on backdrop click (clicking outside the modal dialog box)
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.close();
+      }
+    };
+
+    // Close on Escape key
+    modal.onkeydown = (e) => {
+      if (e.key === 'Escape') {
+        modal.close();
+      }
+    };
+
     modal.querySelector('#btn-toggle-crop').addEventListener('click', () => {
       showCropGuide = !showCropGuide;
       openModal(id, posts, man, fams);
