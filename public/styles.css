@@ -649,33 +649,6 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
   background: rgba(5, 5, 5, 0.88);
   backdrop-filter: blur(12px);
 }
-.btn-modal-close-floating {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 1000;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(18, 22, 28, 0.94);
-  border: 1px solid rgba(122, 231, 255, 0.5);
-  color: var(--white);
-  font-size: 16px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-}
-.btn-modal-close-floating:hover {
-  background: rgba(255, 51, 68, 0.25);
-  border-color: var(--molten, #ff3344);
-  color: var(--molten, #ff3344);
-  transform: scale(1.08);
-  box-shadow: 0 0 16px rgba(255, 51, 68, 0.5);
-}
 .campaign-modal-inner {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -692,17 +665,6 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
     max-height: 94vh;
     overflow-y: auto;
   }
-  .btn-modal-close-floating {
-    top: 10px;
-    right: 10px;
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
-    background: rgba(8, 9, 12, 0.95);
-    border: 1px solid var(--cyan);
-    color: var(--cyan);
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.9);
-  }
   .modal-left {
     padding: 14px;
   }
@@ -718,9 +680,6 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
   .modal-header-row {
     margin: -18px -18px 0 -18px;
     padding: 16px 18px 12px 18px;
-  }
-  .modal-header-row .close-modal-btn {
-    margin-right: 44px;
   }
 }
 .modal-left { background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); padding: 20px; overflow: hidden; }
@@ -761,7 +720,6 @@ dialog#upload-dialog::backdrop { background: rgb(0 0 0 / .86); backdrop-filter: 
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
-  margin-right: 42px;
 }
 .modal-header-row .close-modal-btn:hover {
   background: rgba(255, 51, 68, 0.2);

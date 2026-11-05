@@ -1610,7 +1610,6 @@ export function createCampaignView(app) {
     if (!modal) return;
 
     modal.innerHTML = `
-      <button type="button" class="btn-modal-close-floating close-modal-btn" aria-label="Close dialog" title="Close post inspector (Esc)">✕</button>
       <div class="campaign-modal-inner">
         <div class="modal-left">
           <div class="modal-image-stage ${showCropGuide ? 'show-crop-guide' : ''}">
