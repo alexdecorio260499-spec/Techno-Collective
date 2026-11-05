@@ -36,12 +36,20 @@ export function createCampaignView(app) {
     showToast.t = setTimeout(() => (t.className = ''), 3200);
   }
 
+  let activeEditionInitialized = false;
+
   async function loadManifest(force = false) {
     if (manifest && !force) return manifest;
     try {
       const res = await fetch(`/campaign/editions_manifest.json?_t=${Date.now()}`);
       if (!res.ok) throw new Error('Failed to load editions manifest');
       manifest = await res.json();
+      if (!activeEditionInitialized) {
+        activeEditionId = manifest.activeEditionId || 'edition_01_hydraulic_void';
+        activeEditionInitialized = true;
+      } else if (!manifest.editions.some(e => e.id === activeEditionId)) {
+        activeEditionId = manifest.activeEditionId || 'edition_01_hydraulic_void';
+      }
     } catch (err) {
       console.error(err);
       manifest = { activeEditionId: 'edition_01_hydraulic_void', editions: [] };
@@ -1109,6 +1117,14 @@ export function createCampaignView(app) {
                           isSecondaryInActive ? `<span class="badge secondary mono">SECONDARY (${esc(currentEditionMeta.title.split(':')[0])})</span>` :
                           `<span class="badge muted mono">INACTIVE IN CURRENT CAMPAIGN</span>`}
                       </div>
+                      <div class="family-card-actions">
+                        <button type="button" class="btn small primary btn-select-as-primary" data-family-id="${fam.id}" title="Select ${esc(fam.name)} as Primary Family for Visual Direction">
+                          ★ Set as Primary
+                        </button>
+                        <button type="button" class="btn small btn-select-as-secondary" data-family-id="${fam.id}" title="Add ${esc(fam.name)} as Secondary Compatible Family">
+                          + Set as Secondary
+                        </button>
+                      </div>
                     </div>
 
                     <div class="family-card-main">
@@ -1427,53 +1443,189 @@ export function createCampaignView(app) {
     const resEl = document.getElementById('builder-result');
     if (!resEl) return;
 
-    const pFam = fams.families.find(f => f.id === customPrimary);
-    const sFam = fams.families.find(f => f.id === customSecondary);
+    const pFam = fams.families.find(f => f.id === customPrimary) || fams.families[0];
+    const sFam = fams.families.find(f => f.id === customSecondary) || fams.families[1];
     if (!pFam || !sFam) return;
 
-    const isCompatible = pFam.compatibleFamilies.includes(sFam.id) || pFam.id === sFam.id;
+    const isCompatible = (pFam.compatibleFamilies || []).includes(sFam.id) || pFam.id === sFam.id;
     const inactiveList = fams.families.filter(f => f.id !== pFam.id && f.id !== sFam.id);
+
+    // Pick 4 sample artworks from primary and 4 from secondary for the reference board
+    const primarySamples = (pFam.artworks || []).slice(0, 4);
+    const secondarySamples = (sFam.artworks || []).slice(0, 4);
+
+    // Build juxtaposed 8-artwork board list: alternating primary and secondary
+    const combinedBoard = [];
+    const maxLen = Math.max(primarySamples.length, secondarySamples.length);
+    for (let i = 0; i < maxLen; i++) {
+      if (primarySamples[i]) combinedBoard.push({ ...primarySamples[i], _role: 'PRIMARY', _famName: pFam.name });
+      if (secondarySamples[i]) combinedBoard.push({ ...secondarySamples[i], _role: 'SECONDARY', _famName: sFam.name });
+    }
+
+    // Dynamic pairing explanation based on families
+    let compatibilityText = '';
+    if (pFam.id === 'sculptural-chrome' && sFam.id === 'folded-surfaces') {
+      compatibilityText = 'Tension & Planar Stratum Synergy: High-tension sculptural liquid chrome spires and meniscus tension necks pair seamlessly with razor-sheared horizontal strata and brutalist fluid terraces. Both share identical high-contrast studio specular lighting, deep obsidian negative space, and pure monochrome silver tonality.';
+    } else if (pFam.id === 'pearlescent-silver' && sFam.id === 'translucent-glass') {
+      compatibilityText = 'Luminescence & Vitreous Dispersion: Velvety pearlescent fluid swells with soft-white specular sheen pair naturally with gossamer-thin optical glass membranes and delicate cyan/lavender caustic refractions. Creates a lighter, hypnotic, ethereal techno chapter.';
+    } else if (pFam.id === 'reflective-globes' || sFam.id === 'reflective-globes') {
+      compatibilityText = 'Orbital Curvilinear Tension: Nested liquid chrome rings and distorted toroidal loops introduce kinetic circular momentum, harmonizing with fluid metallic geometry without conflicting with background planar void depth.';
+    } else if (isCompatible) {
+      compatibilityText = `Harmonic Surface Affinity: ${pFam.name} and ${sFam.name} share complementary metallic reflectivity, controlled obsidian negative space, and aligned specular contrast, establishing a coherent and recognisable visual chapter.`;
+    } else {
+      compatibilityText = `Atypical / Contrast Pairing: While ${pFam.name} and ${sFam.name} exhibit distinct textural behaviors, their shared underground techno DNA allows for intentional tension. Inactive families remain strictly excluded.`;
+    }
 
     resEl.innerHTML = `
       <div class="builder-feedback-card ${isCompatible ? 'compat-good' : 'compat-warning'}">
         <div class="feedback-badge-row">
           <span class="mono badge ${isCompatible ? 'api' : 'queue'}">
-            ${isCompatible ? '✓ COMPATIBLE HARMONIC DIRECTION' : '⚠ ATYPICAL PAIRING'}
+            ${isCompatible ? '✓ COMPATIBLE HARMONIC DIRECTION' : '⚠ ATYPICAL / EXPERIMENTAL PAIRING'}
           </span>
-          <span class="mono muted">PAIRING: ${esc(pFam.name)} + ${esc(sFam.name)}</span>
+          <span class="mono muted">CHAPTER DIRECTION: ${esc(pFam.name)} [PRI] + ${esc(sFam.name)} [SEC]</span>
         </div>
 
+        <!-- 1. Primary & Secondary Family Previews -->
         <div class="feedback-content-grid">
           <div class="feedback-col">
-            <span class="mono muted text-xs">PRIMARY FORM:</span>
-            <strong>${esc(pFam.name)}</strong>
-            <p class="text-sm muted">${esc(pFam.description)}</p>
-            <div class="feedback-thumbs">
-              <img src="/artworks/masters/${pFam.heroArtwork}" alt="${esc(pFam.name)}">
+            <div class="mono muted text-xs" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>PRIMARY ARTWORK FAMILY (60-70% GRID):</span>
+              <span class="role-badge primary-role">PRIMARY</span>
             </div>
+            <strong style="font-size:16px;">${esc(pFam.name)}</strong>
+            <p class="text-sm muted" style="margin:4px 0 10px;">${esc(pFam.description)}</p>
+            <div class="feedback-family-preview">
+              <div class="feedback-hero-wrap" style="position:relative; border:1px solid var(--line-2); border-radius:2px; overflow:hidden;">
+                <img src="/artworks/masters/${pFam.heroArtwork}" alt="${esc(pFam.name)}" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block;">
+                <span class="mono" style="position:absolute; bottom:4px; right:4px; background:rgba(5,6,8,0.85); font-size:9px; padding:2px 6px; border:1px solid var(--line-2);">HERO: ${esc(pFam.heroArtwork.replace('_v1.jpg', ''))}</span>
+              </div>
+              <div class="feedback-thumbs-row" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:6px;">
+                ${primarySamples.slice(0, 3).map(art => `
+                  <div style="aspect-ratio:1/1; border:1px solid var(--line); overflow:hidden;" title="${esc(art.id)}: ${esc(art.title)}">
+                    <img src="/artworks/masters/${art.file}" alt="${esc(art.id)}" style="width:100%; height:100%; object-fit:cover;">
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="mono text-xs muted" style="margin-top:8px;">${pFam.artworks.length} approved master artworks in this family</div>
           </div>
 
           <div class="feedback-col">
-            <span class="mono muted text-xs">SECONDARY FORM:</span>
-            <strong>${esc(sFam.name)}</strong>
-            <p class="text-sm muted">${esc(sFam.description)}</p>
-            <div class="feedback-thumbs">
-              <img src="/artworks/masters/${sFam.heroArtwork}" alt="${esc(sFam.name)}">
+            <div class="mono muted text-xs" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>SECONDARY COMPATIBLE FAMILY (30-40% GRID):</span>
+              <span class="role-badge secondary-role">SECONDARY</span>
+            </div>
+            <strong style="font-size:16px;">${esc(sFam.name)}</strong>
+            <p class="text-sm muted" style="margin:4px 0 10px;">${esc(sFam.description)}</p>
+            <div class="feedback-family-preview">
+              <div class="feedback-hero-wrap" style="position:relative; border:1px solid var(--line-2); border-radius:2px; overflow:hidden;">
+                <img src="/artworks/masters/${sFam.heroArtwork}" alt="${esc(sFam.name)}" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block;">
+                <span class="mono" style="position:absolute; bottom:4px; right:4px; background:rgba(5,6,8,0.85); font-size:9px; padding:2px 6px; border:1px solid var(--line-2);">HERO: ${esc(sFam.heroArtwork.replace('_v1.jpg', ''))}</span>
+              </div>
+              <div class="feedback-thumbs-row" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-top:6px;">
+                ${secondarySamples.slice(0, 3).map(art => `
+                  <div style="aspect-ratio:1/1; border:1px solid var(--line); overflow:hidden;" title="${esc(art.id)}: ${esc(art.title)}">
+                    <img src="/artworks/masters/${art.file}" alt="${esc(art.id)}" style="width:100%; height:100%; object-fit:cover;">
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            <div class="mono text-xs muted" style="margin-top:8px;">${sFam.artworks.length} approved master artworks in this family</div>
+          </div>
+
+          <!-- 2. Combined Visual Reference Board (Juxtaposition) -->
+          <div class="feedback-col full-span" style="border-top:1px solid var(--line); padding-top:18px;">
+            <div class="combined-reference-board">
+              <div class="combined-board-header">
+                <div class="mono muted text-xs">VISUAL DIRECTION PREVIEW // CHAPTER COMBINATION</div>
+                <h4>COMBINED VISUAL REFERENCE BOARD</h4>
+                <p>Juxtaposing ${esc(pFam.name)} and ${esc(sFam.name)} to demonstrate material, reflection, and tonal harmony before generating the 15-post event campaign.</p>
+              </div>
+
+              <div class="combined-board-grid">
+                ${combinedBoard.slice(0, 8).map(art => `
+                  <div class="combined-board-tile ${art._role === 'PRIMARY' ? 'is-primary' : 'is-secondary'}" title="${esc(art.id)}: ${esc(art.title)} (${esc(art._famName)})">
+                    <img src="/artworks/masters/${art.file}" alt="${esc(art.id)}" loading="lazy">
+                    <div class="combined-board-tag">
+                      <span class="mono">${esc(art.id.replace('RUPTURE_', ''))}</span>
+                      <span class="role-badge ${art._role === 'PRIMARY' ? 'primary' : 'secondary'}">${art._role}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Cohesion Rationale Explanation -->
+              <div class="compat-explanation-box" style="background:var(--panel); border:1px solid var(--line); padding:14px 18px; border-radius:2px; margin-top:6px;">
+                <div class="mono text-xs bold" style="color:var(--cyan); margin-bottom:4px;">WHY THIS COMBINATION WORKS TOGETHER:</div>
+                <p class="text-xs muted" style="margin:0; line-height:1.6;">${esc(compatibilityText)}</p>
+              </div>
             </div>
           </div>
 
+          <!-- 3. Inactive Families Excluded Notice -->
           <div class="feedback-col full-span">
-            <span class="mono muted text-xs">EXCLUDED FROM THIS CHAPTER:</span>
+            <span class="mono muted text-xs">STRICTLY INACTIVE / EXCLUDED FROM THIS CHAPTER:</span>
             <div class="excluded-pill-row">
               ${inactiveList.map(inf => `
-                <span class="excluded-pill mono">✕ ${esc(inf.name)}</span>
+                <span class="excluded-pill mono" style="color:#ff7a7a; border-color:rgba(255,92,92,0.3); background:rgba(255,92,92,0.06);">
+                  ✕ ${esc(inf.name)} [ZERO OCCURRENCES]
+                </span>
               `).join('')}
             </div>
-            <p class="text-xs muted" style="margin-top: 8px;">Enforcing family boundaries ensures this edition maintains a coherent textural chapter rather than an uncurated amalgam.</p>
+            <p class="text-xs muted" style="margin-top: 8px;">Strict rule: Inactive artwork families will NEVER be mixed into this event campaign. All 15 posts are mathematically bound exclusively to ${esc(pFam.name)} and ${esc(sFam.name)}.</p>
+          </div>
+
+          <!-- 4. Confirm & Generate CTA Bar -->
+          <div class="feedback-col full-span">
+            <div class="builder-create-bar">
+              <div class="builder-create-info">
+                <span class="mono text-xs" style="color:var(--cyan); font-weight:700;">CONFIRM VISUAL DIRECTION & GENERATE CAMPAIGN</span>
+                <div class="builder-create-input-row">
+                  <span class="mono muted text-xs">EVENT TITLE:</span>
+                  <input type="text" id="builder-edition-title" class="builder-input" value="EDITION 01: HYDRAULIC VOID" placeholder="e.g. EDITION 01: HYDRAULIC VOID">
+                </div>
+              </div>
+              <button type="button" class="btn primary bold" id="btn-create-edition-from-direction" style="padding:10px 22px; font-size:13px; display:inline-flex; align-items:center; gap:8px;">
+                <span>✨ Generate 15-Post Event Campaign</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     `;
+
+    // Bind generate button immediately
+    const btnCreate = resEl.querySelector('#btn-create-edition-from-direction');
+    if (btnCreate) {
+      btnCreate.addEventListener('click', async () => {
+        const titleInput = resEl.querySelector('#builder-edition-title');
+        const title = titleInput?.value?.trim() || `EDITION: ${pFam.name.toUpperCase()} // ${sFam.name.toUpperCase()}`;
+        btnCreate.disabled = true;
+        btnCreate.innerHTML = '<span class="status-dot">●</span> <span>Generating Campaign with Approved Families...</span>';
+        try {
+          const res = await fetch('/api/campaign/create-edition', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title,
+              primaryFamilyId: customPrimary,
+              secondaryFamilyIds: [customSecondary]
+            })
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Failed to create campaign edition');
+          await loadManifest(true);
+          activeEditionId = data.editionId;
+          viewMode = 'grid';
+          showToast(`✓ Campaign Generated: ${data.edition.title} (${data.edition.primaryFamily.name} + ${data.edition.secondaryFamilies.map(f => f.name).join(' & ')})`);
+          render();
+        } catch (err) {
+          showToast(err.message, true);
+          btnCreate.disabled = false;
+          btnCreate.innerHTML = '<span>✨ Generate 15-Post Event Campaign</span>';
+        }
+      });
+    }
   }
 
   function bindEvents(el, posts, man, fams) {
@@ -1516,6 +1668,31 @@ export function createCampaignView(app) {
     el.querySelectorAll('[data-view]').forEach(btn => {
       btn.addEventListener('click', () => {
         viewMode = btn.dataset.view;
+        render();
+      });
+    });
+
+    // Family card action buttons (View 03 -> View 04)
+    el.querySelectorAll('.btn-select-as-primary').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const fId = btn.dataset.familyId;
+        customPrimary = fId;
+        viewMode = 'direction';
+        const fam = fams.families.find(f => f.id === fId);
+        showToast(`Selected "${fam?.name || fId}" as Primary Family. Select Secondary below.`);
+        render();
+      });
+    });
+
+    el.querySelectorAll('.btn-select-as-secondary').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const fId = btn.dataset.familyId;
+        customSecondary = fId;
+        viewMode = 'direction';
+        const fam = fams.families.find(f => f.id === fId);
+        showToast(`Selected "${fam?.name || fId}" as Secondary Family.`);
         render();
       });
     });
@@ -1649,13 +1826,20 @@ export function createCampaignView(app) {
           <!-- Artwork Family Assignment -->
           ${post.family ? `
             <div class="modal-section">
-              <div class="mono muted">ARTWORK GROUP / FAMILY ASSIGNMENT:</div>
+              <div class="mono muted">ARTWORK FAMILY & CHAPTER PROVENANCE:</div>
               <div class="modal-family-box">
                 <span class="role-badge ${post.familyRole?.toLowerCase().includes('primary') ? 'primary-role' : 'secondary-role'}">
-                  ${esc(post.familyRole || 'Curated Group Member')}
+                  ${esc(post.familyRole || 'Curated Family Member')}
                 </span>
                 <strong>${esc(post.family)}</strong>
-                <p class="muted text-xs" style="margin: 4px 0 0;">Matched against curated artwork group specifications.</p>
+                <p class="muted text-xs" style="margin: 4px 0 0;">
+                  ${post.familyRole?.toLowerCase().includes('primary') ? 'Primary Family: anchors campaign visual identity and key announcement hero posts.' : 'Secondary Family: provides compatible textural variety and structural balance.'}
+                </p>
+                ${(currentEditionMeta.inactiveFamilies && currentEditionMeta.inactiveFamilies.length > 0) ? `
+                  <div class="modal-inactive-rule mono text-xs muted" style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line); color: #ff9999;">
+                    ⛔ Inactive Families (Strictly Excluded): ${(currentEditionMeta.inactiveFamilies || []).map(f => familyMap[f]?.name || f).join(', ')}
+                  </div>
+                ` : ''}
               </div>
             </div>
           ` : ''}

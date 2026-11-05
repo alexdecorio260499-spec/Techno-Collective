@@ -198,6 +198,201 @@ async function processUploadItem(body) {
 
 // ---------- campaign editions ----------
 
+async function createCampaignEdition(body = {}) {
+  const {
+    title: userTitle,
+    chapter: userChapter,
+    primaryFamilyId,
+    secondaryFamilyIds = [],
+    conceptSummary: userSummary,
+  } = body;
+
+  if (!primaryFamilyId) {
+    throw httpError(400, 'primaryFamilyId is required');
+  }
+
+  // Load artwork families data
+  const famPath = path.join(ROOT, 'data/artwork_families.json');
+  let famData = null;
+  try {
+    famData = JSON.parse(await fs.readFile(famPath, 'utf8'));
+  } catch (err) {
+    throw httpError(500, 'Failed to read artwork families data');
+  }
+  const allFamilies = famData.families || [];
+  const pFam = allFamilies.find((f) => f.id === primaryFamilyId);
+  if (!pFam) {
+    throw httpError(400, `Unknown primary family ID: ${primaryFamilyId}`);
+  }
+
+  const sFamList = allFamilies.filter((f) => secondaryFamilyIds.includes(f.id) && f.id !== primaryFamilyId);
+  if (!sFamList.length && allFamilies.length > 1) {
+    const defaultCompatibleId = pFam.compatibleFamilies?.[0] || allFamilies.find((f) => f.id !== pFam.id)?.id;
+    const fallbackSFam = allFamilies.find((f) => f.id === defaultCompatibleId);
+    if (fallbackSFam) sFamList.push(fallbackSFam);
+  }
+
+  const activeFamilyIds = new Set([pFam.id, ...sFamList.map((f) => f.id)]);
+  const inactiveFamilies = allFamilies.filter((f) => !activeFamilyIds.has(f.id));
+
+  // Load manifest
+  const manPath1 = path.join(ROOT, 'campaign/editions_manifest.json');
+  const manPath2 = path.join(ROOT, 'public/campaign/editions_manifest.json');
+  let manifest = { editions: [] };
+  try {
+    manifest = JSON.parse(await fs.readFile(manPath1, 'utf8'));
+  } catch {}
+
+  // Determine next edition number
+  let maxNum = 0;
+  for (const ed of manifest.editions || []) {
+    const n = parseInt(ed.editionNumber, 10);
+    if (!isNaN(n) && n > maxNum) maxNum = n;
+  }
+  const nextNum = maxNum + 1;
+  const nextNumStr = String(nextNum).padStart(2, '0');
+
+  const editionTitle = userTitle || `EDITION ${nextNumStr}: ${pFam.name.toUpperCase()} // ${sFamList.map((f) => f.name.toUpperCase()).join(' & ')}`;
+  const editionChapter = userChapter || `Chapter ${nextNumStr} — ${pFam.name} & ${sFamList.map((f) => f.name).join(' / ')}`;
+  const slug = editionTitle.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  const editionId = `edition_${nextNumStr}_${slug.slice(0, 30)}`;
+
+  // Gather artworks strictly from active families
+  const primaryArtworks = [...(pFam.artworks || [])];
+  const secondaryArtworks = [];
+  sFamList.forEach((sf) => {
+    (sf.artworks || []).forEach((a) => secondaryArtworks.push({ ...a, _fam: sf }));
+  });
+
+  // Shuffle pools
+  const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+  const shuffledPrimary = shuffle(primaryArtworks);
+  const shuffledSecondary = shuffle(secondaryArtworks);
+
+  // Red candidates from active families (if any)
+  const redCandidates = [
+    ...primaryArtworks.filter((a) => a.accent === 'molten-red').map((a) => ({ ...a, _fam: pFam })),
+    ...secondaryArtworks.filter((a) => a.accent === 'molten-red'),
+  ];
+
+  const usedArtworkFiles = new Set();
+  function pickArtwork(pool, fallbackPool, preferRed = false) {
+    if (preferRed && redCandidates.length) {
+      const redPick = redCandidates.find((a) => !usedArtworkFiles.has(a.file));
+      if (redPick) {
+        usedArtworkFiles.add(redPick.file);
+        return redPick;
+      }
+    }
+    let choice = pool.find((a) => !usedArtworkFiles.has(a.file));
+    if (!choice) choice = fallbackPool.find((a) => !usedArtworkFiles.has(a.file));
+    if (!choice) choice = pool[0] || fallbackPool[0];
+    if (choice) usedArtworkFiles.add(choice.file);
+    return choice;
+  }
+
+  const postTemplates = [
+    { id: '01', title: 'THE FIRST SIGNAL', timing: 'Day 01 (Week -4)', phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE', theme: 'Mysterious introduction, anomaly detection, curiosity', pool: 'primary' },
+    { id: '02', title: 'THE MANIFESTO', timing: 'Day 03 (Week -4)', phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE', theme: 'Collective philosophy, breaking predictable conventions, freedom of expression', pool: 'secondary' },
+    { id: '03', title: 'THE NAME / IDENTITY', timing: 'Day 06 (Week -3)', phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE', theme: 'Brand identity, name as monumental visual hero, liquid metal fold', pool: 'primary' },
+    { id: '04', title: 'SAVE THE DATE', timing: 'Day 09 (Week -3)', phase: 'PHASE 2 — EVENT ANNOUNCEMENT', theme: 'First official event announcement, date and title lock', pool: 'secondary' },
+    { id: '05', title: 'THE MAIN EVENT POSTER', timing: 'Day 12 (Week -2)', phase: 'PHASE 2 — EVENT ANNOUNCEMENT', theme: 'Hero promotional poster, complete lineup, date, venue, ticketing protocol', pool: 'primary', isRed: true },
+    { id: '06', title: 'THE LINEUP', timing: 'Day 14 (Week -2)', phase: 'PHASE 2 — EVENT ANNOUNCEMENT', theme: 'Dedicated artist lineup curation, sonic diversity across 8 hours', pool: 'primary' },
+    { id: '07', title: 'ARTIST SPOTLIGHT [ACT 01]', timing: 'Day 16 (Week -2)', phase: 'PHASE 2 — EVENT ANNOUNCEMENT', theme: 'Individual artist profile, modular live performance, sonic breakdown', pool: 'secondary' },
+    { id: '08', title: 'THE SOUND / ACOUSTICS', timing: 'Day 18 (Week -1)', phase: 'PHASE 3 — CULTURE AND EXPERIENCE', theme: 'Sound philosophy, custom acoustic engineering, 25 Hz sub-bass focus', pool: 'primary' },
+    { id: '09', title: 'THE RULES / THE CODE', timing: 'Day 20 (Week -1)', phase: 'PHASE 3 — CULTURE AND EXPERIENCE', theme: 'Dancefloor principles, safer space policy, zero discrimination, no photos', pool: 'secondary' },
+    { id: '10', title: 'THE EXPERIENCE', timing: 'Day 22 (Week -1)', phase: 'PHASE 3 — CULTURE AND EXPERIENCE', theme: 'Atmosphere, monochromatic light, haze, spatial sensory immersion', pool: 'secondary' },
+    { id: '11', title: 'VENUE / LOCATION REVEAL', timing: 'Day 24 (5 Days Out)', phase: 'PHASE 3 — CULTURE AND EXPERIENCE', theme: 'Industrial architecture reveal, decommissioned silo, GPS coordinates', pool: 'secondary' },
+    { id: '12', title: 'THE COUNTDOWN (7 DAYS)', timing: 'Day 25 (7 Days Out)', phase: 'PHASE 4 — BUILDING ANTICIPATION', theme: 'Reusable countdown system, kinetic aerodynamic chrome dagger, 7 days reminder', pool: 'primary' },
+    { id: '13', title: 'LAST TICKETS / REMINDER', timing: 'Day 27 (3 Days Out)', phase: 'PHASE 4 — BUILDING ANTICIPATION', theme: 'Ticket urgency with underground dignity, capacity limit, molten crimson warning', pool: 'secondary', isRed: true },
+    { id: '14', title: 'FINAL INFORMATION', timing: 'Day 29 (1 Day Out)', phase: 'PHASE 4 — BUILDING ANTICIPATION', theme: 'Practical mobile-readable guide: timetable, venue, cashless bar, entry rules', pool: 'secondary' },
+    { id: '15', title: 'TOMORROW / TONIGHT', timing: 'Day 30 (Event Day)', phase: 'PHASE 4 — BUILDING ANTICIPATION', theme: 'Final teaser, monumental minimalism, colossal white TONIGHT on sweeping chrome', pool: 'primary' },
+  ];
+
+  const generatedPosts = postTemplates.map((t) => {
+    const isPrim = t.pool === 'primary';
+    const chosenArt = pickArtwork(
+      isPrim ? shuffledPrimary : (shuffledSecondary.length ? shuffledSecondary : shuffledPrimary),
+      isPrim ? shuffledSecondary : shuffledPrimary,
+      t.isRed
+    );
+    const artFam = chosenArt._fam || (isPrim ? pFam : (sFamList[0] || pFam));
+    const isPrimaryRole = artFam.id === pFam.id;
+    const roleText = isPrimaryRole
+      ? (t.isRed ? 'Primary Family (Restrained Red)' : 'Primary Family')
+      : (t.isRed ? 'Secondary Family (Restrained Red)' : 'Secondary Family');
+
+    return {
+      id: t.id,
+      fileStem: `RUPTURE_IG_POST_${t.id}`,
+      phase: t.phase,
+      title: t.title,
+      timing: t.timing,
+      theme: t.theme,
+      artwork: chosenArt.file,
+      artworkTitle: `${chosenArt.id} (${chosenArt.title || chosenArt.id})`,
+      family: artFam.name,
+      familyId: artFam.id,
+      familyRole: roleText,
+      palette: t.isRed
+        ? `${artFam.name} + Molten Crimson (#FF3344 — Restrained Red) + Obsidian Void`
+        : `${artFam.name} + Liquid Chrome + Pale Cyan (#7AE7FF) + Obsidian Void`,
+      typography: 'Helvetica Neue Condensed Bold + SFNSMono',
+      safeArea: 'Key typography positioned safely inside central 1080x1080 boundary',
+      caption: `// RUPTURE // ${editionTitle.toUpperCase()}\n// ${t.phase}\n\n${t.title}.\n\nCurated visual chapter: ${artFam.name}.\nStrict aesthetic cohesion with zero unapproved styles.\n\n#rupturecollective #undergroundtechno #mauritiustechno #${artFam.id.replace(/-/g, '')}`,
+    };
+  });
+
+  const newEdition = {
+    id: editionId,
+    editionNumber: nextNumStr,
+    title: editionTitle,
+    chapter: editionChapter,
+    status: 'ready',
+    primaryFamily: {
+      id: pFam.id,
+      name: pFam.name,
+    },
+    secondaryFamilies: sFamList.map((f) => ({
+      id: f.id,
+      name: f.name,
+    })),
+    inactiveFamilies: inactiveFamilies.map((f) => f.id),
+    conceptSummary: userSummary || `${pFam.name} paired with ${sFamList.map((f) => f.name).join(' & ')}. Strictly excludes ${inactiveFamilies.map((f) => f.name).join(', ')}. Engineered for total underground techno visual cohesion.`,
+    postCount: 15,
+    basePath: '',
+    isDynamicGroup: true,
+  };
+
+  // Write edition_data.json
+  const edDir1 = path.join(ROOT, 'campaign/editions', editionId);
+  const edDir2 = path.join(ROOT, 'public/campaign/editions', editionId);
+  await fs.mkdir(edDir1, { recursive: true });
+  await fs.mkdir(edDir2, { recursive: true });
+
+  const postsStr = JSON.stringify(generatedPosts, null, 2);
+  await fs.writeFile(path.join(edDir1, 'edition_data.json'), postsStr, 'utf8');
+  await fs.writeFile(path.join(edDir2, 'edition_data.json'), postsStr, 'utf8');
+
+  // Insert into manifest at beginning
+  manifest.editions = [newEdition, ...(manifest.editions || [])];
+  manifest.activeEditionId = editionId;
+
+  const manStr = JSON.stringify(manifest, null, 2);
+  await fs.writeFile(manPath1, manStr, 'utf8');
+  if (existsSync(path.dirname(manPath2))) {
+    await fs.writeFile(manPath2, manStr, 'utf8');
+  }
+
+  return {
+    ok: true,
+    editionId,
+    edition: newEdition,
+    posts: generatedPosts,
+    activeEditionId: editionId,
+  };
+}
+
 async function deleteCampaignEdition(id) {
   const manPath1 = path.join(ROOT, 'campaign/editions_manifest.json');
   const manPath2 = path.join(ROOT, 'public/campaign/editions_manifest.json');
@@ -218,7 +413,7 @@ async function deleteCampaignEdition(id) {
 
   const [removed] = manifest.editions.splice(editionIndex, 1);
   if (manifest.activeEditionId === id) {
-    manifest.activeEditionId = manifest.editions[0].id;
+    manifest.activeEditionId = (manifest.editions.find((e) => e.id === 'edition_01_hydraulic_void') || manifest.editions[0]).id;
   }
 
   const manifestStr = JSON.stringify(manifest, null, 2);
@@ -411,6 +606,7 @@ async function swapCampaignPostArtwork(editionId, body = {}) {
 // ---------- router ----------
 
 const routes = [
+  ['POST', /^\/api\/campaign\/create-edition$/, async (_m, body) => createCampaignEdition(body)],
   ['DELETE', /^\/api\/campaign\/editions\/([\w-]+)$/, async ([, id]) => deleteCampaignEdition(id)],
   ['POST', /^\/api\/campaign\/editions\/([\w-]+)\/swap-post-artwork$/, async ([, id], body) => swapCampaignPostArtwork(id, body)],
   ['GET', /^\/api\/campaign$/, async () => JSON.parse(await fs.readFile(path.join(ROOT, 'campaign/campaign_data.json'), 'utf8'))],
