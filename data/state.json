@@ -2028,7 +2028,29 @@
             "note": "Master 02 (Sample 02): Distorted Toroid I",
             "createdAt": "2026-10-17T07:47:35.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "asymmetrical",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M03": {
         "id": "RUPTURE_M03",
@@ -2140,7 +2162,26 @@
             "note": "Master 06 (Sample 06): Caustic Warp I",
             "createdAt": "2026-10-17T07:50:03.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M07": {
         "id": "RUPTURE_M07",
@@ -2196,7 +2237,28 @@
             "note": "Master 08 (Sample 08): Distorted Toroid II",
             "createdAt": "2026-10-17T08:01:44.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "toroidal-loop"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M09": {
         "id": "RUPTURE_M09",
@@ -2224,7 +2286,26 @@
             "note": "Master 09 (Sample 09): Folded Manifold II",
             "createdAt": "2026-10-17T08:02:36.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M10": {
         "id": "RUPTURE_M10",
@@ -2280,7 +2361,29 @@
             "note": "Master 11 (Sample 11): Refracted Monolith II",
             "createdAt": "2026-10-17T08:04:20.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "toroidal-loop"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M12": {
         "id": "RUPTURE_M12",
@@ -2308,7 +2411,26 @@
             "note": "Master 12 (Sample 12): Caustic Warp II",
             "createdAt": "2026-10-17T08:05:32.000Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M13": {
         "id": "RUPTURE_M13",
@@ -2411,7 +2533,28 @@
             "note": "Weightless asymmetrical sculptural liquid mercury glyph with fluid tension necks and meniscus beads (inspired by Ref 2 & Ref 6)",
             "createdAt": "2026-10-17T17:04:15.578Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M16": {
         "id": "RUPTURE_M16",
@@ -2439,7 +2582,28 @@
             "note": "Interwoven aerodynamic helical ribbon cage and toroidal spiral structure with cavernous negative space (inspired by Ref 9 & Ref 4)",
             "createdAt": "2026-10-17T17:04:15.966Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M17": {
         "id": "RUPTURE_M17",
@@ -2467,7 +2631,26 @@
             "note": "Dynamic sweeping liquid chrome ribbons and razor-thin fluid tendrils cutting across vertical frame (inspired by Ref 1 & Ref 4)",
             "createdAt": "2026-10-17T17:04:16.354Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M18": {
         "id": "RUPTURE_M18",
@@ -2495,7 +2678,30 @@
             "note": "Complex volumetric sculptural wave of folded translucent liquid glass membranes with internal caustics (inspired by Ref 7 & Ref 4)",
             "createdAt": "2026-10-17T17:04:16.801Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "folded-surfaces",
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M19": {
         "id": "RUPTURE_M19",
@@ -2579,7 +2785,29 @@
             "note": "Monumental topographic fluid strata and continuous undulating folds of sculptural liquid mercury sweeping diagonally across frame (inspired by moodboard grid R1-T1)",
             "createdAt": "2026-10-17T17:28:05.991Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M22": {
         "id": "RUPTURE_M22",
@@ -2635,7 +2863,30 @@
             "note": "Horizontal razor-sheared liquid chrome planes and laminar metallic fluid strata cutting across the composition (inspired by moodboard grid R8-T4)",
             "createdAt": "2026-10-17T17:28:06.551Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M24": {
         "id": "RUPTURE_M24",
@@ -2663,7 +2914,29 @@
             "note": "Ethereal monumental sheet of flowing translucent liquid glass and metallic silk billowing with diagonal spectral refraction (inspired by moodboard grid R3-T7)",
             "createdAt": "2026-10-17T17:28:06.817Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "pearlescent-silver"
+        ],
+        "materials": [
+          "pearlescent-silver",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M25": {
         "id": "RUPTURE_M25",
@@ -2775,7 +3048,26 @@
             "note": "Sharp organic cluster of conical magnetic liquid chrome spires and fluid needles erupting vertically under magnetic tension (inspired by moodboard grid R4-T2)",
             "createdAt": "2026-10-18T10:32:02.594Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M29": {
         "id": "RUPTURE_M29",
@@ -2803,7 +3095,31 @@
             "note": "Complex macro lattice and Voronoi reticulum of interconnected liquid mercury cells and razor-thin metallic fluid membranes (inspired by moodboard grid R1-T6)",
             "createdAt": "2026-10-18T10:32:02.854Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural",
+          "fragmented-filaments"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "macro-close-up"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M30": {
         "id": "RUPTURE_M30",
@@ -2944,7 +3260,32 @@
             "note": "Stepped fluid obsidian and liquid chrome terraces in asymmetric diagonal fault with deep ultraviolet caustics and icy-blue specular peaks (inspired by M21)",
             "createdAt": "2026-10-21T08:35:38.049Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M35": {
         "id": "RUPTURE_M35",
@@ -2973,7 +3314,29 @@
             "note": "Massive undulating laminar swells of pearlescent silver and liquid mercury with pale-cyan specular gleams (inspired by M21)",
             "createdAt": "2026-10-21T08:36:59.685Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury",
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M36": {
         "id": "RUPTURE_M36",
@@ -3031,7 +3394,30 @@
             "note": "Hyper-thin planar fins of polished chrome sliced at conflicting shear angles with icy-blue and pale-cyan caustics (inspired by M23)",
             "createdAt": "2026-10-21T08:40:10.169Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M38": {
         "id": "RUPTURE_M38",
@@ -3060,7 +3446,29 @@
             "note": "Staggered horizontal laminar fluid strata with lateral displacement and subtle lavender interface sheen (inspired by M23)",
             "createdAt": "2026-10-21T08:42:20.846Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M39": {
         "id": "RUPTURE_M39",
@@ -3089,7 +3497,29 @@
             "note": "Converging angled fluid blades with deep ultraviolet shadows and pale-cyan caustic projections (inspired by M23)",
             "createdAt": "2026-10-21T08:44:12.545Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M40": {
         "id": "RUPTURE_M40",
@@ -3118,7 +3548,28 @@
             "note": "Monumental diaphanous sheet of liquid glass and molten platinum with pale-cyan transparency and ultraviolet caustics (inspired by M24)",
             "createdAt": "2026-10-21T08:46:29.825Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M41": {
         "id": "RUPTURE_M41",
@@ -3147,7 +3598,28 @@
             "note": "Twisted double-membrane of translucent vitreous film with soft lavender dispersion and icy-blue caustics (inspired by M24)",
             "createdAt": "2026-10-21T08:48:41.522Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M42": {
         "id": "RUPTURE_M42",
@@ -3176,7 +3648,29 @@
             "note": "Gossamer fluid sail of molten silver and optic glass with pure chrome reflections and deep ultraviolet edge glow (inspired by M24)",
             "createdAt": "2026-10-21T08:51:22.973Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M43": {
         "id": "RUPTURE_M43",
@@ -3205,7 +3699,31 @@
             "note": "Topographic fluid fault with molten crimson crevice caustics (inspired by moodboard R1C1)",
             "createdAt": "2026-10-21T09:41:56.959Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M44": {
         "id": "RUPTURE_M44",
@@ -3263,7 +3781,29 @@
             "note": "Crystalline obsidian column with icy-blue edges and molten crimson core (inspired by moodboard R2C2)",
             "createdAt": "2026-10-21T09:48:00.869Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M46": {
         "id": "RUPTURE_M46",
@@ -3379,7 +3919,30 @@
             "note": "Interwoven 3D topological fluid ribbon knot of heavy liquid platinum with icy-blue rim highlights and molten ruby core (inspired by moodboard R4C7)",
             "createdAt": "2026-10-21T13:45:15.160Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M50": {
         "id": "RUPTURE_M50",
@@ -3437,7 +4000,28 @@
             "note": "Articulated serpentine S-spine of segmented liquid chrome vertebrae with deep ultraviolet shadows and molten crimson joints (inspired by moodboard R6C7)",
             "createdAt": "2026-10-21T13:45:15.163Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M52": {
         "id": "RUPTURE_M52",
@@ -3466,7 +4050,27 @@
             "note": "Monumental vertical pillar of viscous molten platinum with surface-tension micro-grooves and faint molten crimson dispersion (inspired by moodboard R7C1)",
             "createdAt": "2026-10-21T13:45:15.163Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M53": {
         "id": "RUPTURE_M53",
@@ -3495,7 +4099,26 @@
             "note": "Explosive radial liquid chrome crown splash with ethereal lavender sheen and ruby crimson dispersion droplets (inspired by moodboard R8C1)",
             "createdAt": "2026-10-21T13:45:15.163Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M54": {
         "id": "RUPTURE_M54",
@@ -3524,7 +4147,30 @@
             "note": "Monumental curling tidal wave of liquid mercury forming a golden-ratio fluid tunnel with interior molten crimson caustics (inspired by moodboard R8C3)",
             "createdAt": "2026-10-21T13:45:15.163Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M55": {
         "id": "RUPTURE_M55",
@@ -3553,7 +4199,29 @@
             "note": "Horizontal razor-sheared liquid chrome planes with a striking slit of molten crimson light refracted between sheared plates (inspired by moodboard R8C4)",
             "createdAt": "2026-10-21T13:45:15.163Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M56": {
         "id": "RUPTURE_M56",
@@ -3640,7 +4308,29 @@
             "note": "Asymmetrical non-orientable fluid Möbius strip of mirror platinum with icy-blue edges and molten crimson core (inspired by moodboard R1C6)",
             "createdAt": "2026-10-21T13:54:47.865Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M59": {
         "id": "RUPTURE_M59",
@@ -3669,7 +4359,29 @@
             "note": "Concentric circular capillary standing wave ripples inside a liquid mercury impact crater (inspired by moodboard R2C4)",
             "createdAt": "2026-10-21T13:54:47.865Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M60": {
         "id": "RUPTURE_M60",
@@ -3698,7 +4410,31 @@
             "note": "Monolithic chevron prism of chiseled liquid chrome and dark obsidian fluid with diagonal bifurcation shear (inspired by moodboard R2C6)",
             "createdAt": "2026-10-21T15:59:10.884Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M61": {
         "id": "RUPTURE_M61",
@@ -3727,7 +4463,29 @@
             "note": "Intertwined fluid double-helix spiral with translucent connecting meniscus rungs and molten crimson core (inspired by moodboard R3C1)",
             "createdAt": "2026-10-21T15:59:10.886Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M62": {
         "id": "RUPTURE_M62",
@@ -3814,7 +4572,29 @@
             "note": "Asymmetrical fluid vortex funnel and swirling liquid platinum sinkhole draining into infinite void (inspired by moodboard R4C6)",
             "createdAt": "2026-10-21T19:17:56.665Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M65": {
         "id": "RUPTURE_M65",
@@ -3930,7 +4710,31 @@
             "note": "Dendritic branching fractal tree of molten platinum capillary veins spreading vertically into pitch-black void (inspired by moodboard R6C4)",
             "createdAt": "2026-10-21T19:17:56.665Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "toroidal-loop",
+          "fragmented-filaments"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M69": {
         "id": "RUPTURE_M69",
@@ -4021,7 +4825,30 @@
             "note": "Monumental undulating topographic fluid strata in nacreous pearlescent silver with icy-blue rim highlights and charcoal shadows (inspired by approved M21)",
             "createdAt": "2026-10-21T20:37:33.993Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "folded-surfaces",
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M72": {
         "id": "RUPTURE_M72",
@@ -4054,7 +4881,27 @@
             "note": "Ethereal translucent liquid glass membrane billowing weightless with lavender and pale-cyan iridescence and white specular glints (inspired by approved M24)",
             "createdAt": "2026-10-21T20:37:33.994Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M73": {
         "id": "RUPTURE_M73",
@@ -4086,7 +4933,29 @@
             "note": "Horizontal razor-sheared liquid chrome planes with deep ultraviolet refractions between sheared plates (inspired by approved M23)",
             "createdAt": "2026-10-21T20:37:33.994Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M74": {
         "id": "RUPTURE_M74",
@@ -4118,7 +4987,28 @@
             "note": "Weightless asymmetrical liquid mercury glyph with icy-blue rim highlights in slate liquid chrome body (inspired by approved M15)",
             "createdAt": "2026-10-21T20:37:33.994Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury",
+          "obsidian-slate"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M75": {
         "id": "RUPTURE_M75",
@@ -4242,7 +5132,32 @@
           "treatment": "sculptural-chrome",
           "note": "Complex volumetric sculptural wave of folded translucent liquid glass and pearlescent silver with icy-blue caustics (inspired by approved M18)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "folded-surfaces",
+          "sculptural-chrome",
+          "pearlescent-silver"
+        ],
+        "materials": [
+          "pearlescent-silver",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M78": {
         "id": "RUPTURE_M78",
@@ -4286,7 +5201,30 @@
           "treatment": "sculptural-chrome",
           "note": "Monumental distorted elliptical aperture ring of liquid chrome with a restrained molten crimson caustic core (inspired by approved M02)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M79": {
         "id": "RUPTURE_M79",
@@ -4330,7 +5268,30 @@
           "treatment": "sculptural-chrome",
           "note": "Macro lattice and Voronoi reticulum of interconnected liquid mercury cells with pale-cyan membranes and ultraviolet shadows (inspired by approved M29)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "liquid-mercury",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fragmented-filaments"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "macro-close-up"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M80": {
         "id": "RUPTURE_M80",
@@ -4374,7 +5335,31 @@
           "treatment": "sculptural-chrome",
           "note": "Stepped fluid obsidian and liquid chrome terraces in asymmetric diagonal fault with icy-blue rim highlights (inspired by approved M34)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M81": {
         "id": "RUPTURE_M81",
@@ -4418,7 +5403,30 @@
           "treatment": "folded-surfaces",
           "note": "Dynamic sweeping liquid ribbons and razor-thin fluid tendrils in pearlescent silver with soft lavender sheen (inspired by approved M17)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "pearlescent-silver"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M82": {
         "id": "RUPTURE_M82",
@@ -4508,7 +5516,29 @@
           "treatment": "sculptural-chrome",
           "note": "Hyper-thin planar fins of polished chrome with icy-blue edges and a restrained molten crimson interface slit (inspired by approved M37)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M84": {
         "id": "RUPTURE_M84",
@@ -4554,7 +5584,29 @@
           "treatment": "folded-surfaces",
           "note": "Twisted double-membrane of translucent vitreous film and mirror liquid silver with pale-cyan and lavender dispersion (inspired by approved M41)",
           "createdAt": "2026-10-21T20:37:33.994Z"
-        }
+        },
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M85": {
         "id": "RUPTURE_M85",
@@ -4600,7 +5652,30 @@
           "treatment": "folded-surfaces",
           "note": "Monumental vertical cascading fluid strata in pearlescent silver with delicate lavender iridescence (inspired by approved M21)",
           "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        },
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "pearlescent-silver"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M86": {
         "id": "RUPTURE_M86",
@@ -4646,7 +5721,29 @@
           "treatment": "sculptural-chrome",
           "note": "Intersecting orthogonal blades of razor-sheared liquid chrome with pale-cyan highlights (inspired by approved M23)",
           "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        },
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M87": {
         "id": "RUPTURE_M87",
@@ -4692,7 +5789,28 @@
           "treatment": "folded-surfaces",
           "note": "Diaphanous acoustic fluid membrane of billowing liquid glass with pale-cyan and ultraviolet caustics (inspired by approved M24)",
           "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        },
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M88": {
         "id": "RUPTURE_M88",
@@ -4738,7 +5856,28 @@
           "treatment": "sculptural-chrome",
           "note": "Monolithic asymmetrical Möbius fluid ribbon of dense liquid chrome slate with icy-blue bevels (inspired by approved M15)",
           "createdAt": "2026-10-22T13:36:00.000Z"
-        }
+        },
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "asymmetrical",
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M89": {
         "id": "RUPTURE_M89",
@@ -4873,7 +6012,29 @@
             "note": "Interlocking laminar sheets of pearlescent silver with subtle lavender caustics (inspired by M38 - Piece 1)",
             "createdAt": "2026-10-22T20:59:42.045Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M93": {
         "id": "RUPTURE_M93",
@@ -4919,7 +6080,28 @@
             "note": "Diagonal ridge of pearlescent silver with deep ultraviolet interior crevice (inspired by M43 - Piece 1)",
             "createdAt": "2026-10-22T21:01:13.678Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M95": {
         "id": "RUPTURE_M95",
@@ -4942,7 +6124,30 @@
             "note": "Sinuous diagonal fault in liquid chrome slate with pale-cyan caustics (inspired by M43 - Piece 2)",
             "createdAt": "2026-10-29T14:19:48.633Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M96": {
         "id": "RUPTURE_M96",
@@ -4965,7 +6170,29 @@
             "note": "Hyperbolic catenoid column of chrome with icy-blue pinch caustics (inspired by M57 - Piece 1)",
             "createdAt": "2026-10-29T14:21:08.450Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M97": {
         "id": "RUPTURE_M97",
@@ -4988,7 +6215,29 @@
             "note": "Elongated obsidian column with razor-thin molten crimson caustic slit (inspired by M57 - Piece 2)",
             "createdAt": "2026-10-29T14:22:18.736Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M98": {
         "id": "RUPTURE_M98",
@@ -5011,7 +6260,30 @@
             "note": "Tectonic plates of chrome slate shearing with lavender iridescent glow (inspired by M66 - Piece 1)",
             "createdAt": "2026-10-29T14:23:42.622Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M99": {
         "id": "RUPTURE_M99",
@@ -5034,7 +6306,31 @@
             "note": "Tectonic fluid slabs of mirror chrome with pale-cyan shear caustics (inspired by M66 - Piece 2)",
             "createdAt": "2026-10-29T14:25:06.793Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M100": {
         "id": "RUPTURE_M100",
@@ -5057,7 +6353,30 @@
             "note": "Stack of laminar chrome fins with ultraviolet dispersion (inspired by M73 - Piece 1)",
             "createdAt": "2026-10-29T14:26:46.378Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M101": {
         "id": "RUPTURE_M101",
@@ -5080,7 +6399,30 @@
             "note": "Tiered fluid strata of pearlescent silver with icy-blue highlights (inspired by M73 - Piece 2)",
             "createdAt": "2026-10-29T14:28:16.269Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "folded-surfaces",
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M102": {
         "id": "RUPTURE_M102",
@@ -5103,7 +6445,29 @@
             "note": "Stepped fluid obsidian terraces with lavender iridescent sheen (inspired by M80 - Piece 1)",
             "createdAt": "2026-10-29T14:29:58.249Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M103": {
         "id": "RUPTURE_M103",
@@ -5126,7 +6490,31 @@
             "note": "Chiseled stepped ledges of chrome slate with pale-cyan caustics (inspired by M80 - Piece 2)",
             "createdAt": "2026-10-29T14:30:57.105Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M104": {
         "id": "RUPTURE_M104",
@@ -5195,7 +6583,30 @@
             "note": "Cascading curved fluid foil sheets with pale-cyan caustics (inspired by M38 - Piece 1)",
             "createdAt": "2026-10-30T11:09:23.869Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M107": {
         "id": "RUPTURE_M107",
@@ -5241,7 +6652,28 @@
             "note": "Horizontal tectonic rupture with ultraviolet crevice glow (inspired by M43 - Piece 1)",
             "createdAt": "2026-10-30T11:24:02.607Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar"
+        ],
+        "composition": [
+          "horizontally-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M109": {
         "id": "RUPTURE_M109",
@@ -5333,7 +6765,31 @@
             "note": "Stepped tectonic thrust fault of chrome wedges with ultraviolet caustics (inspired by M66 - Piece 1)",
             "createdAt": "2026-10-30T13:07:17.314Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M113": {
         "id": "RUPTURE_M113",
@@ -5356,7 +6812,30 @@
             "note": "Interpenetrating fluid chrome slate slabs with lavender iridescence (inspired by M66 - Piece 2)",
             "createdAt": "2026-10-30T13:08:17.799Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M114": {
         "id": "RUPTURE_M114",
@@ -5379,7 +6858,28 @@
             "note": "Cantilevered spiraling aero-foils with icy-blue crystalline highlights (inspired by M73 - Piece 1)",
             "createdAt": "2026-10-30T13:09:44.028Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M115": {
         "id": "RUPTURE_M115",
@@ -5402,7 +6902,30 @@
             "note": "Fanning planar chrome blades with pale-cyan refractive caustics (inspired by M73 - Piece 2)",
             "createdAt": "2026-10-30T13:11:24.473Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M116": {
         "id": "RUPTURE_M116",
@@ -5425,7 +6948,29 @@
             "note": "Cascading concentric fluid terraces with lavender iridescence (inspired by M80 - Piece 1)",
             "createdAt": "2026-10-30T13:12:59.151Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M117": {
         "id": "RUPTURE_M117",
@@ -5448,7 +6993,30 @@
             "note": "Alternating zig-zag fluid shelves with pale-cyan caustics & UV shadows (inspired by M80 - Piece 2)",
             "createdAt": "2026-10-30T20:48:38.303Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M118": {
         "id": "RUPTURE_M118",
@@ -5494,7 +7062,30 @@
             "note": "Staggered obsidian chrome blades with molten crimson slit (inspired by M23 - Piece 2)",
             "createdAt": "2026-10-30T20:53:15.593Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M120": {
         "id": "RUPTURE_M120",
@@ -5517,7 +7108,29 @@
             "note": "Diagonal pleated laminar sheets with icy-blue caustics (inspired by M38 - Piece 1)",
             "createdAt": "2026-10-30T20:56:16.473Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M121": {
         "id": "RUPTURE_M121",
@@ -5540,7 +7153,29 @@
             "note": "Twin undulating nacreous fluid sheets with pale-cyan caustics (inspired by M38 - Piece 2)",
             "createdAt": "2026-10-30T20:58:58.818Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M122": {
         "id": "RUPTURE_M122",
@@ -5655,7 +7290,31 @@
             "note": "Diagonal scissor shear of chrome slate monoliths with pale-cyan caustics (inspired by M66 - Piece 1)",
             "createdAt": "2026-10-30T21:16:23.733Z"
           }
-        ]
+        ],
+        "primaryFamily": "reflective-globes",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "toroidal-loop",
+          "angular-blade"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M127": {
         "id": "RUPTURE_M127",
@@ -5678,7 +7337,30 @@
             "note": "Intersecting fluid plates with ultraviolet dispersion (inspired by M66 - Piece 2)",
             "createdAt": "2026-10-30T21:19:54.140Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M128": {
         "id": "RUPTURE_M128",
@@ -5701,7 +7383,30 @@
             "note": "Cascading fan of liquid mercury fins with lavender iridescence (inspired by M73 - Piece 1)",
             "createdAt": "2026-10-30T21:24:02.141Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "liquid-mercury",
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M129": {
         "id": "RUPTURE_M129",
@@ -5747,7 +7452,26 @@
             "note": "Monolithic liquid chrome slate hydraulic rupture with icy-blue bioluminescence (inspired by approved M15)",
             "createdAt": "2026-10-31T10:36:51.280Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M131": {
         "id": "RUPTURE_M131",
@@ -5793,7 +7517,30 @@
             "note": "Vertical cascading pearlescent fluid strata with lavender iridescence (inspired by approved M21)",
             "createdAt": "2026-10-31T10:55:43.261Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "folded-surfaces",
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M133": {
         "id": "RUPTURE_M133",
@@ -5816,7 +7563,26 @@
             "note": "Radial constellation of magnetic ferrofluid spikes with icy-blue rim highlights (inspired by approved M28)",
             "createdAt": "2026-10-31T11:03:04.662Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M134": {
         "id": "RUPTURE_M134",
@@ -5839,7 +7605,29 @@
             "note": "Orthogonal planar chrome fins with ultraviolet dispersion (inspired by approved M37)",
             "createdAt": "2026-10-31T17:05:14.613Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M135": {
         "id": "RUPTURE_M135",
@@ -5862,7 +7650,30 @@
             "note": "Twisted fluid Mobius infinity ribbon with pale-cyan caustics (inspired by approved M41)",
             "createdAt": "2026-10-31T17:06:44.919Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M136": {
         "id": "RUPTURE_M136",
@@ -5885,7 +7696,31 @@
             "note": "Acoustic cymatic harmonic ripples across liquid chrome slate (inspired by approved M49)",
             "createdAt": "2026-10-31T17:08:12.221Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M137": {
         "id": "RUPTURE_M137",
@@ -5908,7 +7743,27 @@
             "note": "Cantilevered aerodynamic fluid dagger of mirror chrome with icy-blue edge glints (inspired by approved M58)",
             "createdAt": "2026-10-31T17:10:08.224Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire",
+          "fluid-sculptural",
+          "angular-blade"
+        ],
+        "composition": [
+          "off-centre-diagonal"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M138": {
         "id": "RUPTURE_M138",
@@ -5931,7 +7786,32 @@
             "note": "Hyperbolic saddle fluid surface of chrome slate with molten crimson caustic slit (inspired by approved M64)",
             "createdAt": "2026-10-31T17:11:23.320Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "chiseled-rim-light",
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M139": {
         "id": "RUPTURE_M139",
@@ -5954,7 +7834,29 @@
             "note": "Tri-fold fluid origami plates of pearlescent silver with ultraviolet crevice glow (inspired by approved M72)",
             "createdAt": "2026-10-31T17:20:03.586Z"
           }
-        ]
+        ],
+        "primaryFamily": "pearlescent-silver",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "pearlescent-silver"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "velvety-nacreous"
       },
       "RUPTURE_M140": {
         "id": "RUPTURE_M140",
@@ -5977,7 +7879,29 @@
             "note": "Suspended liquid chrome capillary filament web with pale-cyan caustics (inspired by approved M77)",
             "createdAt": "2026-10-31T17:21:02.549Z"
           }
-        ]
+        ],
+        "primaryFamily": "translucent-glass",
+        "secondaryFamilies": [
+          "sculptural-chrome"
+        ],
+        "materials": [
+          "polished-chrome",
+          "translucent-glass"
+        ],
+        "form": [
+          "elongated-spire",
+          "fragmented-filaments"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "medium-monumental"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "vitreous-optic"
       },
       "RUPTURE_M141": {
         "id": "RUPTURE_M141",
@@ -6000,7 +7924,32 @@
             "note": "Topographic fluid terraces of chrome slate with lavender nacreous iridescence (inspired by approved M85)",
             "createdAt": "2026-10-31T17:22:01.032Z"
           }
-        ]
+        ],
+        "primaryFamily": "folded-surfaces",
+        "secondaryFamilies": [
+          "sculptural-chrome",
+          "pearlescent-silver"
+        ],
+        "materials": [
+          "polished-chrome",
+          "pearlescent-silver",
+          "obsidian-slate"
+        ],
+        "form": [
+          "elongated-spire",
+          "folded-planar",
+          "fluid-sculptural"
+        ],
+        "composition": [
+          "monumental-centered"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "high-contrast-directional"
+        ],
+        "surfaceFinish": "specular-mirror"
       },
       "RUPTURE_M142": {
         "id": "RUPTURE_M142",
@@ -6023,7 +7972,27 @@
             "note": "Tensile Rayleigh-Plateau catenoid pinch of mirror chrome with cold icy-blue caustics (inspired by approved M97)",
             "createdAt": "2026-10-31T17:22:50.598Z"
           }
-        ]
+        ],
+        "primaryFamily": "sculptural-chrome",
+        "secondaryFamilies": [
+          "translucent-glass"
+        ],
+        "materials": [
+          "polished-chrome"
+        ],
+        "form": [
+          "elongated-spire"
+        ],
+        "composition": [
+          "vertically-oriented"
+        ],
+        "perspective": [
+          "dramatic-perspective"
+        ],
+        "lighting": [
+          "internal-caustic-refraction"
+        ],
+        "surfaceFinish": "specular-mirror"
       }
     }
   },
@@ -6125,27 +8094,32 @@
       "description": "Dense fluid mercury spires, hydraulic crowns, tension necks, and chiseled metallic pillars with mirror specular highlights in deep obsidian void.",
       "color": "#7AE7FF",
       "artworkIds": [
-        "RUPTURE_M15",
         "RUPTURE_M17",
         "RUPTURE_M28",
-        "RUPTURE_M29",
         "RUPTURE_M45",
         "RUPTURE_M52",
         "RUPTURE_M53",
         "RUPTURE_M54",
-        "RUPTURE_M58",
         "RUPTURE_M64",
         "RUPTURE_M74",
-        "RUPTURE_M79",
-        "RUPTURE_M88",
-        "RUPTURE_M97",
         "RUPTURE_M130",
         "RUPTURE_M133",
         "RUPTURE_M137",
-        "RUPTURE_M142"
+        "RUPTURE_M142",
+        "RUPTURE_M18",
+        "RUPTURE_M58",
+        "RUPTURE_M78",
+        "RUPTURE_M86",
+        "RUPTURE_M83",
+        "RUPTURE_M84",
+        "RUPTURE_M115",
+        "RUPTURE_M116",
+        "RUPTURE_M37",
+        "RUPTURE_M49",
+        "RUPTURE_M55"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-02T08:00:00.000Z"
+      "updatedAt": "2026-11-05T08:42:02.095Z"
     },
     {
       "id": "group_tectonic_faults",
@@ -6157,60 +8131,45 @@
         "RUPTURE_M21",
         "RUPTURE_M23",
         "RUPTURE_M34",
-        "RUPTURE_M37",
         "RUPTURE_M38",
         "RUPTURE_M43",
-        "RUPTURE_M49",
         "RUPTURE_M55",
         "RUPTURE_M60",
         "RUPTURE_M73",
         "RUPTURE_M80",
         "RUPTURE_M83",
-        "RUPTURE_M85",
-        "RUPTURE_M86",
         "RUPTURE_M95",
         "RUPTURE_M99",
         "RUPTURE_M100",
         "RUPTURE_M102",
         "RUPTURE_M103",
-        "RUPTURE_M108",
-        "RUPTURE_M115",
-        "RUPTURE_M116",
         "RUPTURE_M117",
         "RUPTURE_M119",
         "RUPTURE_M127",
         "RUPTURE_M134",
         "RUPTURE_M136",
         "RUPTURE_M138",
-        "RUPTURE_M141"
-      ],
-      "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-05T08:22:24.403Z"
-    },
-    {
-      "id": "group_vitreous_membranes",
-      "name": "Vitreous Membranes & Prisms",
-      "description": "Diaphanous silica glass sails, iridescent cymatic fluid waveforms, and prismatic caustic focal fields with double-curved optical films.",
-      "color": "#C8B6FF",
-      "artworkIds": [
-        "RUPTURE_M06",
-        "RUPTURE_M10",
-        "RUPTURE_M12",
-        "RUPTURE_M39",
-        "RUPTURE_M40",
+        "RUPTURE_M141",
+        "RUPTURE_M35",
         "RUPTURE_M42",
+        "RUPTURE_M39",
+        "RUPTURE_M66",
+        "RUPTURE_M85",
         "RUPTURE_M94",
-        "RUPTURE_M103",
+        "RUPTURE_M92",
         "RUPTURE_M106",
         "RUPTURE_M108",
-        "RUPTURE_M115",
-        "RUPTURE_M121",
+        "RUPTURE_M101",
+        "RUPTURE_M114",
+        "RUPTURE_M120",
         "RUPTURE_M128",
-        "RUPTURE_M135",
-        "RUPTURE_M140"
+        "RUPTURE_M126",
+        "RUPTURE_M121",
+        "RUPTURE_M112",
+        "RUPTURE_M113"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-02T08:00:00.000Z"
+      "updatedAt": "2026-11-05T08:42:48.541Z"
     },
     {
       "id": "group_kinetic_annuli",
@@ -6221,21 +8180,26 @@
         "RUPTURE_M08",
         "RUPTURE_M11",
         "RUPTURE_M18",
-        "RUPTURE_M24",
-        "RUPTURE_M41",
         "RUPTURE_M61",
         "RUPTURE_M71",
         "RUPTURE_M84",
         "RUPTURE_M87",
-        "RUPTURE_M98",
-        "RUPTURE_M106",
         "RUPTURE_M121",
         "RUPTURE_M129",
         "RUPTURE_M132",
-        "RUPTURE_M141"
+        "RUPTURE_M141",
+        "RUPTURE_M02",
+        "RUPTURE_M17",
+        "RUPTURE_M37",
+        "RUPTURE_M39",
+        "RUPTURE_M49",
+        "RUPTURE_M41",
+        "RUPTURE_M58",
+        "RUPTURE_M54",
+        "RUPTURE_M78"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-02T08:49:51.265Z"
+      "updatedAt": "2026-11-05T08:44:48.589Z"
     },
     {
       "id": "group_nacreous_silk",
@@ -6246,7 +8210,6 @@
         "RUPTURE_M09",
         "RUPTURE_M12",
         "RUPTURE_M18",
-        "RUPTURE_M23",
         "RUPTURE_M24",
         "RUPTURE_M35",
         "RUPTURE_M39",
@@ -6256,14 +8219,30 @@
         "RUPTURE_M94",
         "RUPTURE_M116",
         "RUPTURE_M132",
-        "RUPTURE_M135"
+        "RUPTURE_M135",
+        "RUPTURE_M17",
+        "RUPTURE_M21",
+        "RUPTURE_M34",
+        "RUPTURE_M06",
+        "RUPTURE_M40",
+        "RUPTURE_M41",
+        "RUPTURE_M42",
+        "RUPTURE_M43",
+        "RUPTURE_M72",
+        "RUPTURE_M77",
+        "RUPTURE_M81",
+        "RUPTURE_M85",
+        "RUPTURE_M86",
+        "RUPTURE_M95",
+        "RUPTURE_M87",
+        "RUPTURE_M121"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-02T08:00:00.000Z"
+      "updatedAt": "2026-11-05T08:50:26.556Z"
     },
     {
       "id": "group_mvz0v9jc_xll4",
-      "name": "Group Test 1",
+      "name": "Campaign 1  Waves / Fracture / Glass",
       "description": "",
       "color": "#7AE7FF",
       "artworkIds": [
@@ -6282,7 +8261,6 @@
         "RUPTURE_M73",
         "RUPTURE_M74",
         "RUPTURE_M80",
-        "RUPTURE_M78",
         "RUPTURE_M86",
         "RUPTURE_M77",
         "RUPTURE_M87",
@@ -6308,7 +8286,7 @@
         "RUPTURE_M128"
       ],
       "createdAt": "2026-11-02T08:53:57.384Z",
-      "updatedAt": "2026-11-02T08:55:17.728Z"
+      "updatedAt": "2026-11-05T08:35:26.229Z"
     }
   ],
   "exports": [

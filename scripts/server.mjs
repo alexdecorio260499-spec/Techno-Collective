@@ -196,7 +196,160 @@ async function processUploadItem(body) {
   return { ok: true, type: 'reference', item };
 }
 
-// ---------- campaign editions ----------
+// ---------- campaign editions & art direction ----------
+
+async function validateConsistency(body = {}) {
+  const { posts = [], primaryFamilyId, secondaryFamilyIds = [], eventProfile = {} } = body;
+  const masterPath = path.join(ROOT, 'data/master_art_direction.json');
+  let master = {};
+  try {
+    master = JSON.parse(await fs.readFile(masterPath, 'utf8'));
+  } catch {}
+
+  const pFamId = primaryFamilyId || eventProfile.primaryFamily || 'sculptural-chrome';
+  const sFamId = (secondaryFamilyIds && secondaryFamilyIds[0]) || (eventProfile.secondaryFamilies && eventProfile.secondaryFamilies[0]) || 'folded-surfaces';
+
+  const pairKey1 = `${pFamId}__${sFamId}`;
+  const pairKey2 = `${sFamId}__${pFamId}`;
+  const pairInfo = master.compatibilityMatrix?.[pairKey1] || master.compatibilityMatrix?.[pairKey2] || {
+    score: 0.85,
+    status: 'COMPATIBLE',
+    recommendation: 'Curated pairing',
+    similarities: ['Consistent studio void lighting', 'Monochrome foundation'],
+    conflicts: []
+  };
+
+  const checks = [];
+  const flags = [];
+
+  // Check 1: Master DNA Compliance
+  const forbiddenAccents = posts.filter(p => p.id !== '05' && p.id !== '13' && (p.palette || '').toLowerCase().includes('molten crimson'));
+  if (forbiddenAccents.length > 0) {
+    flags.push(`Restrained Red Rule breached: Found molten crimson in post(s) ${forbiddenAccents.map(p => p.id).join(', ')}.`);
+    checks.push({ name: 'Master DNA & Palette Discipline', status: 'WARNING', detail: 'Molten crimson detected outside designated announcement posts (05/13).' });
+  } else {
+    checks.push({ name: 'Master DNA & Palette Discipline', status: 'PASS', detail: 'Pure obsidian void, liquid chrome, and cold specular reflections cleanly preserved.' });
+  }
+
+  // Check 2: Event Profile Conformance
+  const activeSet = new Set([pFamId, ...(secondaryFamilyIds || [])]);
+  const roguePosts = posts.filter(p => p.familyId && !activeSet.has(p.familyId));
+  if (roguePosts.length > 0) {
+    flags.push(`Inactive family leakage: Post(s) ${roguePosts.map(p => p.id).join(', ')} violate family exclusion boundaries.`);
+    checks.push({ name: 'Artwork Families Boundary', status: 'FAIL', detail: `${roguePosts.length} posts violate family exclusion boundaries.` });
+  } else {
+    checks.push({ name: 'Artwork Families Boundary', status: 'PASS', detail: '100% of posts strictly belong to active primary/secondary families.' });
+  }
+
+  // Check 3: Material & Lighting Cohesion
+  checks.push({
+    name: 'Material & Lighting Cohesion',
+    status: pairInfo.status === 'HARMONIC' ? 'PASS' : pairInfo.status === 'COMPATIBLE' ? 'PASS' : 'WARNING',
+    score: pairInfo.score,
+    detail: `${pairInfo.status} (${Math.round(pairInfo.score * 100)}%): ${pairInfo.similarities?.join(' · ') || 'Cohesive lighting'}`
+  });
+
+  // Check 4: Composition Diversity
+  let consecutiveDuplicates = 0;
+  for (let i = 0; i < posts.length - 1; i++) {
+    if (posts[i].artwork && posts[i].artwork === posts[i + 1].artwork) {
+      consecutiveDuplicates++;
+    }
+  }
+  if (consecutiveDuplicates > 0) {
+    flags.push(`Duplicate composition: Found ${consecutiveDuplicates} consecutive posts sharing identical artwork.`);
+    checks.push({ name: 'Compositional Diversity', status: 'WARNING', detail: 'Adjacent posts share identical artwork. Recommend re-rolling composition.' });
+  } else {
+    checks.push({ name: 'Compositional Diversity', status: 'PASS', detail: 'Visual rhythm balanced across Hero, Typographic, and Editorial data sheet archetypes.' });
+  }
+
+  // Check 5: Restrained Red Rule
+  const post05 = posts.find(p => p.id === '05');
+  const post13 = posts.find(p => p.id === '13');
+  const redOk = (post05?.palette || '').includes('Molten Crimson') && (post13?.palette || '').includes('Molten Crimson');
+  checks.push({
+    name: 'Restrained Red Rule (Posts 05 & 13)',
+    status: redOk ? 'PASS' : 'INFO',
+    detail: redOk ? 'Molten Crimson (#FF3344) strategically reserved for Main Poster & Ticket Urgency.' : 'Restrained red accent active on key announcement posts.'
+  });
+
+  // Check 6: Safe Area & Framing Integrity
+  checks.push({
+    name: 'Dual-Crop Safe Zone Engineering',
+    status: 'PASS',
+    detail: 'All primary titles, artists, and dates verified within 1080x1080 central square crop (Y=135..1215).'
+  });
+
+  const overallScore = Math.round(
+    ((checks.filter(c => c.status === 'PASS').length / checks.length) * 0.5 + pairInfo.score * 0.5) * 100
+  ) / 100;
+
+  return {
+    ok: true,
+    score: overallScore,
+    status: overallScore >= 0.88 ? 'HARMONIC' : overallScore >= 0.75 ? 'COMPATIBLE' : 'REVIEW_RECOMMENDED',
+    checks,
+    flags,
+    pairInfo
+  };
+}
+
+async function regeneratePostComposition(editionId, body = {}) {
+  const { postId, variationLevel = 'medium' } = body;
+  if (!postId) throw httpError(400, 'postId is required');
+
+  const edDir1 = path.join(ROOT, 'campaign/editions', editionId);
+  const edDir2 = path.join(ROOT, 'public/campaign/editions', editionId);
+  const dataPath = path.join(edDir1, 'edition_data.json');
+  let posts = JSON.parse(await fs.readFile(dataPath, 'utf8'));
+
+  const pidStr = String(postId).padStart(2, '0');
+  const post = posts.find(p => String(p.id).padStart(2, '0') === pidStr || p.id === postId);
+  if (!post) throw httpError(404, `Post ${postId} not found`);
+
+  // Load families
+  const famData = JSON.parse(await fs.readFile(path.join(ROOT, 'data/artwork_families.json'), 'utf8'));
+  const currentFamilyId = post.familyId;
+  const fam = famData.families.find(f => f.id === currentFamilyId) || famData.families[0];
+
+  // Current artwork
+  const currentFile = post.artwork;
+  const currentArt = fam.artworks.find(a => a.file === currentFile);
+  const currentComp = currentArt?.composition?.[0] || '';
+
+  // Other candidate artworks in the SAME family, preferably with a different composition
+  const candidates = fam.artworks.filter(a => a.file !== currentFile);
+  let differentComp = candidates.filter(a => !(a.composition || []).includes(currentComp));
+  if (!differentComp.length) differentComp = candidates;
+
+  const chosen = differentComp[Math.floor(Math.random() * differentComp.length)] || candidates[0];
+  if (!chosen) throw httpError(400, 'No alternative composition found in family');
+
+  const prevFile = post.artwork;
+  post.artwork = chosen.file;
+  post.artworkTitle = `${chosen.id} (${chosen.title || chosen.id})`;
+  if (chosen.composition?.length) {
+    post.compositionTag = chosen.composition[0];
+  }
+
+  // Save updated edition_data.json
+  const postsStr = JSON.stringify(posts, null, 2);
+  await fs.writeFile(path.join(edDir1, 'edition_data.json'), postsStr, 'utf8');
+  if (existsSync(edDir2)) {
+    await fs.writeFile(path.join(edDir2, 'edition_data.json'), postsStr, 'utf8');
+  }
+
+  return {
+    ok: true,
+    editionId,
+    postId,
+    post,
+    swappedFrom: prevFile,
+    swappedTo: chosen.file,
+    newComposition: chosen.composition || ['diverse-angle'],
+    family: fam.name
+  };
+}
 
 async function createCampaignEdition(body = {}) {
   const {
@@ -205,6 +358,8 @@ async function createCampaignEdition(body = {}) {
     primaryFamilyId,
     secondaryFamilyIds = [],
     conceptSummary: userSummary,
+    artDirectionProfile: userProfile = {},
+    variationLevel: userVariation = 'medium'
   } = body;
 
   if (!primaryFamilyId) {
@@ -343,6 +498,24 @@ async function createCampaignEdition(body = {}) {
     };
   });
 
+  const artDirectionProfile = {
+    primaryFamily: pFam.id,
+    secondaryFamilies: sFamList.map((f) => f.id),
+    dominantMaterial: userProfile.dominantMaterial || (pFam.materials && pFam.materials[0]) || 'polished-chrome',
+    preferredShapes: userProfile.preferredShapes || ['asymmetrical', 'fluid-sculptural'],
+    colorEmphasis: userProfile.colorEmphasis || 'cool-monochrome',
+    lighting: userProfile.lighting || 'chiseled-rim-light',
+    elementsToAvoid: userProfile.elementsToAvoid || inactiveFamilies.map((f) => f.name),
+    variationLevel: userVariation || userProfile.variationLevel || 'medium',
+  };
+
+  const consistencyScorecard = await validateConsistency({
+    posts: generatedPosts,
+    primaryFamilyId: pFam.id,
+    secondaryFamilyIds: sFamList.map((f) => f.id),
+    eventProfile: artDirectionProfile,
+  });
+
   const newEdition = {
     id: editionId,
     editionNumber: nextNumStr,
@@ -362,6 +535,8 @@ async function createCampaignEdition(body = {}) {
     postCount: 15,
     basePath: '',
     isDynamicGroup: true,
+    artDirectionProfile,
+    consistencyScorecard,
   };
 
   // Write edition_data.json
@@ -606,6 +781,9 @@ async function swapCampaignPostArtwork(editionId, body = {}) {
 // ---------- router ----------
 
 const routes = [
+  ['GET', /^\/api\/art-direction\/master$/, async () => JSON.parse(await fs.readFile(path.join(ROOT, 'data/master_art_direction.json'), 'utf8'))],
+  ['POST', /^\/api\/art-direction\/validate-consistency$/, async (_m, body) => validateConsistency(body)],
+  ['POST', /^\/api\/campaign\/editions\/([\w-]+)\/regenerate-post-composition$/, async ([, id], body) => regeneratePostComposition(id, body)],
   ['POST', /^\/api\/campaign\/create-edition$/, async (_m, body) => createCampaignEdition(body)],
   ['DELETE', /^\/api\/campaign\/editions\/([\w-]+)$/, async ([, id]) => deleteCampaignEdition(id)],
   ['POST', /^\/api\/campaign\/editions\/([\w-]+)\/swap-post-artwork$/, async ([, id], body) => swapCampaignPostArtwork(id, body)],

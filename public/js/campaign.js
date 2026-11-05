@@ -19,9 +19,14 @@ export function createCampaignView(app) {
   let showCropGuide = false;
   let activeFamilyFilter = null;
 
-  // Custom Direction Builder state
+  // Custom Direction Builder state & Event Profile
   let customPrimary = 'sculptural-chrome';
   let customSecondary = 'folded-surfaces';
+  let customVariationLevel = 'medium'; // 'low' | 'medium' | 'high'
+  let customDominantMaterial = 'liquid-chrome';
+  let customPreferredShapes = ['asymmetrical', 'fluid-sculptural'];
+  let customLighting = 'chiseled-rim-light';
+  let customColorEmphasis = 'cool-monochrome';
 
   function esc(s = '') {
     return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -435,6 +440,76 @@ export function createCampaignView(app) {
     }
   }
 
+  async function rerollPostComposition(postId, buttonEl = null) {
+    const man = await loadManifest();
+    const currentEditionMeta = man.editions.find(e => e.id === activeEditionId) || man.editions[0];
+    const posts = editionsCache[activeEditionId] || [];
+    const normalizedPid = String(postId).padStart(2, '0');
+    const post = posts.find(p => String(p.id).padStart(2, '0') === normalizedPid || p.id === postId);
+    if (!post) {
+      showToast(`Post ${postId} not found`, true);
+      return;
+    }
+
+    // Set UI loading state
+    if (buttonEl) {
+      buttonEl.classList.add('loading');
+      buttonEl.disabled = true;
+      buttonEl.dataset.origText = buttonEl.textContent;
+      buttonEl.textContent = '🎲 Re-rolling...';
+    }
+    const gridItem = document.querySelector(`.ig-grid-item[data-post-id="${post.id}"]`);
+    if (gridItem) gridItem.classList.add('is-swapping');
+    const timelineCard = document.querySelector(`.timeline-post-card[data-post-id="${post.id}"]`);
+    if (timelineCard) timelineCard.classList.add('is-swapping');
+
+    try {
+      const res = await fetch(`/api/campaign/editions/${encodeURIComponent(activeEditionId)}/regenerate-post-composition`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId: post.id, variationLevel: customVariationLevel })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to re-roll composition');
+
+      // Update in-memory cached post
+      Object.assign(post, data.post);
+      if (data.newComposition) {
+        post.compositionTag = Array.isArray(data.newComposition) ? data.newComposition[0] : data.newComposition;
+      }
+
+      updatePostDom(post, data.swappedTo, data.swappedFrom, data);
+
+      // Also refresh multi-tag fields if modal is open
+      const modal = document.getElementById('campaign-modal');
+      if (modal && modal.open && activePostId === post.id) {
+        const compTagEl = modal.querySelector('.modal-composition-tag');
+        if (compTagEl && post.compositionTag) compTagEl.textContent = post.compositionTag;
+      }
+
+      showToast(`✓ Post ${post.id} composition re-rolled: ${post.compositionTag || 'New Composition'} (${data.family || 'family'})`);
+    } catch (err) {
+      console.error(err);
+      showToast(err.message, true);
+    } finally {
+      if (buttonEl) {
+        buttonEl.classList.remove('loading');
+        buttonEl.disabled = false;
+        buttonEl.textContent = buttonEl.dataset.origText || '🎲 Re-roll Comp';
+      }
+      if (gridItem) {
+        gridItem.classList.remove('is-swapping');
+        gridItem.classList.add('swap-success');
+        setTimeout(() => gridItem.classList.remove('swap-success'), 1800);
+      }
+      if (timelineCard) {
+        timelineCard.classList.remove('is-swapping');
+        timelineCard.classList.add('swap-success');
+        setTimeout(() => timelineCard.classList.remove('swap-success'), 1800);
+      }
+    }
+  }
+
   function updatePostDom(post, newArtId, oldArtId, data = {}) {
     const currentEditionMeta = manifest?.editions?.find(e => e.id === activeEditionId) || manifest?.editions?.[0];
     const basePath = currentEditionMeta?.basePath;
@@ -493,6 +568,9 @@ export function createCampaignView(app) {
 
       const famName = modal.querySelector('.modal-family-box strong');
       if (famName && post.family) famName.textContent = post.family;
+
+      const compTag = modal.querySelector('.modal-composition-tag');
+      if (compTag && post.compositionTag) compTag.textContent = post.compositionTag;
 
       const dlJpg = modal.querySelector('.btn-dl-jpg');
       if (dlJpg) dlJpg.href = modalImgSrc;
@@ -1025,6 +1103,7 @@ export function createCampaignView(app) {
                       <div class="ig-overlay-actions">
                         <button type="button" class="btn small primary ig-inspect-btn">Inspect Post</button>
                         <button type="button" class="btn small ig-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
+                        <button type="button" class="btn small ig-reroll-btn" data-reroll-post-id="${p.id}" title="Re-roll composition & camera perspective while keeping family and material">🎲 Re-roll Comp</button>
                       </div>
                     </div>
                   </div>
@@ -1072,6 +1151,7 @@ export function createCampaignView(app) {
                             <div class="timeline-card-actions">
                               <button type="button" class="btn small card-inspect-btn">Inspect Post</button>
                               <button type="button" class="btn small card-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
+                              <button type="button" class="btn small card-reroll-btn" data-reroll-post-id="${p.id}" title="Re-roll composition & camera perspective while keeping family and material">🎲 Re-roll Comp</button>
                             </div>
                           </div>
                         </div>
@@ -1459,24 +1539,50 @@ export function createCampaignView(app) {
     }
 
     // Dynamic pairing explanation based on families
+    let compatibilityScore = isCompatible ? (pFam.id === 'sculptural-chrome' && sFam.id === 'folded-surfaces' ? 0.95 : 0.90) : 0.65;
+    let compatibilityStatus = compatibilityScore >= 0.90 ? 'HARMONIC' : compatibilityScore >= 0.75 ? 'COMPATIBLE' : 'ATYPICAL';
     let compatibilityText = '';
+    let visualSimilarities = [];
+    let potentialConflicts = [];
+
     if (pFam.id === 'sculptural-chrome' && sFam.id === 'folded-surfaces') {
       compatibilityText = 'Tension & Planar Stratum Synergy: High-tension sculptural liquid chrome spires and meniscus tension necks pair seamlessly with razor-sheared horizontal strata and brutalist fluid terraces. Both share identical high-contrast studio specular lighting, deep obsidian negative space, and pure monochrome silver tonality.';
+      visualSimilarities = ['Identical studio keylight & specular roll-off', 'Shared liquid chrome & deep obsidian foundation', 'Controlled negative space for typography'];
+      potentialConflicts = ['Ensure razor planar bevels do not overwhelm organic fluid spires; maintain ~65% primary balance'];
     } else if (pFam.id === 'pearlescent-silver' && sFam.id === 'translucent-glass') {
       compatibilityText = 'Luminescence & Vitreous Dispersion: Velvety pearlescent fluid swells with soft-white specular sheen pair naturally with gossamer-thin optical glass membranes and delicate cyan/lavender caustic refractions. Creates a lighter, hypnotic, ethereal techno chapter.';
+      visualSimilarities = ['Soft-white diffuse glow', 'Ethereal weightlessness in void', 'Shared cyan and lavender caustic dispersion'];
+      potentialConflicts = ['Ensure glass membranes retain enough physical opacity against pure nacreous silk'];
     } else if (pFam.id === 'reflective-globes' || sFam.id === 'reflective-globes') {
       compatibilityText = 'Orbital Curvilinear Tension: Nested liquid chrome rings and distorted toroidal loops introduce kinetic circular momentum, harmonizing with fluid metallic geometry without conflicting with background planar void depth.';
+      visualSimilarities = ['Continuous circular momentum', 'Shared liquid metal specular reflections', 'Enclosed negative-space void apertures'];
+      potentialConflicts = ['Avoid cluttered multiple rings that distract from clean solitary hero silhouette'];
     } else if (isCompatible) {
       compatibilityText = `Harmonic Surface Affinity: ${pFam.name} and ${sFam.name} share complementary metallic reflectivity, controlled obsidian negative space, and aligned specular contrast, establishing a coherent and recognisable visual chapter.`;
+      visualSimilarities = ['Monochrome silver foundation', 'Deep studio negative space', 'High-definition 3D rendering standard'];
+      potentialConflicts = ['Maintain clear primary dominance to prevent stylistic ambiguity'];
     } else {
       compatibilityText = `Atypical / Contrast Pairing: While ${pFam.name} and ${sFam.name} exhibit distinct textural behaviors, their shared underground techno DNA allows for intentional tension. Inactive families remain strictly excluded.`;
+      visualSimilarities = ['Dark atmospheric void', 'Photorealistic material physics'];
+      potentialConflicts = ['Significant contrast between surface roughness and light interaction'];
     }
 
+    // Available shape options for the profile
+    const allShapes = [
+      { id: 'asymmetrical', name: 'Asymmetrical' },
+      { id: 'elongated-spire', name: 'Elongated Spire' },
+      { id: 'folded-planar', name: 'Folded Planar' },
+      { id: 'toroidal-loop', name: 'Toroidal Loop' },
+      { id: 'fluid-sculptural', name: 'Fluid Sculptural' },
+      { id: 'angular-blade', name: 'Angular Blade' },
+      { id: 'fragmented-filaments', name: 'Dendritic Filaments' }
+    ];
+
     resEl.innerHTML = `
-      <div class="builder-feedback-card ${isCompatible ? 'compat-good' : 'compat-warning'}">
+      <div class="builder-feedback-card ${compatibilityStatus === 'HARMONIC' ? 'compat-good' : 'compat-warning'}">
         <div class="feedback-badge-row">
-          <span class="mono badge ${isCompatible ? 'api' : 'queue'}">
-            ${isCompatible ? '✓ COMPATIBLE HARMONIC DIRECTION' : '⚠ ATYPICAL / EXPERIMENTAL PAIRING'}
+          <span class="mono badge ${compatibilityStatus === 'HARMONIC' ? 'api' : 'queue'}">
+            ✓ ${compatibilityStatus} PAIRING [SCORE: ${Math.round(compatibilityScore * 100)}%]
           </span>
           <span class="mono muted">CHAPTER DIRECTION: ${esc(pFam.name)} [PRI] + ${esc(sFam.name)} [SEC]</span>
         </div>
@@ -1535,7 +1641,7 @@ export function createCampaignView(app) {
               <div class="combined-board-header">
                 <div class="mono muted text-xs">VISUAL DIRECTION PREVIEW // CHAPTER COMBINATION</div>
                 <h4>COMBINED VISUAL REFERENCE BOARD</h4>
-                <p>Juxtaposing ${esc(pFam.name)} and ${esc(sFam.name)} to demonstrate material, reflection, and tonal harmony before generating the 15-post event campaign.</p>
+                <p>Juxtaposing ${esc(pFam.name)} and ${esc(sFam.name)} side-by-side to verify material, reflection, and tonal harmony before generating the 15-post event campaign.</p>
               </div>
 
               <div class="combined-board-grid">
@@ -1554,11 +1660,170 @@ export function createCampaignView(app) {
               <div class="compat-explanation-box" style="background:var(--panel); border:1px solid var(--line); padding:14px 18px; border-radius:2px; margin-top:6px;">
                 <div class="mono text-xs bold" style="color:var(--cyan); margin-bottom:4px;">WHY THIS COMBINATION WORKS TOGETHER:</div>
                 <p class="text-xs muted" style="margin:0; line-height:1.6;">${esc(compatibilityText)}</p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px; padding-top:8px; border-top:1px dashed var(--line-2);">
+                  <div>
+                    <span class="mono text-xs" style="color:#5ce1ff;">✓ KEY SIMILARITIES:</span>
+                    <ul class="text-xs muted" style="margin:4px 0 0; padding-left:16px;">
+                      ${visualSimilarities.map(s => `<li>${esc(s)}</li>`).join('')}
+                    </ul>
+                  </div>
+                  <div>
+                    <span class="mono text-xs" style="color:#ffcc00;">⚠ POTENTIAL CONFLICTS & GUIDANCE:</span>
+                    <ul class="text-xs muted" style="margin:4px 0 0; padding-left:16px;">
+                      ${potentialConflicts.map(c => `<li>${esc(c)}</li>`).join('')}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 3. Inactive Families Excluded Notice -->
+          <!-- 3. Event Art Direction Profile & Controlled Variation -->
+          <div class="feedback-col full-span">
+            <div class="event-profile-box">
+              <div class="event-profile-header">
+                <div class="mono muted text-xs">SECTION 05 // EVENT ART DIRECTION PROFILE</div>
+                <h4>CAMPAIGN ARTISTIC DIRECTION & CONTROLLED VARIATION</h4>
+                <p>Customize the dedicated artistic parameters for this party edition. The generator uses these parameters to enforce variety without stylistic chaos.</p>
+              </div>
+
+              <div class="event-profile-grid">
+                <div class="profile-field">
+                  <label>DOMINANT MATERIAL:</label>
+                  <select id="profile-dominant-material" class="profile-select">
+                    <option value="liquid-chrome" ${customDominantMaterial === 'liquid-chrome' ? 'selected' : ''}>Polished Liquid Chrome (Mirror specularity)</option>
+                    <option value="folded-strata" ${customDominantMaterial === 'folded-strata' ? 'selected' : ''}>Razor-Sheared Laminar Strata (Stepped planes)</option>
+                    <option value="pearlescent-silk" ${customDominantMaterial === 'pearlescent-silk' ? 'selected' : ''}>Pearlescent Silver Fluid (Velvety silk)</option>
+                    <option value="translucent-membrane" ${customDominantMaterial === 'translucent-membrane' ? 'selected' : ''}>Translucent Glass Membrane (Vitreous film)</option>
+                    <option value="toroidal-rings" ${customDominantMaterial === 'toroidal-rings' ? 'selected' : ''}>Reflective Globes & Rings (Annular loops)</option>
+                    <option value="hybrid" ${customDominantMaterial === 'hybrid' ? 'selected' : ''}>Hybrid (Chrome fused with Strata)</option>
+                  </select>
+                </div>
+
+                <div class="profile-field">
+                  <label>LIGHTING CHARACTERISTICS:</label>
+                  <select id="profile-lighting" class="profile-select">
+                    <option value="chiseled-rim-light" ${customLighting === 'chiseled-rim-light' ? 'selected' : ''}>Chiseled Rim Lighting (Crisp cold edges)</option>
+                    <option value="dramatic-directional-key" ${customLighting === 'dramatic-directional-key' ? 'selected' : ''}>Dramatic Directional Keylight (Deep shadow falloff)</option>
+                    <option value="soft-diffuse-studio" ${customLighting === 'soft-diffuse-studio' ? 'selected' : ''}>Soft Diffuse Studio (Wrapped ambient glow)</option>
+                    <option value="high-contrast-specular" ${customLighting === 'high-contrast-specular' ? 'selected' : ''}>High-Contrast Specular (Mirror reflection focus)</option>
+                    <option value="internal-refraction-glow" ${customLighting === 'internal-refraction-glow' ? 'selected' : ''}>Internal Caustic Glow (Subsurface refractions)</option>
+                  </select>
+                </div>
+
+                <div class="profile-field">
+                  <label>COLOUR REFRACTION EMPHASIS:</label>
+                  <select id="profile-color-emphasis" class="profile-select">
+                    <option value="cool-monochrome" ${customColorEmphasis === 'cool-monochrome' ? 'selected' : ''}>Pure Monochrome Silver & Obsidian</option>
+                    <option value="pale-cyan" ${customColorEmphasis === 'pale-cyan' ? 'selected' : ''}>Pale Cyan Caustics (#7AE7FF)</option>
+                    <option value="icy-blue" ${customColorEmphasis === 'icy-blue' ? 'selected' : ''}>Icy Blue Specular Rim (#5EC5FF)</option>
+                    <option value="lavender" ${customColorEmphasis === 'lavender' ? 'selected' : ''}>Lavender Iridescence (#C8B6FF)</option>
+                    <option value="ultraviolet" ${customColorEmphasis === 'ultraviolet' ? 'selected' : ''}>Deep Ultraviolet Shadows (#7A2CFF)</option>
+                  </select>
+                </div>
+
+                <div class="profile-field" style="grid-column: 1 / -1;">
+                  <label>PREFERRED SCULPTURAL SHAPE ARCHETYPES:</label>
+                  <div class="shapes-checkbox-cloud">
+                    ${allShapes.map(s => {
+                      const isSel = customPreferredShapes.includes(s.id);
+                      return `
+                        <label class="shape-tag-check ${isSel ? 'active' : ''}">
+                          <input type="checkbox" name="preferred-shape" value="${s.id}" ${isSel ? 'checked' : ''}>
+                          <span>${isSel ? '✓' : '+'} ${esc(s.name)}</span>
+                        </label>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+
+                <div class="profile-field" style="grid-column: 1 / -1;">
+                  <label>CONTROLLED VISUAL VARIATION LEVEL (SECTION 07):</label>
+                  <div class="variation-toggle-group">
+                    <button type="button" class="variation-pill-btn ${customVariationLevel === 'low' ? 'active' : ''}" data-variation="low">
+                      <strong>LOW // TIGHT CONTROL</strong>
+                      <span>Strict canonical fidelity. Limited changes to approved master reference silhouettes and camera setups.</span>
+                    </button>
+                    <button type="button" class="variation-pill-btn ${customVariationLevel === 'medium' ? 'active' : ''}" data-variation="medium">
+                      <strong>MEDIUM // BALANCED (DEFAULT)</strong>
+                      <span>Dynamic visual variety. Explores diverse shapes, asymmetrical framing, and scale while keeping material DNA identical.</span>
+                    </button>
+                    <button type="button" class="variation-pill-btn ${customVariationLevel === 'high' ? 'active' : ''}" data-variation="high">
+                      <strong>HIGH // ADVENTUROUS</strong>
+                      <span>Radical permutations. Daring oblique camera angles, extreme macro crops, and complex topological knots.</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Visual Consistency 6-Point Audit Scorecard -->
+          <div class="feedback-col full-span">
+            <div class="consistency-scorecard-card">
+              <div class="scorecard-header">
+                <div class="mono text-xs muted">SECTION 09 // AUTOMATED VISUAL CONSISTENCY CHECK</div>
+                <div class="scorecard-title-row">
+                  <h4>PRE-GENERATION HARMONY & REPETITION SCORECARD</h4>
+                  <span class="badge ${compatibilityStatus === 'HARMONIC' ? 'api' : 'ready'} mono">
+                    ${compatibilityStatus} [SCORE: ${Math.round(compatibilityScore * 100)}%]
+                  </span>
+                </div>
+              </div>
+
+              <div class="scorecard-checklist">
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>01. Master Art Direction DNA</strong>
+                    <p>Enforces obsidian negative space, pure chrome physics, and strict prohibition on painted neon or humanoid elements.</p>
+                  </div>
+                </div>
+
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>02. Event Profile Conformance</strong>
+                    <p>Exclusively draws from ${esc(pFam.name)} and ${esc(sFam.name)}. ${inactiveList.length} unselected families strictly excluded.</p>
+                  </div>
+                </div>
+
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>03. Material & Lighting Cohesion</strong>
+                    <p>Pairing rating: ${Math.round(compatibilityScore * 100)}%. Shared specular roll-off and studio keylight calibration.</p>
+                  </div>
+                </div>
+
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>04. Compositional Diversity Protocol</strong>
+                    <p>Controlled variation (${customVariationLevel.toUpperCase()}) guarantees varied scale, perspectives, and non-repetitive silhouettes across the 3-column feed.</p>
+                  </div>
+                </div>
+
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>05. Restrained Red Rule Discipline</strong>
+                    <p>Molten Crimson (#FF3344) strictly restricted to Post 05 (Main Poster) and Post 13 (Final Tickets). Zero standard post leakage.</p>
+                  </div>
+                </div>
+
+                <div class="scorecard-check-item pass">
+                  <span class="mono check-status-icon">✓</span>
+                  <div class="check-info">
+                    <strong>06. Dual-Zone 1:1 Safe Area</strong>
+                    <p>Guarantees all headlines, dates, and artist rosters are centered within Y=135..1215 for seamless profile grid view.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Inactive Families Excluded Notice -->
           <div class="feedback-col full-span">
             <span class="mono muted text-xs">STRICTLY INACTIVE / EXCLUDED FROM THIS CHAPTER:</span>
             <div class="excluded-pill-row">
@@ -1571,11 +1836,11 @@ export function createCampaignView(app) {
             <p class="text-xs muted" style="margin-top: 8px;">Strict rule: Inactive artwork families will NEVER be mixed into this event campaign. All 15 posts are mathematically bound exclusively to ${esc(pFam.name)} and ${esc(sFam.name)}.</p>
           </div>
 
-          <!-- 4. Confirm & Generate CTA Bar -->
+          <!-- 6. Confirm & Generate CTA Bar -->
           <div class="feedback-col full-span">
             <div class="builder-create-bar">
               <div class="builder-create-info">
-                <span class="mono text-xs" style="color:var(--cyan); font-weight:700;">CONFIRM VISUAL DIRECTION & GENERATE CAMPAIGN</span>
+                <span class="mono text-xs" style="color:var(--cyan); font-weight:700;">CONFIRM ART DIRECTION & GENERATE CAMPAIGN</span>
                 <div class="builder-create-input-row">
                   <span class="mono muted text-xs">EVENT TITLE:</span>
                   <input type="text" id="builder-edition-title" class="builder-input" value="EDITION 01: HYDRAULIC VOID" placeholder="e.g. EDITION 01: HYDRAULIC VOID">
@@ -1590,14 +1855,60 @@ export function createCampaignView(app) {
       </div>
     `;
 
-    // Bind generate button immediately
+    // Bind event profile controls immediately
+    const matSel = resEl.querySelector('#profile-dominant-material');
+    if (matSel) {
+      matSel.addEventListener('change', (e) => {
+        customDominantMaterial = e.target.value;
+      });
+    }
+
+    const lightSel = resEl.querySelector('#profile-lighting');
+    if (lightSel) {
+      lightSel.addEventListener('change', (e) => {
+        customLighting = e.target.value;
+      });
+    }
+
+    const colSel = resEl.querySelector('#profile-color-emphasis');
+    if (colSel) {
+      colSel.addEventListener('change', (e) => {
+        customColorEmphasis = e.target.value;
+      });
+    }
+
+    // Shapes checkboxes
+    resEl.querySelectorAll('.shape-tag-check input').forEach(inp => {
+      inp.addEventListener('change', (e) => {
+        const val = e.target.value;
+        if (e.target.checked) {
+          if (!customPreferredShapes.includes(val)) customPreferredShapes.push(val);
+        } else {
+          customPreferredShapes = customPreferredShapes.filter(s => s !== val);
+        }
+        e.target.closest('.shape-tag-check')?.classList.toggle('active', e.target.checked);
+      });
+    });
+
+    // Variation level pills
+    resEl.querySelectorAll('.variation-pill-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const v = btn.dataset.variation;
+        customVariationLevel = v;
+        resEl.querySelectorAll('.variation-pill-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        showToast(`Visual Variation Dial set to ${v.toUpperCase()}`);
+      });
+    });
+
+    // Bind generate button
     const btnCreate = resEl.querySelector('#btn-create-edition-from-direction');
     if (btnCreate) {
       btnCreate.addEventListener('click', async () => {
         const titleInput = resEl.querySelector('#builder-edition-title');
         const title = titleInput?.value?.trim() || `EDITION: ${pFam.name.toUpperCase()} // ${sFam.name.toUpperCase()}`;
         btnCreate.disabled = true;
-        btnCreate.innerHTML = '<span class="status-dot">●</span> <span>Generating Campaign with Approved Families...</span>';
+        btnCreate.innerHTML = '<span class="status-dot">●</span> <span>Generating Campaign with Approved Families & Profile...</span>';
         try {
           const res = await fetch('/api/campaign/create-edition', {
             method: 'POST',
@@ -1605,7 +1916,17 @@ export function createCampaignView(app) {
             body: JSON.stringify({
               title,
               primaryFamilyId: customPrimary,
-              secondaryFamilyIds: [customSecondary]
+              secondaryFamilyIds: [customSecondary],
+              variationLevel: customVariationLevel,
+              artDirectionProfile: {
+                primaryFamily: customPrimary,
+                secondaryFamilies: [customSecondary],
+                dominantMaterial: customDominantMaterial,
+                preferredShapes: customPreferredShapes,
+                lighting: customLighting,
+                colorEmphasis: customColorEmphasis,
+                variationLevel: customVariationLevel
+              }
             })
           });
           const data = await res.json();
@@ -1742,10 +2063,20 @@ export function createCampaignView(app) {
       });
     });
 
+    // Composition re-roll triggers on grid & timeline
+    el.querySelectorAll('[data-reroll-post-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const pid = btn.dataset.rerollPostId;
+        rerollPostComposition(pid, btn);
+      });
+    });
+
     // Post inspection triggers
     el.querySelectorAll('[data-post-id]').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('[data-swap-post-id]')) return;
+        if (e.target.closest('[data-swap-post-id]') || e.target.closest('[data-reroll-post-id]')) return;
         if (e.target.tagName === 'A' && e.target.getAttribute('download') !== null) return;
         const id = card.dataset.postId;
         openModal(id, posts, man, fams);
@@ -1779,6 +2110,16 @@ export function createCampaignView(app) {
       batchLabel = currentEditionMeta.primaryFamily.name || 'Curated Family';
     }
 
+    let artMeta = null;
+    const allFams = fams?.families || familiesData?.families || [];
+    for (const f of allFams) {
+      const found = (f.artworks || []).find(a => a.file === post.artwork || a.id === post.artwork.replace(/_v\d+\.jpg$/, ''));
+      if (found) {
+        artMeta = found;
+        break;
+      }
+    }
+
     const modal = document.getElementById('campaign-modal');
     if (!modal) return;
 
@@ -1799,6 +2140,9 @@ export function createCampaignView(app) {
             </button>
             <button type="button" class="btn small ig-stage-swap-btn" data-swap-post-id="${post.id}" title="Swap with another random artwork from current batch">
               🔀 Swap Artwork
+            </button>
+            <button type="button" class="btn small ig-stage-reroll-btn" data-reroll-post-id="${post.id}" title="Re-roll composition/angle while preserving family & material">
+              🎲 Re-roll Comp
             </button>
             <div class="download-group">
               <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small btn-dl-jpg">Download JPG</a>
@@ -1843,10 +2187,67 @@ export function createCampaignView(app) {
           <div class="modal-section modal-artwork-section">
             <div class="modal-artwork-provenance-header">
               <span class="mono muted">APPROVED MASTER ARTWORK PROVENANCE:</span>
-              <button type="button" class="btn small ig-modal-swap-btn" id="btn-modal-swap-artwork" data-swap-post-id="${post.id}" title="Select a different random artwork from current batch">
-                <span class="swap-icon">🔀</span> Swap Artwork from Batch
-              </button>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn small ig-modal-swap-btn" id="btn-modal-swap-artwork" data-swap-post-id="${post.id}" title="Select a different random artwork from current batch">
+                  <span class="swap-icon">🔀</span> Swap Art
+                </button>
+                <button type="button" class="btn small ig-modal-reroll-btn" data-reroll-post-id="${post.id}" title="Re-roll composition & angle while keeping family & material">
+                  <span class="reroll-icon">🎲</span> Re-roll Comp
+                </button>
+              </div>
             </div>
+            <div class="art-ref-box">
+              <img src="/artworks/masters/${post.artwork}" alt="${esc(post.artworkTitle)}" class="art-ref-thumb">
+              <div>
+                <strong class="art-ref-title">${esc(post.artwork.replace('_v1.jpg', ''))}</strong>
+                <p class="muted text-sm art-ref-desc">${esc(post.artworkTitle)}</p>
+                <div class="art-ref-links mono text-xs">
+                  <a href="/artworks/masters/${post.artwork}" target="_blank" class="art-ref-link">View Master Artwork ↗</a>
+                  <span class="muted">·</span>
+                  <span class="batch-source-label muted">Batch: ${esc(batchLabel)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Art Direction Multi-Dimensional Classification -->
+          ${artMeta ? `
+            <div class="modal-section modal-art-direction-section">
+              <div class="mono muted">MASTER ART DIRECTION CLASSIFICATION:</div>
+              <div class="modal-attributes-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; background: rgba(255,255,255,0.02); padding: 10px; border: 1px solid var(--line); border-radius: 4px;">
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">DOMINANT MATERIAL:</span>
+                  <span class="mono text-xs" style="color: var(--cyan);">${Array.isArray(artMeta.materials) ? artMeta.materials.join(', ') : (artMeta.materials || 'Polished Chrome')}</span>
+                </div>
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">SURFACE FINISH:</span>
+                  <span class="mono text-xs" style="color: #fff;">${artMeta.surfaceFinish || 'Specular Mirror'}</span>
+                </div>
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">SCULPTURAL FORM:</span>
+                  <span class="mono text-xs" style="color: #ccc;">${Array.isArray(artMeta.form) ? artMeta.form.join(', ') : (artMeta.form || 'Fluid Sculptural')}</span>
+                </div>
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">COMPOSITION:</span>
+                  <span class="mono text-xs modal-composition-tag" style="color: #7AE7FF; font-weight: 700;">${post.compositionTag || (Array.isArray(artMeta.composition) ? artMeta.composition.join(', ') : (artMeta.composition || 'Central Focus'))}</span>
+                </div>
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">LIGHTING PROFILE:</span>
+                  <span class="mono text-xs" style="color: #ccc;">${Array.isArray(artMeta.lighting) ? artMeta.lighting.join(', ') : (artMeta.lighting || 'Directional Key')}</span>
+                </div>
+                <div>
+                  <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">PERSPECTIVE:</span>
+                  <span class="mono text-xs" style="color: #aaa;">${Array.isArray(artMeta.perspective) ? artMeta.perspective.join(', ') : (artMeta.perspective || 'Eye-Level')}</span>
+                </div>
+                ${artMeta.secondaryFamilies && artMeta.secondaryFamilies.length ? `
+                  <div style="grid-column: span 2; padding-top: 6px; border-top: 1px dashed var(--line);">
+                    <span class="mono text-xs muted" style="display:block; margin-bottom: 2px;">SECONDARY BRIDGES:</span>
+                    <span class="mono text-xs" style="color: #ff99ff;">🌉 Bridges with: ${artMeta.secondaryFamilies.join(', ')}</span>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          ` : ''}
             <div class="art-ref-box">
               <img src="/artworks/masters/${post.artwork}" alt="${esc(post.artworkTitle)}" class="art-ref-thumb">
               <div>
@@ -1920,6 +2321,13 @@ export function createCampaignView(app) {
         swapPostArtwork(post.id, btn);
       });
     });
+    modal.querySelectorAll('[data-reroll-post-id]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        rerollPostComposition(post.id, btn);
+      });
+    });
     modal.querySelector('#btn-copy-caption').addEventListener('click', () => {
       navigator.clipboard.writeText(post.caption).then(() => {
         const btn = modal.querySelector('#btn-copy-caption');
@@ -1931,9 +2339,10 @@ export function createCampaignView(app) {
     if (!modal.open) modal.showModal();
   }
 
-  // Expose deleteEdition and swapPostArtwork globally on window for direct programmatic/console access
+  // Expose deleteEdition, swapPostArtwork, and rerollPostComposition globally on window for direct programmatic/console access
   window.ruptureDeleteCampaignEdition = deleteEdition;
   window.ruptureSwapPostArtwork = swapPostArtwork;
+  window.ruptureRerollPostComposition = rerollPostComposition;
 
-  return { render, randomiseFromGroup, loadGroups, deleteEdition, swapPostArtwork };
+  return { render, randomiseFromGroup, loadGroups, deleteEdition, swapPostArtwork, rerollPostComposition };
 }

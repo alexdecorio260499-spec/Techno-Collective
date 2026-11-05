@@ -1,0 +1,149 @@
+{
+  "brand": "RUPTURE",
+  "name": "RUPTURE Master Art Direction",
+  "version": "2.0",
+  "subtitle": "Consistency Without Repetition · Variation Without Chaos",
+  "philosophy": "The result should feel like a physical, tangible sculptural object made from impossible liquid metal or vitreous film, photographed in a dark, controlled studio void. Consistency lives in the artistic DNA (materials, lighting, rendering quality, obsidian negative space); variation thrives in sculptural forms, compositions, perspectives, and visual rhythms.",
+  "dna": {
+    "materials": [
+      { "id": "liquid-chrome", "name": "Liquid Mirror Chrome", "description": "Photorealistic polished chrome and liquid mercury with fluid surface tension necks and specular highlights." },
+      { "id": "folded-strata", "name": "Razor-Sheared Strata", "description": "Horizontal laminar metallic planes, stepped brutalist terraces, and planar bevels with sharp shadow valleys." },
+      { "id": "pearlescent-silk", "name": "Pearlescent Silver Fluid", "description": "Velvety nacreous luster, soft white specular glow, and continuous undulating laminar waves." },
+      { "id": "translucent-membrane", "name": "Translucent Glass Membrane", "description": "Gossamer-thin vitreous films and optical silica sheets with cyan and lavender caustic dispersion." },
+      { "id": "toroidal-rings", "name": "Reflective Globes & Rings", "description": "Distorted toroidal apertures, elliptical liquid chrome annuli, and circular capillary momentum." }
+    ],
+    "colorDiscipline": {
+      "foundation": ["#050505 Pure Obsidian Void", "#141619 Deep Charcoal Shadow", "#9EA4B0 Liquid Chrome Slate", "#D6DADF Pearlescent Silver", "#F2F4F7 Soft White Studio Highlight"],
+      "refractedAccents": [
+        { "id": "pale-cyan", "name": "Pale Cyan (#7AE7FF)", "rule": "Refracted iridescent highlight in glass membranes and liquid chrome" },
+        { "id": "icy-blue", "name": "Icy Blue (#5EC5FF)", "rule": "Cold directional specular rim light on metallic contours" },
+        { "id": "lavender", "name": "Lavender (#C8B6FF)", "rule": "Subtle nacreous iridescence along folded liquid surfaces" },
+        { "id": "ultraviolet", "name": "Deep Ultraviolet (#7A2CFF)", "rule": "Refracted inside concave metallic shadows and membrane crevices" }
+      ],
+      "isolatedAccent": {
+        "id": "molten-red",
+        "name": "Molten Crimson (#FF3344)",
+        "rule": "Strictly restricted to Post 05 (Main Event Poster) and Post 13 (Last Tickets / Capacity Warning). Never used across standard campaign posts."
+      },
+      "prohibitions": ["No uncontrolled rainbow gradients", "No saturated primary colors (pure green, yellow, orange)", "No painted neon glowing wires"]
+    },
+    "lighting": {
+      "keylight": "Controlled low-key studio keylight creating dramatic specular falloff from pure white to deep charcoal",
+      "rim": "Chiseled directional rim lighting grazing metallic boundaries",
+      "refraction": "Physically accurate caustics passing through translucent membranes without lighting up the background",
+      "shadows": "Deep cavernous shadows dissolving into 100% black negative space"
+    },
+    "rendering": {
+      "standard": "Photorealistic 3D rendering with microscopic surface tension beads, tangible material weight, physically convincing refraction, and zero CGI plastic look."
+    },
+    "atmosphere": {
+      "mood": "Mysterious, cold, hypnotic, futuristic, underground techno, architectural minimalism."
+    },
+    "backgrounds": {
+      "environment": "Infinite dark studio void with 60% to 75% controlled negative space for typography and breathing room."
+    },
+    "exclusions": [
+      "People, faces, human bodies, humanoids or robots",
+      "Generic cyberpunk cityscapes, flying cars, or neon streets",
+      "Literal DJ equipment, headphones, mixers, speakers, or crowd shots",
+      "Random glitch effects, scanlines, or distorted pixel noise",
+      "Typography or watermarks embedded into master artwork itself",
+      "Cheap-looking plastic product renders"
+    ]
+  },
+  "variationAxes": {
+    "shapeForm": [
+      "spherical", "elongated", "twisted", "folded", "tubular", "fragmented",
+      "organic", "angular", "asymmetrical", "layered", "fluid", "sculptural", "irregular"
+    ],
+    "composition": [
+      "centred", "off-centre", "diagonal", "vertically-oriented", "horizontally-oriented",
+      "cropped-macro", "floating-weightless", "suspended-tensile", "multiple-overlapping",
+      "single-dominant", "monumental-close-up", "negative-space-dominant"
+    ],
+    "perspective": [
+      "extreme-macro", "close-up-detail", "medium-distance-monumental",
+      "wide-composition", "dramatic-low-angle", "unusual-oblique", "birds-eye-planar"
+    ],
+    "materialEmphasis": [
+      "polished-mirror-chrome", "satin-metallic-silver", "viscous-liquid-mercury",
+      "nacreous-pearlescent", "translucent-optic-glass", "subtle-iridescent-sheen",
+      "hybrid-dual-material"
+    ],
+    "lighting": [
+      "dramatic-directional-key", "soft-diffuse-studio", "chiseled-rim-light",
+      "high-contrast-specular", "internal-refraction-glow", "deep-cavernous-shadows"
+    ]
+  },
+  "variationLevels": {
+    "low": {
+      "name": "LOW // Tight Curatorial Control",
+      "description": "Stay strictly loyal to established master references. Minimal deviation in silhouette, camera angle, and composition.",
+      "referenceWeight": 0.85,
+      "compositionSpread": "canonical"
+    },
+    "medium": {
+      "name": "MEDIUM // Balanced Creative Exploration (Default)",
+      "description": "Maintain identical material and lighting physics while exploring noticeably diverse shapes, asymmetrical layouts, scale shifts, and macro crops.",
+      "referenceWeight": 0.65,
+      "compositionSpread": "diverse"
+    },
+    "high": {
+      "name": "HIGH // Adventurous Permutations",
+      "description": "Experimental topological knots, bold off-axis camera angles, dramatic negative space splits, and complex multi-object tensions while respecting Master DNA.",
+      "referenceWeight": 0.45,
+      "compositionSpread": "experimental"
+    }
+  },
+  "compatibilityMatrix": {
+    "sculptural-chrome__folded-surfaces": {
+      "score": 0.95,
+      "status": "HARMONIC",
+      "recommendation": "Dominant: Sculptural Chrome (60-70%) · Secondary: Folded Surfaces (30-40%)",
+      "similarities": ["Identical studio specular lighting", "Shared liquid platinum and pure chrome tonal range", "Infinite obsidian negative space"],
+      "conflicts": ["None; high-tension fluid necks contrast cleanly with planar horizontal strata"]
+    },
+    "pearlescent-silver__translucent-glass": {
+      "score": 0.92,
+      "status": "HARMONIC",
+      "recommendation": "Dominant: Pearlescent Silver (60%) · Secondary: Translucent Glass (40%)",
+      "similarities": ["Soft-white diffuse glow", "Ethereal weightlessness", "Shared cyan and lavender caustic dispersion"],
+      "conflicts": ["Ensure vitreous glass maintains enough opacity so it does not disappear against nacreous swells"]
+    },
+    "reflective-globes__sculptural-chrome": {
+      "score": 0.88,
+      "status": "HARMONIC",
+      "recommendation": "Dominant: Reflective Globes (55%) · Secondary: Sculptural Chrome (45%)",
+      "similarities": ["Curvilinear tension", "Heavy liquid mercury physics", "High-contrast mirror studio reflections"],
+      "conflicts": ["Avoid mixing too many rings with chaotic splash droplets"]
+    },
+    "folded-surfaces__pearlescent-silver": {
+      "score": 0.84,
+      "status": "COMPATIBLE",
+      "recommendation": "Dominant: Folded Surfaces (60%) · Secondary: Pearlescent Silver (40%)",
+      "similarities": ["Laminar undulating strata", "Subtle stepped shadow transitions"],
+      "conflicts": ["Harsh razor edges should be softened with nacreous diffuse luster"]
+    },
+    "reflective-globes__translucent-glass": {
+      "score": 0.82,
+      "status": "COMPATIBLE",
+      "recommendation": "Dominant: Reflective Globes (50%) · Secondary: Translucent Glass (50%)",
+      "similarities": ["Refractive optic loops", "Spherical distortion", "Pale cyan chromatic caustics"],
+      "conflicts": ["Avoid cluttered nested rings that distract from clean glass membrane clarity"]
+    },
+    "translucent-glass__folded-surfaces": {
+      "score": 0.65,
+      "status": "ATYPICAL",
+      "recommendation": "Dominant: Translucent Glass (65%) · Secondary: Folded Surfaces (35%)",
+      "similarities": ["Thin sheet geometry", "Refracted crevice lines"],
+      "conflicts": ["Extreme mass disparity: gossamer diaphanous film vs brutalist heavy stone-like terraces"]
+    },
+    "sculptural-chrome__pearlescent-silver": {
+      "score": 0.60,
+      "status": "ATYPICAL",
+      "recommendation": "Dominant: Sculptural Chrome (70%) · Secondary: Pearlescent Silver (30%)",
+      "similarities": ["Shared metallic silver foundation"],
+      "conflicts": ["Specular contrast clash: harsh mirror chrome glare fights velvety diffuse nacreous silk"]
+    }
+  }
+}

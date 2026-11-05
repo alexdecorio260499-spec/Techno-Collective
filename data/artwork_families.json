@@ -13,26 +13,567 @@
         "Deep charcoal and pure black void negative space",
         "Organic fluid spires, hydraulic crowns, and viscous pillars"
       ],
-      "compatibleFamilies": ["folded-surfaces", "reflective-globes"],
+      "compatibleFamilies": [
+        "folded-surfaces",
+        "reflective-globes"
+      ],
       "artworks": [
-        { "id": "RUPTURE_M15", "title": "Liquid Mercury Glyph with Tension Neck", "file": "RUPTURE_M15_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M17", "title": "Sweeping High-Velocity Chrome Ribbons", "file": "RUPTURE_M17_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M28", "title": "Magnetic Ferrofluid Spires & Needles", "file": "RUPTURE_M28_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M29", "title": "Interconnected Liquid Mercury Voronoi Lattice", "file": "RUPTURE_M29_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M45", "title": "Vertical Obelisk Pillar of Chiseled Chrome", "file": "RUPTURE_M45_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M52", "title": "Monumental Viscous Platinum Hydraulic Pillar", "file": "RUPTURE_M52_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M53", "title": "Radial Liquid Chrome Crown Splash", "file": "RUPTURE_M53_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M54", "title": "Curling Tidal Wave of Liquid Mercury", "file": "RUPTURE_M54_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M58", "title": "Cantilevered Aerodynamic Fluid Dagger", "file": "RUPTURE_M58_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M64", "title": "Fluid Vortex Funnel & Swirling Platinum Sinkhole", "file": "RUPTURE_M64_v1.jpg", "accent": "molten-red" },
-        { "id": "RUPTURE_M74", "title": "Asymmetrical Liquid Mercury Glyph with Icy Accents", "file": "RUPTURE_M74_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M79", "title": "Macro Lattice of Liquid Mercury Cells", "file": "RUPTURE_M79_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M88", "title": "Monolithic Asymmetrical Möbius Fluid Ribbon", "file": "RUPTURE_M88_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M97", "title": "Hyperbolic Catenoid Column Tensile Pinch", "file": "RUPTURE_M97_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M130", "title": "Hydraulic Liquid Chrome Slate Rupture", "file": "RUPTURE_M130_v1.jpg", "accent": "slate" },
-        { "id": "RUPTURE_M133", "title": "Radial Constellation of Ferrofluid Spikes", "file": "RUPTURE_M133_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M137", "title": "Mirror Chrome Aerodynamic Dagger Slicing Void", "file": "RUPTURE_M137_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M142", "title": "Hyperbolic Catenoid Tensile Rayleigh Column", "file": "RUPTURE_M142_v1.jpg", "accent": "chrome" }
+        {
+          "id": "RUPTURE_M15",
+          "title": "Liquid Mercury Glyph with Tension Neck",
+          "file": "RUPTURE_M15_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M17",
+          "title": "Sweeping High-Velocity Chrome Ribbons",
+          "file": "RUPTURE_M17_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M28",
+          "title": "Magnetic Ferrofluid Spires & Needles",
+          "file": "RUPTURE_M28_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M29",
+          "title": "Interconnected Liquid Mercury Voronoi Lattice",
+          "file": "RUPTURE_M29_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural",
+            "fragmented-filaments"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "macro-close-up"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M45",
+          "title": "Vertical Obelisk Pillar of Chiseled Chrome",
+          "file": "RUPTURE_M45_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M52",
+          "title": "Monumental Viscous Platinum Hydraulic Pillar",
+          "file": "RUPTURE_M52_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M53",
+          "title": "Radial Liquid Chrome Crown Splash",
+          "file": "RUPTURE_M53_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M54",
+          "title": "Curling Tidal Wave of Liquid Mercury",
+          "file": "RUPTURE_M54_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M58",
+          "title": "Cantilevered Aerodynamic Fluid Dagger",
+          "file": "RUPTURE_M58_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M64",
+          "title": "Fluid Vortex Funnel & Swirling Platinum Sinkhole",
+          "file": "RUPTURE_M64_v1.jpg",
+          "accent": "molten-red",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "molten-red"
+          }
+        },
+        {
+          "id": "RUPTURE_M74",
+          "title": "Asymmetrical Liquid Mercury Glyph with Icy Accents",
+          "file": "RUPTURE_M74_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury",
+            "obsidian-slate"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M79",
+          "title": "Macro Lattice of Liquid Mercury Cells",
+          "file": "RUPTURE_M79_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fragmented-filaments"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "macro-close-up"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M88",
+          "title": "Monolithic Asymmetrical Möbius Fluid Ribbon",
+          "file": "RUPTURE_M88_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M97",
+          "title": "Hyperbolic Catenoid Column Tensile Pinch",
+          "file": "RUPTURE_M97_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M130",
+          "title": "Hydraulic Liquid Chrome Slate Rupture",
+          "file": "RUPTURE_M130_v1.jpg",
+          "accent": "slate",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "slate"
+          }
+        },
+        {
+          "id": "RUPTURE_M133",
+          "title": "Radial Constellation of Ferrofluid Spikes",
+          "file": "RUPTURE_M133_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M137",
+          "title": "Mirror Chrome Aerodynamic Dagger Slicing Void",
+          "file": "RUPTURE_M137_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M142",
+          "title": "Hyperbolic Catenoid Tensile Rayleigh Column",
+          "file": "RUPTURE_M142_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "sculptural-chrome",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        }
       ]
     },
     {
@@ -48,38 +589,998 @@
         "Brutalist architectural shelves and fault planes",
         "High-contrast shadow crevices with subtle chromatic caustic lines"
       ],
-      "compatibleFamilies": ["sculptural-chrome", "pearlescent-silver"],
+      "compatibleFamilies": [
+        "sculptural-chrome",
+        "pearlescent-silver"
+      ],
       "artworks": [
-        { "id": "RUPTURE_M09", "title": "Cascading Multi-Layer Silver Strata", "file": "RUPTURE_M09_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M21", "title": "Monumental Topographic Undulating Fluid Strata", "file": "RUPTURE_M21_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M23", "title": "Horizontal Razor-Sheared Liquid Chrome Planes", "file": "RUPTURE_M23_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M34", "title": "Stepped Fluid Obsidian & Chrome Terraces", "file": "RUPTURE_M34_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M37", "title": "Conflicting Orthogonal Planar Chrome Fins", "file": "RUPTURE_M37_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M38", "title": "Staggered Horizontal Laminar Fluid Strata", "file": "RUPTURE_M38_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M43", "title": "Diagonal Topographic Strata with Molten Crimson", "file": "RUPTURE_M43_v1.jpg", "accent": "molten-red" },
-        { "id": "RUPTURE_M49", "title": "Interwoven 3D Topological Fluid Ribbon Knot", "file": "RUPTURE_M49_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M55", "title": "Razor-Sheared Planes with Molten Crimson Slit", "file": "RUPTURE_M55_v1.jpg", "accent": "molten-red" },
-        { "id": "RUPTURE_M60", "title": "Monolithic Chevron Prism of Chiseled Chrome", "file": "RUPTURE_M60_v1.jpg", "accent": "slate" },
-        { "id": "RUPTURE_M73", "title": "Horizontal Sheared Planes with Ultraviolet Crevices", "file": "RUPTURE_M73_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M80", "title": "Stepped Fluid Obsidian Terraces in Diagonal Fault", "file": "RUPTURE_M80_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M83", "title": "Hyper-Thin Planar Chrome Fins with Icy Edges", "file": "RUPTURE_M83_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M85", "title": "Brutalist Stepped Topographic Fluid Terraces", "file": "RUPTURE_M85_v1.jpg", "accent": "slate" },
-        { "id": "RUPTURE_M86", "title": "Intersecting Orthogonal Razor-Sheared Blades", "file": "RUPTURE_M86_v1.jpg", "accent": "chrome" },
-        { "id": "RUPTURE_M95", "title": "Sinuous Diagonal Fault in Liquid Chrome Slate", "file": "RUPTURE_M95_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M99", "title": "Tectonic Fluid Slabs of Mirror Chrome", "file": "RUPTURE_M99_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M100", "title": "Stack of Laminar Chrome Fins with Ultraviolet Edge", "file": "RUPTURE_M100_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M102", "title": "Stepped Obsidian Terraces with Lavender Sheen", "file": "RUPTURE_M102_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M103", "title": "Chiseled Stepped Ledges of Chrome Slate", "file": "RUPTURE_M103_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M108", "title": "Horizontal Tectonic Rupture with Ultraviolet Glow", "file": "RUPTURE_M108_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M115", "title": "Fanning Planar Chrome Blades with Cyan Caustics", "file": "RUPTURE_M115_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M116", "title": "Cascading Concentric Terraces with Lavender Sheen", "file": "RUPTURE_M116_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M117", "title": "Alternating Zig-Zag Fluid Shelves", "file": "RUPTURE_M117_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M119", "title": "Staggered Chrome Blades with Molten Crimson Slit", "file": "RUPTURE_M119_v1.jpg", "accent": "molten-red" },
-        { "id": "RUPTURE_M127", "title": "Intersecting Fluid Plates with Ultraviolet Edge", "file": "RUPTURE_M127_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M134", "title": "Orthogonal Planar Fins in Torsional Shear", "file": "RUPTURE_M134_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M136", "title": "Harmonic Cymatic Ripples across Slate Membrane", "file": "RUPTURE_M136_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M138", "title": "Hyperbolic Saddle Surface with Molten Crimson Slit", "file": "RUPTURE_M138_v1.jpg", "accent": "molten-red" },
-        { "id": "RUPTURE_M141", "title": "Stepped Topographic Terraces with Lavender Iridescence", "file": "RUPTURE_M141_v1.jpg", "accent": "slate" }
+        {
+          "id": "RUPTURE_M09",
+          "title": "Cascading Multi-Layer Silver Strata",
+          "file": "RUPTURE_M09_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M21",
+          "title": "Monumental Topographic Undulating Fluid Strata",
+          "file": "RUPTURE_M21_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M23",
+          "title": "Horizontal Razor-Sheared Liquid Chrome Planes",
+          "file": "RUPTURE_M23_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M34",
+          "title": "Stepped Fluid Obsidian & Chrome Terraces",
+          "file": "RUPTURE_M34_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M37",
+          "title": "Conflicting Orthogonal Planar Chrome Fins",
+          "file": "RUPTURE_M37_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M38",
+          "title": "Staggered Horizontal Laminar Fluid Strata",
+          "file": "RUPTURE_M38_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M43",
+          "title": "Diagonal Topographic Strata with Molten Crimson",
+          "file": "RUPTURE_M43_v1.jpg",
+          "accent": "molten-red",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "molten-red"
+          }
+        },
+        {
+          "id": "RUPTURE_M49",
+          "title": "Interwoven 3D Topological Fluid Ribbon Knot",
+          "file": "RUPTURE_M49_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M55",
+          "title": "Razor-Sheared Planes with Molten Crimson Slit",
+          "file": "RUPTURE_M55_v1.jpg",
+          "accent": "molten-red",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "molten-red"
+          }
+        },
+        {
+          "id": "RUPTURE_M60",
+          "title": "Monolithic Chevron Prism of Chiseled Chrome",
+          "file": "RUPTURE_M60_v1.jpg",
+          "accent": "slate",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "slate"
+          }
+        },
+        {
+          "id": "RUPTURE_M73",
+          "title": "Horizontal Sheared Planes with Ultraviolet Crevices",
+          "file": "RUPTURE_M73_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M80",
+          "title": "Stepped Fluid Obsidian Terraces in Diagonal Fault",
+          "file": "RUPTURE_M80_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M83",
+          "title": "Hyper-Thin Planar Chrome Fins with Icy Edges",
+          "file": "RUPTURE_M83_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M85",
+          "title": "Brutalist Stepped Topographic Fluid Terraces",
+          "file": "RUPTURE_M85_v1.jpg",
+          "accent": "slate",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "pearlescent-silver"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "slate"
+          }
+        },
+        {
+          "id": "RUPTURE_M86",
+          "title": "Intersecting Orthogonal Razor-Sheared Blades",
+          "file": "RUPTURE_M86_v1.jpg",
+          "accent": "chrome",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "chrome"
+          }
+        },
+        {
+          "id": "RUPTURE_M95",
+          "title": "Sinuous Diagonal Fault in Liquid Chrome Slate",
+          "file": "RUPTURE_M95_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M99",
+          "title": "Tectonic Fluid Slabs of Mirror Chrome",
+          "file": "RUPTURE_M99_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M100",
+          "title": "Stack of Laminar Chrome Fins with Ultraviolet Edge",
+          "file": "RUPTURE_M100_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M102",
+          "title": "Stepped Obsidian Terraces with Lavender Sheen",
+          "file": "RUPTURE_M102_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M103",
+          "title": "Chiseled Stepped Ledges of Chrome Slate",
+          "file": "RUPTURE_M103_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M108",
+          "title": "Horizontal Tectonic Rupture with Ultraviolet Glow",
+          "file": "RUPTURE_M108_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M115",
+          "title": "Fanning Planar Chrome Blades with Cyan Caustics",
+          "file": "RUPTURE_M115_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M116",
+          "title": "Cascading Concentric Terraces with Lavender Sheen",
+          "file": "RUPTURE_M116_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M117",
+          "title": "Alternating Zig-Zag Fluid Shelves",
+          "file": "RUPTURE_M117_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M119",
+          "title": "Staggered Chrome Blades with Molten Crimson Slit",
+          "file": "RUPTURE_M119_v1.jpg",
+          "accent": "molten-red",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "molten-red"
+          }
+        },
+        {
+          "id": "RUPTURE_M127",
+          "title": "Intersecting Fluid Plates with Ultraviolet Edge",
+          "file": "RUPTURE_M127_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M134",
+          "title": "Orthogonal Planar Fins in Torsional Shear",
+          "file": "RUPTURE_M134_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M136",
+          "title": "Harmonic Cymatic Ripples across Slate Membrane",
+          "file": "RUPTURE_M136_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M138",
+          "title": "Hyperbolic Saddle Surface with Molten Crimson Slit",
+          "file": "RUPTURE_M138_v1.jpg",
+          "accent": "molten-red",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "molten-red"
+          }
+        },
+        {
+          "id": "RUPTURE_M141",
+          "title": "Stepped Topographic Terraces with Lavender Iridescence",
+          "file": "RUPTURE_M141_v1.jpg",
+          "accent": "slate",
+          "primaryFamily": "folded-surfaces",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "pearlescent-silver"
+          ],
+          "materials": [
+            "polished-chrome",
+            "pearlescent-silver",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "slate"
+          }
+        }
       ]
     },
     {
@@ -95,19 +1596,366 @@
         "Gentle undulating fluid swells and laminar cascades",
         "Less harsh specular contrast, luxurious diffuse reflections"
       ],
-      "compatibleFamilies": ["translucent-glass", "folded-surfaces"],
+      "compatibleFamilies": [
+        "translucent-glass",
+        "folded-surfaces"
+      ],
       "artworks": [
-        { "id": "RUPTURE_M35", "title": "Undulating Laminar Swells of Pearlescent Silver", "file": "RUPTURE_M35_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M71", "title": "Nacreous Pearlescent Topographic Strata", "file": "RUPTURE_M71_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M92", "title": "Interlocking Laminar Sheets of Pearlescent Silver", "file": "RUPTURE_M92_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M94", "title": "Diagonal Ridge of Pearlescent Silver with Ultraviolet", "file": "RUPTURE_M94_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M101", "title": "Tiered Fluid Strata of Pearlescent Silver", "file": "RUPTURE_M101_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M114", "title": "Cantilevered Spiraling Pearlescent Aero-Foils", "file": "RUPTURE_M114_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M121", "title": "Twin Undulating Nacreous Fluid Sheets", "file": "RUPTURE_M121_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M128", "title": "Cascading Fan of Liquid Mercury Fins", "file": "RUPTURE_M128_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M132", "title": "Vertical Cascading Pearlescent Fluid Strata", "file": "RUPTURE_M132_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M135", "title": "Twisted Möbius Infinity Ribbon of Pearlescent Silver", "file": "RUPTURE_M135_v1.jpg", "accent": "pearl" },
-        { "id": "RUPTURE_M139", "title": "Tri-Fold Fluid Origami Plates of Pearlescent Silver", "file": "RUPTURE_M139_v1.jpg", "accent": "pearl" }
+        {
+          "id": "RUPTURE_M35",
+          "title": "Undulating Laminar Swells of Pearlescent Silver",
+          "file": "RUPTURE_M35_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury",
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M71",
+          "title": "Nacreous Pearlescent Topographic Strata",
+          "file": "RUPTURE_M71_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "folded-surfaces",
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M92",
+          "title": "Interlocking Laminar Sheets of Pearlescent Silver",
+          "file": "RUPTURE_M92_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M94",
+          "title": "Diagonal Ridge of Pearlescent Silver with Ultraviolet",
+          "file": "RUPTURE_M94_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M101",
+          "title": "Tiered Fluid Strata of Pearlescent Silver",
+          "file": "RUPTURE_M101_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "folded-surfaces",
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "horizontally-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M114",
+          "title": "Cantilevered Spiraling Pearlescent Aero-Foils",
+          "file": "RUPTURE_M114_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M121",
+          "title": "Twin Undulating Nacreous Fluid Sheets",
+          "file": "RUPTURE_M121_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M128",
+          "title": "Cascading Fan of Liquid Mercury Fins",
+          "file": "RUPTURE_M128_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury",
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M132",
+          "title": "Vertical Cascading Pearlescent Fluid Strata",
+          "file": "RUPTURE_M132_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "folded-surfaces",
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M135",
+          "title": "Twisted Möbius Infinity Ribbon of Pearlescent Silver",
+          "file": "RUPTURE_M135_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        },
+        {
+          "id": "RUPTURE_M139",
+          "title": "Tri-Fold Fluid Origami Plates of Pearlescent Silver",
+          "file": "RUPTURE_M139_v1.jpg",
+          "accent": "pearl",
+          "primaryFamily": "pearlescent-silver",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "velvety-nacreous",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pearl"
+          }
+        }
       ]
     },
     {
@@ -123,22 +1971,451 @@
         "Refractive bubbles and capillary fluid webbing",
         "Curling wave crests peeling into glass-like film"
       ],
-      "compatibleFamilies": ["pearlescent-silver", "sculptural-chrome"],
+      "compatibleFamilies": [
+        "pearlescent-silver",
+        "sculptural-chrome"
+      ],
       "artworks": [
-        { "id": "RUPTURE_M06", "title": "Caustic Warp Wave Peeling into Translucent Membrane", "file": "RUPTURE_M06_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M12", "title": "High-Speed Curling Wave with Ultraviolet Refraction", "file": "RUPTURE_M12_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M18", "title": "Volumetric Wave of Folded Translucent Glass", "file": "RUPTURE_M18_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M24", "title": "Flowing Sheet of Translucent Glass & Liquid Silk", "file": "RUPTURE_M24_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M39", "title": "Converging Fluid Blades with Ultraviolet Shadows", "file": "RUPTURE_M39_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M40", "title": "Diaphanous Sheet of Liquid Glass & Molten Platinum", "file": "RUPTURE_M40_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M41", "title": "Twisted Double-Membrane of Vitreous Film", "file": "RUPTURE_M41_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M42", "title": "Gossamer Fluid Sail of Molten Silver & Optic Glass", "file": "RUPTURE_M42_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M51", "title": "Serpentine S-Spine of Segmented Glass Vertices", "file": "RUPTURE_M51_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M72", "title": "Billowing Translucent Liquid Glass Membrane", "file": "RUPTURE_M72_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M77", "title": "Volumetric Wave of Intertwined Translucent Membranes", "file": "RUPTURE_M77_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M84", "title": "Twisted Double-Membrane with Cyan Caustic Dispersion", "file": "RUPTURE_M84_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M87", "title": "Diaphanous Acoustic Membrane of Billowing Glass", "file": "RUPTURE_M87_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M140", "title": "Suspended Liquid Chrome Capillary Filament Web", "file": "RUPTURE_M140_v1.jpg", "accent": "pale-cyan" }
+        {
+          "id": "RUPTURE_M06",
+          "title": "Caustic Warp Wave Peeling into Translucent Membrane",
+          "file": "RUPTURE_M06_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M12",
+          "title": "High-Speed Curling Wave with Ultraviolet Refraction",
+          "file": "RUPTURE_M12_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M18",
+          "title": "Volumetric Wave of Folded Translucent Glass",
+          "file": "RUPTURE_M18_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "folded-surfaces",
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M24",
+          "title": "Flowing Sheet of Translucent Glass & Liquid Silk",
+          "file": "RUPTURE_M24_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "pearlescent-silver"
+          ],
+          "materials": [
+            "pearlescent-silver",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M39",
+          "title": "Converging Fluid Blades with Ultraviolet Shadows",
+          "file": "RUPTURE_M39_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M40",
+          "title": "Diaphanous Sheet of Liquid Glass & Molten Platinum",
+          "file": "RUPTURE_M40_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M41",
+          "title": "Twisted Double-Membrane of Vitreous Film",
+          "file": "RUPTURE_M41_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M42",
+          "title": "Gossamer Fluid Sail of Molten Silver & Optic Glass",
+          "file": "RUPTURE_M42_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M51",
+          "title": "Serpentine S-Spine of Segmented Glass Vertices",
+          "file": "RUPTURE_M51_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M72",
+          "title": "Billowing Translucent Liquid Glass Membrane",
+          "file": "RUPTURE_M72_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M77",
+          "title": "Volumetric Wave of Intertwined Translucent Membranes",
+          "file": "RUPTURE_M77_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "folded-surfaces",
+            "sculptural-chrome",
+            "pearlescent-silver"
+          ],
+          "materials": [
+            "pearlescent-silver",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M84",
+          "title": "Twisted Double-Membrane with Cyan Caustic Dispersion",
+          "file": "RUPTURE_M84_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M87",
+          "title": "Diaphanous Acoustic Membrane of Billowing Glass",
+          "file": "RUPTURE_M87_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M140",
+          "title": "Suspended Liquid Chrome Capillary Filament Web",
+          "file": "RUPTURE_M140_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "translucent-glass",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "elongated-spire",
+            "fragmented-filaments"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "vitreous-optic",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        }
       ]
     },
     {
@@ -154,24 +2431,532 @@
         "Concentric standing wave ripples inside circular apertures",
         "Geometric purity meets fluid distortion"
       ],
-      "compatibleFamilies": ["sculptural-chrome", "translucent-glass"],
+      "compatibleFamilies": [
+        "sculptural-chrome",
+        "translucent-glass"
+      ],
       "artworks": [
-        { "id": "RUPTURE_M02", "title": "Singular Elliptical Liquid Chrome Ring", "file": "RUPTURE_M02_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M08", "title": "Nested Dual Rings of Polished Chrome & Glass", "file": "RUPTURE_M08_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M11", "title": "Distorted Toroidal Chrome Ring with Tension Beads", "file": "RUPTURE_M11_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M16", "title": "Interwoven Helical Ribbon Cage & Toroidal Spiral", "file": "RUPTURE_M16_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M59", "title": "Concentric Circular Capillary Wave Ripples", "file": "RUPTURE_M59_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M61", "title": "Suspended Toroidal Liquid Chrome Ring", "file": "RUPTURE_M61_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M68", "title": "Asymmetrical Toroidal Hydraulic Chrome Loop", "file": "RUPTURE_M68_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M78", "title": "Distorted Elliptical Aperture Ring of Liquid Chrome", "file": "RUPTURE_M78_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M81", "title": "Dynamic Sweeping Annular Fluid Ring Loop", "file": "RUPTURE_M81_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M96", "title": "Hyperbolic Catenoid Column with Circular Toroid Pinch", "file": "RUPTURE_M96_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M98", "title": "Orbital Ring Shearing Chrome Slate Slabs", "file": "RUPTURE_M98_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M106", "title": "Curved Fluid Foil Sheets with Toroidal Arc", "file": "RUPTURE_M106_v1.jpg", "accent": "pale-cyan" },
-        { "id": "RUPTURE_M112", "title": "Stepped Thrust Fault Chrome Wedges with Toroidal Loop", "file": "RUPTURE_M112_v1.jpg", "accent": "ultraviolet" },
-        { "id": "RUPTURE_M113", "title": "Interpenetrating Fluid Slabs with Circular Meniscus", "file": "RUPTURE_M113_v1.jpg", "accent": "lavender" },
-        { "id": "RUPTURE_M120", "title": "Pleated Laminar Sheets with Elliptical Caustics", "file": "RUPTURE_M120_v1.jpg", "accent": "icy-blue" },
-        { "id": "RUPTURE_M126", "title": "Scissor Shear Chrome Monoliths with Orbital Ring", "file": "RUPTURE_M126_v1.jpg", "accent": "pale-cyan" }
+        {
+          "id": "RUPTURE_M02",
+          "title": "Singular Elliptical Liquid Chrome Ring",
+          "file": "RUPTURE_M02_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "asymmetrical",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M08",
+          "title": "Nested Dual Rings of Polished Chrome & Glass",
+          "file": "RUPTURE_M08_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "toroidal-loop"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M11",
+          "title": "Distorted Toroidal Chrome Ring with Tension Beads",
+          "file": "RUPTURE_M11_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "translucent-glass"
+          ],
+          "form": [
+            "toroidal-loop"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M16",
+          "title": "Interwoven Helical Ribbon Cage & Toroidal Spiral",
+          "file": "RUPTURE_M16_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M59",
+          "title": "Concentric Circular Capillary Wave Ripples",
+          "file": "RUPTURE_M59_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "liquid-mercury"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M61",
+          "title": "Suspended Toroidal Liquid Chrome Ring",
+          "file": "RUPTURE_M61_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M68",
+          "title": "Asymmetrical Toroidal Hydraulic Chrome Loop",
+          "file": "RUPTURE_M68_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "liquid-mercury"
+          ],
+          "form": [
+            "asymmetrical",
+            "elongated-spire",
+            "toroidal-loop",
+            "fragmented-filaments"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M78",
+          "title": "Distorted Elliptical Aperture Ring of Liquid Chrome",
+          "file": "RUPTURE_M78_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "medium-monumental"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M81",
+          "title": "Dynamic Sweeping Annular Fluid Ring Loop",
+          "file": "RUPTURE_M81_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "pearlescent-silver"
+          ],
+          "materials": [
+            "pearlescent-silver"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M96",
+          "title": "Hyperbolic Catenoid Column with Circular Toroid Pinch",
+          "file": "RUPTURE_M96_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "vertically-oriented"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M98",
+          "title": "Orbital Ring Shearing Chrome Slate Slabs",
+          "file": "RUPTURE_M98_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "angular-blade"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M106",
+          "title": "Curved Fluid Foil Sheets with Toroidal Arc",
+          "file": "RUPTURE_M106_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        },
+        {
+          "id": "RUPTURE_M112",
+          "title": "Stepped Thrust Fault Chrome Wedges with Toroidal Loop",
+          "file": "RUPTURE_M112_v1.jpg",
+          "accent": "ultraviolet",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "folded-planar",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "chiseled-rim-light",
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "ultraviolet"
+          }
+        },
+        {
+          "id": "RUPTURE_M113",
+          "title": "Interpenetrating Fluid Slabs with Circular Meniscus",
+          "file": "RUPTURE_M113_v1.jpg",
+          "accent": "lavender",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "fluid-sculptural"
+          ],
+          "composition": [
+            "monumental-centered"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "high-contrast-directional"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "lavender"
+          }
+        },
+        {
+          "id": "RUPTURE_M120",
+          "title": "Pleated Laminar Sheets with Elliptical Caustics",
+          "file": "RUPTURE_M120_v1.jpg",
+          "accent": "icy-blue",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "icy-blue"
+          }
+        },
+        {
+          "id": "RUPTURE_M126",
+          "title": "Scissor Shear Chrome Monoliths with Orbital Ring",
+          "file": "RUPTURE_M126_v1.jpg",
+          "accent": "pale-cyan",
+          "primaryFamily": "reflective-globes",
+          "secondaryFamilies": [
+            "sculptural-chrome",
+            "translucent-glass"
+          ],
+          "materials": [
+            "polished-chrome",
+            "obsidian-slate"
+          ],
+          "form": [
+            "elongated-spire",
+            "toroidal-loop",
+            "angular-blade"
+          ],
+          "composition": [
+            "off-centre-diagonal"
+          ],
+          "perspective": [
+            "dramatic-perspective"
+          ],
+          "lighting": [
+            "internal-caustic-refraction"
+          ],
+          "surfaceFinish": "specular-mirror",
+          "palette": {
+            "base": "pure-black-and-chrome",
+            "accent": "pale-cyan"
+          }
+        }
       ]
     }
   ]
