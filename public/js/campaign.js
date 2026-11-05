@@ -819,10 +819,6 @@ export function createCampaignView(app) {
                 }).join('')}
               </select>
             </div>
-            <button type="button" class="btn small danger btn-delete-current-edition" id="btn-delete-edition" title="Delete current campaign edition" style="display:inline-flex; align-items:center; gap:6px; color:#ff5c5c; border-color:rgba(255,92,92,0.35); background:rgba(255,92,92,0.08); font-weight:600;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 5v6m4-6v6"/></svg>
-              <span>Delete Edition</span>
-            </button>
           </div>
 
           <div class="edition-selector-label" style="margin-left:auto; display:flex; align-items:center; gap:8px;">
