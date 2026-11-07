@@ -8144,7 +8144,6 @@
         "RUPTURE_M102",
         "RUPTURE_M103",
         "RUPTURE_M117",
-        "RUPTURE_M119",
         "RUPTURE_M127",
         "RUPTURE_M134",
         "RUPTURE_M136",
@@ -8169,7 +8168,7 @@
         "RUPTURE_M66"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-07T15:16:21.561Z"
+      "updatedAt": "2026-11-07T16:47:23.835Z"
     },
     {
       "id": "group_kinetic_annuli",

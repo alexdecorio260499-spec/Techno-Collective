@@ -584,7 +584,7 @@ async function createCampaignEdition(body = {}) {
       groupName: grp.name,
       groupColor: grp.color || '#7AE7FF',
       group: grp,
-      basePath: '',
+      basePath: `/campaign/editions/${editionId}`,
       primaryFamily: { id: grp.id, name: grp.name },
       secondaryFamilies: [],
       inactiveFamilies: [],
@@ -611,11 +611,21 @@ async function createCampaignEdition(body = {}) {
       await fs.writeFile(manPath2, manStr, 'utf8');
     }
 
+    // Auto-render full post content (4:5 flyers, 1:1 square crops, 9:16 reels)
+    let finalPosts = generatedPosts;
+    try {
+      const renderScript = path.join(ROOT, 'scripts/render_edition_posts.py');
+      await run('python3', [renderScript, '--edition', editionId]);
+      finalPosts = JSON.parse(await fs.readFile(path.join(edDir1, 'edition_data.json'), 'utf8'));
+    } catch (renderErr) {
+      console.error('Warning: failed to pre-render posts for new edition:', renderErr);
+    }
+
     return {
       ok: true,
       editionId,
       edition: newEdition,
-      posts: generatedPosts,
+      posts: finalPosts,
       activeEditionId: editionId
     };
   }
