@@ -222,8 +222,8 @@
     "title": "LAST TICKETS",
     "timing": "Day 31 (Event -3d)",
     "theme": "Hyperbolic saddle surface molten crimson final passes",
-    "artwork": "RUPTURE_M138_v1.jpg",
-    "artworkTitle": "RUPTURE_M138 (Hyperbolic saddle surface with molten crimson slit)",
+    "artwork": "RUPTURE_M73_v1.jpg",
+    "artworkTitle": "RUPTURE_M73 (Horizontal razor-sheared liquid chrome planes with deep ultraviolet refractions between sheared plates (inspired by approved M23))",
     "family": "Folded Liquid Surfaces",
     "familyId": "folded-surfaces",
     "familyRole": "Primary Family",
@@ -231,7 +231,8 @@
     "colorMode": "red",
     "typography": "Condensed Bold 96pt LAST TICKETS",
     "safeArea": "Capacity warning and ticket tiers in safe zone",
-    "caption": "LAST TICKETS // CAPACITY UPDATE.\n\nTier 01: SOLD OUT\nTier 02: SOLD OUT\nTier 03: LESS THAN 10% REMAINING\n\nNo door sales.\n\n#lasttickets #finalrelease #nacreousstrata #rupture"
+    "caption": "LAST TICKETS // CAPACITY UPDATE.\n\nTier 01: SOLD OUT\nTier 02: SOLD OUT\nTier 03: LESS THAN 10% REMAINING\n\nNo door sales.\n\n#lasttickets #finalrelease #nacreousstrata #rupture",
+    "compositionTag": "monumental-centered"
   },
   {
     "id": "14",

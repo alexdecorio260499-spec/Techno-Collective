@@ -2570,3 +2570,205 @@ dialog#group-dialog::backdrop {
   border-color: var(--cyan);
   color: var(--white);
 }
+
+/* ==========================================================================
+   CAMPAIGN VISUAL RESET: CREATIVE ARCHETYPES & CINEMATIC VIDEO CONTROLS
+   ========================================================================== */
+
+.ig-archetype-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.ig-archetype-badge.archetype-full-artwork-composition {
+  background: rgba(122, 231, 255, 0.08);
+  border-color: rgba(122, 231, 255, 0.3);
+  color: var(--cyan);
+}
+
+.ig-archetype-badge.archetype-cinematic-dj-video {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--white);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.ig-archetype-badge.archetype-typography-led-composition {
+  background: rgba(160, 175, 200, 0.1);
+  border-color: rgba(160, 175, 200, 0.25);
+  color: #ccd6e5;
+}
+
+.ig-archetype-badge.archetype-artwork-fragments-&-framing {
+  background: rgba(200, 210, 230, 0.08);
+  border-color: rgba(200, 210, 230, 0.25);
+  color: #e2e8f0;
+}
+
+.ig-archetype-badge.archetype-cropped-macro-artwork {
+  background: rgba(122, 231, 255, 0.06);
+  border-color: rgba(122, 231, 255, 0.22);
+  color: #a5f3fc;
+}
+
+.ig-archetype-badge.archetype-mixed-media-/-architectural,
+.ig-archetype-badge.archetype-mixed-media-/-practical-guide {
+  background: rgba(180, 190, 210, 0.08);
+  border-color: rgba(180, 190, 210, 0.25);
+  color: #cbd5e1;
+}
+
+.ig-reel-badge {
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: rgba(122, 231, 255, 0.15);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.card-archetype-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line-2);
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+.card-usage-note {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--grey);
+  margin-top: 4px;
+}
+
+/* Modal Aspect Ratio Switcher (Feed 4:5 vs Reel 9:16) */
+.modal-aspect-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.aspect-toggle-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--grey);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+}
+
+.aspect-toggle-btn:hover {
+  color: var(--white);
+  border-color: var(--line-2);
+}
+
+.aspect-toggle-btn.active {
+  background: rgba(122, 231, 255, 0.1);
+  border-color: var(--cyan);
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.modal-image-stage.aspect-reel {
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* Modal Archetype Banner */
+.modal-archetype-banner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cyan);
+  border-radius: 3px;
+  margin-bottom: 12px;
+}
+
+.modal-archetype-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+.modal-archetype-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--white);
+}
+
+.modal-artwork-usage-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--grey);
+  margin-top: 2px;
+}
+
+/* Interactive Audio Waveform Player HUD */
+.interactive-audio-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(12, 15, 20, 0.85);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.hud-play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line-2);
+  color: var(--white);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.hud-play-btn:hover {
+  background: var(--cyan);
+  color: #000;
+  border-color: var(--cyan);
+}
+
+.hud-wave-canvas {
+  height: 24px;
+  width: 140px;
+  background: transparent;
+}

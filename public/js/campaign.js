@@ -18,6 +18,9 @@ export function createCampaignView(app) {
   let activePostId = null;
   let showCropGuide = false;
   let activeFamilyFilter = null;
+  let modalAspect = 'feed'; // 'feed' (4:5) | 'reel' (9:16)
+  let audioSimInterval = null;
+  let isAudioSimPlaying = false;
 
   // Custom Direction Builder state & Event Profile
   let customPrimary = 'sculptural-chrome';
@@ -1067,16 +1070,16 @@ export function createCampaignView(app) {
                   ? (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`)
                   : `/artworks/masters/${p.artwork}`;
                 const isCenterHero = p.id === '05';
-                const hasRedCaustic = p.id === '05' || p.id === '13';
                 const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
+                const archetypeSlug = (p.archetype || 'full-artwork').toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 return `
-                  <div class="ig-grid-item ${hasRedCaustic ? 'has-red-accent' : ''} ${isCenterHero ? 'center-hero' : ''}" data-post-id="${p.id}" tabindex="0">
+                  <div class="ig-grid-item ${isCenterHero ? 'center-hero' : ''}" data-post-id="${p.id}" tabindex="0">
                     <img src="${imgSrc}" alt="${esc(p.title)}" loading="lazy">
                     ${isDynamic ? `
                       <div class="flyer-card-overlay">
                         <div class="flyer-card-top mono">
                           <span>RUPTURE // ${p.id}</span>
-                          <span class="flyer-badge ${hasRedCaustic ? 'badge-red' : ''}">${p.id === '05' ? 'MAIN POSTER' : p.id === '04' ? 'SAVE DATE' : p.id === '13' ? 'LAST 50' : p.id === '15' ? 'TONIGHT' : esc(p.phase.split('—')[0].trim())}</span>
+                          <span class="flyer-badge">${p.id === '05' ? 'HERO POSTER' : p.id === '04' ? 'SAVE DATE' : p.id === '13' ? 'COUNTDOWN' : p.id === '15' ? 'TONIGHT' : esc(p.phase.split('—')[0].trim())}</span>
                         </div>
                         <div class="flyer-card-center">
                           <div class="flyer-card-title">${esc(p.title)}</div>
@@ -1091,19 +1094,20 @@ export function createCampaignView(app) {
                     <div class="ig-grid-overlay">
                       <div class="ig-overlay-header">
                         <span class="mono ig-post-badge">POST ${p.id}</span>
+                        ${p.archetype ? `<span class="mono ig-archetype-badge archetype-${archetypeSlug}">${esc(p.archetype.replace(' Composition', '').replace(' Artwork', ''))}</span>` : ''}
+                        ${p.reelAvailable ? `<span class="mono ig-reel-badge" title="9:16 Video / Reel Concept">▶ REEL</span>` : ''}
                         ${p.familyRole ? `<span class="mono ig-family-badge ${p.familyRole.toLowerCase().includes('primary') ? 'primary-badge' : 'secondary-badge'}">${esc(familyName)}</span>` : ''}
-                        ${hasRedCaustic ? `<span class="mono ig-red-dot" title="Molten Crimson Restrained Accent">● RED</span>` : ''}
                       </div>
                       <div class="ig-overlay-title">${esc(p.title)}</div>
-                      <div class="ig-overlay-meta mono muted">${esc(p.phase.split('—')[0].trim())}</div>
+                      <div class="ig-overlay-meta mono muted">${esc(p.phase.split('—')[0].trim())} · ${esc(p.archetype || 'Art-Directed')}</div>
                       <div class="ig-overlay-stats">
                         <span>❤️ ${240 + parseInt(p.id, 10) * 37}</span>
                         <span>💬 ${18 + parseInt(p.id, 10) * 4}</span>
                       </div>
                       <div class="ig-overlay-actions">
                         <button type="button" class="btn small primary ig-inspect-btn">Inspect Post</button>
-                        <button type="button" class="btn small ig-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
-                        <button type="button" class="btn small ig-reroll-btn" data-reroll-post-id="${p.id}" title="Re-roll composition & camera perspective while keeping family and material">🎲 Re-roll Comp</button>
+                        <button type="button" class="btn small ig-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap</button>
+                        <button type="button" class="btn small ig-reroll-btn" data-reroll-post-id="${p.id}" title="Re-roll composition & camera perspective while keeping family and material">🎲 Re-roll</button>
                       </div>
                     </div>
                   </div>
@@ -1139,18 +1143,21 @@ export function createCampaignView(app) {
                           <div class="timeline-card-image">
                             <img src="${imgSrc}" alt="${esc(p.title)}" loading="lazy">
                             <span class="mono card-tag">POST ${p.id}</span>
+                            ${p.archetype ? `<span class="mono card-archetype-tag">${esc(p.archetype.replace(' Composition', ''))}</span>` : ''}
+                            ${p.reelAvailable ? `<span class="mono card-reel-tag">▶ 9:16 REEL</span>` : ''}
                             ${p.familyRole ? `<span class="mono card-family-tag ${p.familyRole.toLowerCase().includes('primary') ? 'primary' : 'secondary'}">${esc(familyName)}</span>` : ''}
                           </div>
                           <div class="timeline-card-info">
                             <div class="mono card-timing muted">${esc(p.timing)}</div>
                             <h4 class="card-title">${esc(p.title)}</h4>
                             <p class="card-theme">${esc(p.theme)}</p>
+                            ${p.artworkUsage ? `<p class="card-usage-note mono">${esc(p.artworkUsage)}</p>` : ''}
                             <div class="card-art-link mono">
                               <span class="muted">Ref:</span> <a href="/artworks/masters/${p.artwork}" target="_blank">${esc(p.artwork.replace('_v1.jpg', ''))}</a>
                             </div>
                             <div class="timeline-card-actions">
                               <button type="button" class="btn small card-inspect-btn">Inspect Post</button>
-                              <button type="button" class="btn small card-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap Art</button>
+                              <button type="button" class="btn small card-swap-btn" data-swap-post-id="${p.id}" title="Swap with another random artwork from this batch">🔀 Swap</button>
                               <button type="button" class="btn small card-reroll-btn" data-reroll-post-id="${p.id}" title="Re-roll composition & camera perspective while keeping family and material">🎲 Re-roll Comp</button>
                             </div>
                           </div>
@@ -2120,24 +2127,63 @@ export function createCampaignView(app) {
       }
     }
 
+    const isReel = Boolean(modalAspect === 'reel' && post.reelAvailable);
+    const activeModalImgSrc = hasBasePath
+      ? (isReel ? `${basePath}/posts/${post.fileStem}_reel.jpg` : `${basePath}/posts/${post.fileStem}.jpg`)
+      : `/artworks/masters/${post.artwork}`;
+
+    const dlReelJpg = hasBasePath ? `${basePath}/posts/${post.fileStem}_reel.jpg` : null;
+    const dlReelPng = hasBasePath ? `${basePath}/posts/${post.fileStem}_reel.png` : null;
+
     const modal = document.getElementById('campaign-modal');
     if (!modal) return;
 
     modal.innerHTML = `
       <div class="campaign-modal-inner">
         <div class="modal-left">
-          <div class="modal-image-stage ${showCropGuide ? 'show-crop-guide' : ''}">
-            <img src="${modalImgSrc}" alt="${esc(post.title)}" class="modal-full-img">
-            <div class="safe-crop-overlay">
-              <div class="crop-top-mask"></div>
-              <div class="crop-center-box"><span class="mono">1:1 PROFILE CROP SAFE AREA</span></div>
-              <div class="crop-bottom-mask"></div>
+          ${post.reelAvailable ? `
+            <div class="modal-aspect-switcher">
+              <span class="mono text-xs muted" style="margin-right: 4px;">VIEW FORMAT:</span>
+              <button type="button" class="aspect-toggle-btn ${!isReel ? 'active' : ''}" data-modal-aspect="feed">
+                Feed (4:5 · 1080×1350)
+              </button>
+              <button type="button" class="aspect-toggle-btn ${isReel ? 'active' : ''}" data-modal-aspect="reel">
+                ▶ Reel / Story (9:16 · 1080×1920)
+              </button>
             </div>
+          ` : ''}
+
+          <div class="modal-image-stage ${showCropGuide && !isReel ? 'show-crop-guide' : ''} ${isReel ? 'aspect-reel' : ''}">
+            <img src="${activeModalImgSrc}" alt="${esc(post.title)}" class="modal-full-img">
+            ${!isReel ? `
+              <div class="safe-crop-overlay">
+                <div class="crop-top-mask"></div>
+                <div class="crop-center-box"><span class="mono">1:1 PROFILE CROP SAFE AREA</span></div>
+                <div class="crop-bottom-mask"></div>
+              </div>
+            ` : ''}
           </div>
+
+          ${(post.videoData || post.archetype?.includes('Video')) ? `
+            <div class="interactive-audio-hud">
+              <button type="button" class="hud-play-btn" id="btn-toggle-audio-sim">
+                <span id="audio-sim-icon">▶</span> <span id="audio-sim-text">Play Live Waveform (142 BPM)</span>
+              </button>
+              <div class="mono text-xs" style="display:flex; align-items:center; gap:8px;">
+                <span style="color:var(--cyan); font-weight:700;">LIVE HARDWARE</span>
+                <span class="muted">·</span>
+                <span class="muted">PCM 24-BIT</span>
+              </div>
+              <canvas class="hud-wave-canvas" id="modal-wave-canvas" width="140" height="24"></canvas>
+            </div>
+          ` : ''}
+
           <div class="modal-image-tools">
-            <button type="button" class="btn small ${showCropGuide ? 'active' : ''}" id="btn-toggle-crop">
-              ${showCropGuide ? 'Hide 1:1 Safe Crop Guide' : 'Show 1:1 Safe Crop Guide'}
-            </button>
+            ${!isReel ? `
+              <button type="button" class="btn small ${showCropGuide ? 'active' : ''}" id="btn-toggle-crop">
+                ${showCropGuide ? 'Hide 1:1 Safe Crop Guide' : 'Show 1:1 Safe Crop Guide'}
+              </button>
+            ` : ''}
             <button type="button" class="btn small ig-stage-swap-btn" data-swap-post-id="${post.id}" title="Swap with another random artwork from current batch">
               🔀 Swap Artwork
             </button>
@@ -2145,8 +2191,11 @@ export function createCampaignView(app) {
               🎲 Re-roll Comp
             </button>
             <div class="download-group">
-              <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small btn-dl-jpg">Download JPG</a>
-              <a href="${dlPng}" download="${post.fileStem}.png" class="btn small primary btn-dl-png">Download ${currentEditionMeta.isDynamicGroup ? 'Artwork' : 'PNG (1080×1350)'}</a>
+              <a href="${dlJpg}" download="${post.fileStem}.jpg" class="btn small btn-dl-jpg">Download 4:5 JPG</a>
+              <a href="${dlPng}" download="${post.fileStem}.png" class="btn small primary btn-dl-png">Download 4:5 PNG</a>
+              ${isReel && dlReelJpg ? `
+                <a href="${dlReelJpg}" download="${post.fileStem}_reel.jpg" class="btn small btn-dl-reel" style="background:rgba(122,231,255,0.15); border-color:var(--cyan); color:var(--cyan);">Download 9:16 Reel</a>
+              ` : ''}
             </div>
           </div>
         </div>
@@ -2161,6 +2210,16 @@ export function createCampaignView(app) {
               </div>
             </div>
             <button type="button" class="btn small close-modal-btn" aria-label="Close dialog">Close ✕</button>
+          </div>
+
+          <!-- Creative Archetype & Art Direction Banner -->
+          <div class="modal-archetype-banner">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="modal-archetype-pill">ARCHETYPE: ${esc(post.archetype || 'Full Artwork Composition')}</span>
+              ${post.reelAvailable ? `<span class="mono card-reel-tag" style="background:rgba(122,231,255,0.12); border-color:var(--cyan); color:var(--cyan);">▶ 9:16 REEL CONCEPT READY</span>` : ''}
+            </div>
+            <div class="modal-archetype-desc">${esc(post.archetypeDescription || 'Art-directed underground techno layout.')}</div>
+            ${post.artworkUsage ? `<div class="modal-artwork-usage-note"><strong>ARTWORK INTEGRATION:</strong> ${esc(post.artworkUsage)}</div>` : ''}
           </div>
 
           <!-- Artwork Family Assignment -->
@@ -2248,19 +2307,6 @@ export function createCampaignView(app) {
               </div>
             </div>
           ` : ''}
-            <div class="art-ref-box">
-              <img src="/artworks/masters/${post.artwork}" alt="${esc(post.artworkTitle)}" class="art-ref-thumb">
-              <div>
-                <strong class="art-ref-title">${esc(post.artwork.replace('_v1.jpg', ''))}</strong>
-                <p class="muted text-sm art-ref-desc">${esc(post.artworkTitle)}</p>
-                <div class="art-ref-links mono text-xs">
-                  <a href="/artworks/masters/${post.artwork}" target="_blank" class="art-ref-link">View Master Artwork ↗</a>
-                  <span class="muted">·</span>
-                  <span class="batch-source-label muted">Batch: ${esc(batchLabel)}</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div class="modal-section">
             <div class="mono muted">COLOR & TYPOGRAPHY SPECIFICATIONS:</div>
@@ -2292,6 +2338,8 @@ export function createCampaignView(app) {
     modal.querySelectorAll('.close-modal-btn').forEach(btn => {
       btn.onclick = (e) => {
         e.stopPropagation();
+        if (audioSimInterval) clearInterval(audioSimInterval);
+        isAudioSimPlaying = false;
         modal.close();
       };
     });
@@ -2299,6 +2347,8 @@ export function createCampaignView(app) {
     // Close on backdrop click (clicking outside the modal dialog box)
     modal.onclick = (e) => {
       if (e.target === modal) {
+        if (audioSimInterval) clearInterval(audioSimInterval);
+        isAudioSimPlaying = false;
         modal.close();
       }
     };
@@ -2306,14 +2356,75 @@ export function createCampaignView(app) {
     // Close on Escape key
     modal.onkeydown = (e) => {
       if (e.key === 'Escape') {
+        if (audioSimInterval) clearInterval(audioSimInterval);
+        isAudioSimPlaying = false;
         modal.close();
       }
     };
 
-    modal.querySelector('#btn-toggle-crop').addEventListener('click', () => {
-      showCropGuide = !showCropGuide;
-      openModal(id, posts, man, fams);
+    // Bind Aspect Ratio Switcher (Feed vs Reel)
+    modal.querySelectorAll('[data-modal-aspect]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modalAspect = btn.dataset.modalAspect;
+        openModal(id, posts, man, fams);
+      });
     });
+
+    // Bind Audio Waveform Simulator
+    const btnAudioSim = modal.querySelector('#btn-toggle-audio-sim');
+    const waveCanvas = modal.querySelector('#modal-wave-canvas');
+    if (btnAudioSim && waveCanvas) {
+      const ctx = waveCanvas.getContext('2d');
+      const drawIdleWave = () => {
+        ctx.clearRect(0, 0, 140, 24);
+        ctx.fillStyle = '#6e7684';
+        for (let i = 0; i < 20; i++) {
+          const h = 4 + Math.sin(i * 0.4) * 3;
+          ctx.fillRect(i * 7, (24 - h) / 2, 4, h);
+        }
+      };
+      drawIdleWave();
+
+      btnAudioSim.addEventListener('click', () => {
+        isAudioSimPlaying = !isAudioSimPlaying;
+        const icon = modal.querySelector('#audio-sim-icon');
+        const txt = modal.querySelector('#audio-sim-text');
+        if (isAudioSimPlaying) {
+          if (icon) icon.textContent = '❚❚';
+          if (txt) txt.textContent = 'Pause Simulated Audio (142 BPM)';
+          btnAudioSim.style.background = 'var(--cyan)';
+          btnAudioSim.style.color = '#000';
+          let tick = 0;
+          if (audioSimInterval) clearInterval(audioSimInterval);
+          audioSimInterval = setInterval(() => {
+            tick++;
+            ctx.clearRect(0, 0, 140, 24);
+            for (let i = 0; i < 20; i++) {
+              const h = Math.max(3, Math.abs(Math.sin(tick * 0.3 + i * 0.45) * 20));
+              ctx.fillStyle = (i >= 7 && i <= 13) ? '#7AE7FF' : '#c3cad4';
+              ctx.fillRect(i * 7, (24 - h) / 2, 4, h);
+            }
+          }, 60);
+        } else {
+          if (icon) icon.textContent = '▶';
+          if (txt) txt.textContent = 'Play Live Waveform (142 BPM)';
+          btnAudioSim.style.background = '';
+          btnAudioSim.style.color = '';
+          if (audioSimInterval) clearInterval(audioSimInterval);
+          drawIdleWave();
+        }
+      });
+    }
+
+    const btnCrop = modal.querySelector('#btn-toggle-crop');
+    if (btnCrop) {
+      btnCrop.addEventListener('click', () => {
+        showCropGuide = !showCropGuide;
+        openModal(id, posts, man, fams);
+      });
+    }
+
     modal.querySelectorAll('[data-swap-post-id]').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
