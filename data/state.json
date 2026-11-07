@@ -8153,7 +8153,6 @@
         "RUPTURE_M35",
         "RUPTURE_M42",
         "RUPTURE_M39",
-        "RUPTURE_M66",
         "RUPTURE_M85",
         "RUPTURE_M94",
         "RUPTURE_M92",
@@ -8166,10 +8165,11 @@
         "RUPTURE_M126",
         "RUPTURE_M121",
         "RUPTURE_M112",
-        "RUPTURE_M113"
+        "RUPTURE_M113",
+        "RUPTURE_M66"
       ],
       "createdAt": "2026-11-02T08:00:00.000Z",
-      "updatedAt": "2026-11-05T08:42:48.541Z"
+      "updatedAt": "2026-11-07T15:16:21.561Z"
     },
     {
       "id": "group_kinetic_annuli",
@@ -8253,10 +8253,8 @@
         "RUPTURE_M35",
         "RUPTURE_M38",
         "RUPTURE_M39",
-        "RUPTURE_M43",
         "RUPTURE_M42",
         "RUPTURE_M41",
-        "RUPTURE_M66",
         "RUPTURE_M71",
         "RUPTURE_M73",
         "RUPTURE_M74",
@@ -8279,14 +8277,13 @@
         "RUPTURE_M113",
         "RUPTURE_M112",
         "RUPTURE_M117",
-        "RUPTURE_M119",
         "RUPTURE_M120",
         "RUPTURE_M126",
         "RUPTURE_M127",
         "RUPTURE_M128"
       ],
       "createdAt": "2026-11-02T08:53:57.384Z",
-      "updatedAt": "2026-11-05T08:35:26.229Z"
+      "updatedAt": "2026-11-07T15:16:25.295Z"
     }
   ],
   "exports": [

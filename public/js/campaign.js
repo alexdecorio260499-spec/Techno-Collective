@@ -252,26 +252,53 @@ export function createCampaignView(app) {
       return;
     }
 
-    if (group.id === 'group_mvz0v9jc_xll4' || group.name.toLowerCase().includes('group test 1') || group.name.toLowerCase().includes('group 1')) {
-      activeEditionId = 'edition_grp_01_group_test_1';
+    // Call server to create and persist unique randomised edition
+    try {
+      showToast(`⚡ Randomising new campaign from ${group.name}...`);
+      const res = await fetch('/api/campaign/create-edition', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ groupId: group.id })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Server failed to create campaign');
+
+      activeEditionId = data.editionId;
+      editionsCache[data.editionId] = data.posts;
+      manifest = null; // Invalidate cache so loadManifest re-fetches
+      await loadManifest(true);
+
       viewMode = 'grid';
       location.hash = '#campaign';
       await render();
+      showToast(`✓ New campaign created: ${data.edition?.title || data.editionId}`);
       return;
-    }
+    } catch (apiErr) {
+      console.warn('Backend campaign creation failed, falling back to client-side:', apiErr);
+      // Client-side fallback if offline/static
+      const man = await loadManifest();
+      let maxG = 0;
+      let grpCount = 0;
+      for (const e of man.editions || []) {
+        if (e.groupId === group.id) grpCount++;
+        const m = String(e.editionNumber || '').match(/^G(\d+)$/i);
+        if (m) {
+          const n = parseInt(m[1], 10);
+          if (n > maxG) maxG = n;
+        }
+      }
+      const nextGNum = maxG + 1;
+      const nextGStr = `G${nextGNum}`;
+      const randNum = grpCount + 1;
+      const dynamicId = `edition_grp_${String(nextGNum).padStart(2, '0')}_${Date.now().toString(36)}`;
+      const posts = generate15PostsFromGroup(group);
+      editionsCache[dynamicId] = posts;
 
-    const dynamicId = `group_edition_${group.id}`;
-    const posts = generate15PostsFromGroup(group);
-    editionsCache[dynamicId] = posts;
-
-    const man = await loadManifest();
-    let edMeta = man.editions.find(e => e.id === dynamicId);
-    if (!edMeta) {
-      edMeta = {
+      const edMeta = {
         id: dynamicId,
-        editionNumber: 'GRP',
-        title: `GROUP: ${group.name.toUpperCase()}`,
-        chapter: `CURATED STYLE GROUP // ${group.artworkIds.length} ARTWORKS`,
+        editionNumber: nextGStr,
+        title: `EDITION ${nextGStr}: ${group.name.toUpperCase()} // RANDOM #${randNum}`,
+        chapter: `Curated Style Chapter ${nextGStr} — ${group.name}`,
         tagline: group.description,
         conceptSummary: `Dynamic underground techno campaign randomised entirely from curated artwork group "${group.name}". All 15 posts are mapped across the 4-phase rollout using ${group.artworkIds.length} approved style-matched artworks.`,
         status: 'ready',
@@ -286,17 +313,13 @@ export function createCampaignView(app) {
         inactiveFamilies: []
       };
       man.editions.unshift(edMeta);
-    } else {
-      edMeta.title = `GROUP: ${group.name.toUpperCase()}`;
-      edMeta.tagline = group.description;
-      edMeta.groupColor = group.color || '#7AE7FF';
-      edMeta.group = group;
-    }
 
-    activeEditionId = dynamicId;
-    viewMode = 'grid';
-    location.hash = '#campaign';
-    await render();
+      activeEditionId = dynamicId;
+      viewMode = 'grid';
+      location.hash = '#campaign';
+      await render();
+      showToast(`✓ New campaign created: ${edMeta.title}`);
+    }
   }
 
   async function deleteEdition(editionId) {
@@ -906,7 +929,10 @@ export function createCampaignView(app) {
             <span class="mono muted">RANDOMISE FROM GROUP:</span>
             <select id="select-randomise-group" class="edition-select" style="min-width: 190px;">
               <option value="">— Select Artwork Group —</option>
-              ${(groupsData || []).map(g => `<option value="${g.id}">✦ ${esc(g.name)} (${(g.artworkIds||[]).length})</option>`).join('')}
+              ${(groupsData || []).map(g => {
+                const isSel = currentEditionMeta?.groupId === g.id;
+                return `<option value="${g.id}" ${isSel ? 'selected' : ''}>✦ ${esc(g.name)} (${(g.artworkIds||[]).length})</option>`;
+              }).join('')}
             </select>
             <button type="button" class="btn small primary" id="btn-trigger-group-randomise">⚡ Randomise Grid</button>
           </div>
@@ -2046,17 +2072,28 @@ export function createCampaignView(app) {
     // Group randomisation triggers
     const selectGroup = el.querySelector('#select-randomise-group');
     const btnGroup = el.querySelector('#btn-trigger-group-randomise');
-    if (btnGroup && selectGroup) {
+    if (btnGroup) {
       btnGroup.addEventListener('click', () => {
-        const gid = selectGroup.value;
-        if (!gid) return alert('Please select an artwork group from the dropdown.');
+        let gid = selectGroup ? selectGroup.value : '';
+        if (!gid) {
+          // Fallback to active edition's group or first group with artworks
+          if (currentEditionMeta?.groupId) {
+            gid = currentEditionMeta.groupId;
+          } else {
+            const firstWithArt = (groupsData || []).find(g => (g.artworkIds || []).length > 0);
+            if (firstWithArt) gid = firstWithArt.id;
+          }
+          if (selectGroup && gid) selectGroup.value = gid;
+        }
+        if (!gid) return alert('Please select an artwork group from the dropdown or create one in the Gallery.');
         randomiseFromGroup(gid);
       });
     }
     const btnRerand = el.querySelector('#btn-rerandomise-group');
     if (btnRerand && currentEditionMeta.isDynamicGroup) {
       btnRerand.addEventListener('click', () => {
-        randomiseFromGroup(currentEditionMeta.groupId);
+        const gid = currentEditionMeta.groupId || (selectGroup ? selectGroup.value : '') || (groupsData || []).find(g => (g.artworkIds || []).length > 0)?.id;
+        if (gid) randomiseFromGroup(gid);
       });
     }
 

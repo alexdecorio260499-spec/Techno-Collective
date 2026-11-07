@@ -355,12 +355,270 @@ async function createCampaignEdition(body = {}) {
   const {
     title: userTitle,
     chapter: userChapter,
+    groupId,
     primaryFamilyId,
     secondaryFamilyIds = [],
     conceptSummary: userSummary,
     artDirectionProfile: userProfile = {},
     variationLevel: userVariation = 'medium'
   } = body;
+
+  // Handle group-based campaign creation (e.g. from "Randomise Grid")
+  if (groupId) {
+    let grp = store.groups?.groups?.find((g) => g.id === groupId);
+    if (!grp) {
+      try {
+        const grpJson = JSON.parse(await fs.readFile(path.join(ROOT, 'data/artwork_groups.json'), 'utf8'));
+        grp = (grpJson.groups || []).find((g) => g.id === groupId);
+      } catch {}
+    }
+    if (!grp) throw httpError(404, `Artwork group not found: ${groupId}`);
+    if (!grp.artworkIds || !grp.artworkIds.length) {
+      throw httpError(400, `Artwork group "${grp.name}" has no artworks assigned`);
+    }
+
+    const manPath1 = path.join(ROOT, 'campaign/editions_manifest.json');
+    const manPath2 = path.join(ROOT, 'public/campaign/editions_manifest.json');
+    let manifest = { editions: [] };
+    try {
+      manifest = JSON.parse(await fs.readFile(manPath1, 'utf8'));
+    } catch {}
+
+    let maxGNum = 0;
+    let groupRandCount = 0;
+    for (const ed of manifest.editions || []) {
+      if (ed.groupId === grp.id) groupRandCount++;
+      const match = String(ed.editionNumber || '').match(/^G(\d+)$/i);
+      if (match) {
+        const gn = parseInt(match[1], 10);
+        if (gn > maxGNum) maxGNum = gn;
+      }
+    }
+    const nextGNum = maxGNum + 1;
+    const nextGStr = `G${nextGNum}`;
+    const randNum = groupRandCount + 1;
+
+    const editionTitle = userTitle || `EDITION ${nextGStr}: ${grp.name.toUpperCase()} // RANDOM #${randNum}`;
+    const editionChapter = userChapter || `Curated Style Chapter ${nextGStr} — ${grp.name}`;
+    const slug = grp.name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 24);
+    const editionId = `edition_grp_${String(nextGNum).padStart(2, '0')}_${slug}_${Date.now().toString(36)}`;
+
+    // Shuffle artwork IDs with genuine randomness
+    const shuffled = [...grp.artworkIds].sort(() => Math.random() - 0.5);
+
+    const phaseDefs = [
+      {
+        id: '01',
+        title: 'THE FIRST SIGNAL',
+        timing: 'Day 01 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Mysterious introduction, anomaly detection, curiosity',
+        archetype: 'Full Artwork Composition',
+        copy: (g) => `Signal 001.\n\nAn anomaly detected in the soundscape.\n\nNot everything needs to follow the predictable pattern. A new frequency is entering the Mauritian underground: ${g.name}.\n\nNo announcements yet. Just a shift in atmospheric pressure.\n\nSound is arriving.\n\n// RUPTURE COLLECTIVE\n// STYLE CHAPTER: ${g.name.toUpperCase()}\n// CURATED GROUP DEPLOYMENT\n\n#rupturecollective #undergroundtechno #mauritiustechno #hypnotictechno #liquidgeometry`
+      },
+      {
+        id: '02',
+        title: 'THE MANIFESTO',
+        timing: 'Day 03 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Collective philosophy, breaking predictable conventions, freedom of expression',
+        archetype: 'Typography-Led Composition',
+        copy: (g) => `We do not repeat. We do not conform.\n\nOur manifesto:\n\n[01] BREAKING AWAY FROM THE PREDICTABLE.\nRejecting commercial club formulas, VIP divisions, and predictable playlists.\n\n[02] A SPACE FOR HYPNOTIC & DRIVING TECHNO.\nCurating fast, dark, groove-laden rhythms with acoustic integrity.\n\n[03] AN INCLUSIVE, LIBERATED COMMUNITY.\nA dancefloor built on safety, mutual respect, zero judgement, and complete bodily freedom.\n\n[04] NO BOUNDARIES. NO EXPECTATIONS.\nCome for the music. Leave your ego outside.\n\nThis is our foundation.\n\n// RUPTURE // ${g.name.toUpperCase()}\n\n#rupturemanifesto #undergroundculture #technocollective #mauritiuselectronic #noharassment #saferspace`
+      },
+      {
+        id: '03',
+        title: 'THE NAME / IDENTITY',
+        timing: 'Day 06 (Week -4)',
+        phase: 'PHASE 1 — INTRODUCING THE COLLECTIVE',
+        theme: 'Brand identity, origin, underground techno philosophy',
+        archetype: 'Artwork Fragments & Framing',
+        copy: (g) => `RUPTURE.\n\nTo break. To interrupt the expected.\n\nA collective dedicated to underground electronic music, uncompromising sound systems, and an open, liberated community.\n\nRooted in Mauritius. Connected to European underground culture.\n\nWe exist to create a space that did not exist before.\n\nArtwork style: ${g.name}.\n${g.description || ''}\n\n#rupture #technoidentity #undergroundmusic #mauritiussound #collectiveculture`
+      },
+      {
+        id: '04',
+        title: 'SAVE THE DATE',
+        timing: 'Day 08 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'First official date and location announcement',
+        archetype: 'Full Artwork Composition',
+        copy: (g) => `SAVE THE DATE.\n\nRUPTURE PRESENTS: ${g.name.toUpperCase()} EDITION\n[Date TBC — 22:00 till Late]\n\nSecret Industrial Location — Mauritius.\nCoordinates released to ticket holders on the day.\n\nMark your calendar. Prepare your mind.\n\nCapacity strictly limited to preserve space, sound quality, and atmosphere.\n\nTicket pre-registration opens soon via link in bio.\n\n#savethedate #ruptureevent #undergroundparty #mauritiustechno #secretlocation #technomaus`
+      },
+      {
+        id: '05',
+        title: 'THE MAIN EVENT POSTER',
+        timing: 'Day 10 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'Primary promotional poster, full billing and event overview',
+        archetype: 'Full Artwork Composition',
+        copy: (g) => `RUPTURE — ${g.name.toUpperCase()}\n\n[Date] // 22:00 – 06:00 // Secret Industrial Location\n\nLINEUP:\n▪ [INTERNATIONAL GUEST] (Berlin / Live Modular Set)\n▪ [RESIDENT 01] (Fast Hypnotic Techno)\n▪ [RESIDENT 02] (Dark Groovy Techno)\n▪ [SPECIAL GUEST] (Sub-bass / Experimental Opening)\n\nSOUND:\nCustom 25 Hz Sub-Bass Array. Precision engineered for physical presence.\n\nTICKETS:\nPre-sale Tier 1 available now via link in bio.\nNo VIP. No tables. No guest list.\n\nArtwork Curated from Group: ${g.name}\n\n#rupture01 #mainposter #undergroundtechno #lineupannouncement #technorave #mauritiusnightlife`
+      },
+      {
+        id: '06',
+        title: 'THE LINEUP',
+        timing: 'Day 13 (Week -3)',
+        phase: 'PHASE 2 — EVENT ANNOUNCEMENT',
+        theme: 'Full roster and musical narrative',
+        archetype: 'Typography-Led Composition',
+        copy: (g) => `The sound of the night.\n\nA continuous 8-hour progression designed to take the room somewhere unexpected.\n\n22:00 – 00:00 // [RESIDENT 02] — Atmospheric, textured, deep groove opening\n00:00 – 02:00 // [SPECIAL GUEST] — Hypnotic, rolling, tension-building techno\n02:00 – 04:30 // [HEADLINER] — Fast, driving, relentless peak-time modular set\n04:30 – 06:00 // [RESIDENT 01] — Dark, emotional, hypnotic closing journey\n\nEvery set serves the room, not individual ego.\n\nTickets in bio.\n\n#lineup #technodjs #modulartechno #undergroundmusic #curatedsound #rupturecollective`
+      },
+      {
+        id: '07',
+        title: 'SOUND SYSTEM (25 HZ)',
+        timing: 'Day 16 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Audio fidelity, sub-bass physics, custom tuning',
+        archetype: 'Cinematic DJ Video',
+        reelAvailable: true,
+        copy: (g) => `The sound is not background. It is the experience.\n\nWe have commissioned a custom acoustic rig specifically tuned for this space:\n\n▪ Subwoofers tuned to 25 Hz — bass you feel in your chest, not just your ears.\n▪ Point-source mid/high array for surgical clarity at high SPL.\n▪ Acoustic treatment to minimise slapback echo in the industrial space.\n▪ Sound engineered by producers who understand techno dynamics.\n\nEar protection available at the door.\n\nBring your hearing. We will take care of the rest.\n\n#soundsystem #25hz #acoustics #audiophiletechno #subbass #customrig #rupturesound`
+      },
+      {
+        id: '08',
+        title: 'THE SANCTUARY / CODE OF CONDUCT',
+        timing: 'Day 18 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Safer space policy, inclusivity, zero harassment',
+        archetype: 'Cinematic DJ Video',
+        reelAvailable: true,
+        copy: (g) => `The dancefloor is a sacred space.\n\nOur house rules are non-negotiable:\n\n[01] NO PHOTO / NO VIDEO POLICY ON THE DANCEFLOOR.\nPhone cameras will be taped at entry. Be present.\n\n[02] ZERO TOLERANCE FOR HARASSMENT.\nAny form of racism, sexism, homophobia, transphobia, or unwanted physical contact results in immediate removal.\n\n[03] LOOK AFTER ONE ANOTHER.\nIf you or someone around you needs assistance, alert our awareness team wearing cyan bands.\n\n[04] DRESS TO EXPRESS, NOT TO IMPRESS.\nCome as you are. All bodies, all identities welcome.\n\n#saferspace #dancefloorcode #nopolicies #awareness #respect #consent #technoculture`
+      },
+      {
+        id: '09',
+        title: 'ARTIST SPOTLIGHT',
+        timing: 'Day 20 (Week -2)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Artist feature, sound profile, production preview',
+        archetype: 'Cinematic DJ Video',
+        reelAvailable: true,
+        copy: (g) => `Spotlight: [HEADLINER / LIVE ACT]\n\nPerforming an exclusive live hardware set at RUPTURE.\n\nKnown for releases on seminal European underground labels and marathon sets across subterranean European clubs, their sound is characterised by:\n▪ Analog modular synthesizers running live sequences\n▪ Hypnotic, polyrhythmic percussion\n▪ Relentless 138-142 BPM forward drive\n▪ Atmospheric textures drawn from industrial soundscapes\n\nNo pre-recorded USBs. Pure real-time creation on the dancefloor.\n\nListen to their preview mix via link in bio.\n\n#artistspotlight #modulartechno #hardwarelive #analogsynth #berlintechno #rupturepresents`
+      },
+      {
+        id: '10',
+        title: 'VENUE / SPACE REVEAL',
+        timing: 'Day 22 (Week -1)',
+        phase: 'PHASE 3 — CULTURE AND EXPERIENCE',
+        theme: 'Raw industrial architecture, secret setting tease',
+        archetype: 'Cropped Macro Artwork',
+        copy: (g) => `The space is as much a performer as the artists.\n\nWe spent four months scouting locations across the island before choosing this one.\n\nWhat to expect:\n▪ High-ceiling raw concrete structure\n▪ Minimal, non-distracting lighting (red & amber washes only)\n▪ Dedicated quiet / recovery area outside the main room\n▪ Proper ventilation and clean facilities\n▪ No flashing strobe overload — lighting follows the music, not the other way around\n\nCoordinates revealed 12 hours before doors.\n\n#venuereveal #industrialspace #brutalistarchitecture #secretlocation #mauritiusspaces #rupturevenue`
+      },
+      {
+        id: '11',
+        title: 'LOCATION COORDINATES',
+        timing: 'Day 24 (Week -1)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Logistical mystery, GPS coordinate release mechanism',
+        archetype: 'Mixed-Media Composition',
+        copy: (g) => `20°XX'XX.X"S // 57°XX'XX.X"E\n\nHow the location release works:\n\n[1] Check your registered ticket email on the morning of the event.\n[2] Exact GPS coordinates, parking instructions, and arrival advice will be delivered at 10:00 AM.\n[3] No tickets will be sold at the door. If you do not have a ticket, do not travel.\n[4] Designated shuttle service will run from central pickup points.\n\nThe location will surprise you.\n\n#secretcoordinates #locationreveal #gpscoordinates #technomystery #industrialmauritius #rupturelocation`
+      },
+      {
+        id: '12',
+        title: '7 DAYS COUNTDOWN',
+        timing: 'Day 25 (T-minus 7 Days)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'T-minus one week urgency and energy',
+        archetype: 'Full Artwork Composition',
+        copy: (g) => `SEVEN DAYS.\n\nOne week until the first frequency drop.\n\nThe system is in transit. The space is being prepared. The artists are en route.\n\nAre you ready?\n\nTier 2 tickets 78% claimed. Do not wait for the final tier.\n\nLink in bio.\n\n#7days #countdown #oneweek #technorave #mauritiusevents #ruptureanticipation`
+      },
+      {
+        id: '13',
+        title: 'LAST TICKETS ANNOUNCEMENT',
+        timing: 'Day 28 (T-minus 3 Days)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Final ticket availability warning, strict capacity notice',
+        archetype: 'Typography-Led Composition',
+        copy: (g) => `FINAL 50 TICKETS.\n\nCapacity will not be extended. Once these are gone, the door is closed.\n\nWe chose our venue capacity deliberately. We will not oversell for profit at the expense of dancefloor space, air quality, or sound experience.\n\nIf you plan to be in the room, secure your entry now.\n\nlinktr.ee/rupture.mu\n\n#lasttickets #finaltier #soldoutwarning #strictlylimited #capacitruled #rupturecountdown`
+      },
+      {
+        id: '14',
+        title: 'PRACTICAL LOGISTICS',
+        timing: 'Day 30 (T-minus 1 Day)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Essential checklist: timetable, transport, lockers, hydration',
+        archetype: 'Mixed-Media Composition',
+        copy: (g) => `Everything you need to know for tomorrow night:\n\nDOORS: 22:00 (strictly no entry after 02:00)\nLOCATION: Check your ticket confirmation email for GPS drop\nPARKING: On-site parking available — carpooling encouraged\nBAR: Cashless only (cards, Juice, Blink accepted)\nWATER: Free filtered water stations all night — bring reusable bottles\nWARDROBE: Secure coat & bag check on site\nHEALTH: First aid & awareness team present at all times\n\nRest up tonight. You will need your energy.\n\n#practicallogistics #eventinfo #technoguide #eventchecklist #knowbeforeyougo #ruptureprep`
+      },
+      {
+        id: '15',
+        title: 'DAY OF EVENT SUMMONS',
+        timing: 'Day 31 (Tonight)',
+        phase: 'PHASE 4 — BUILDING ANTICIPATION',
+        theme: 'Tonight is the night — final call to the community',
+        archetype: 'Cinematic DJ Video',
+        reelAvailable: true,
+        copy: (g) => `TONIGHT.\n\nThe frequency is set. The space is waiting.\n\n22:00 // Secret Location // Mauritius\n\nLeave your expectations at the door. Bring your energy, your respect, and your openness.\n\nSee you in the dark.\n\n// RUPTURE COLLECTIVE\n// STYLE CHAPTER: ${g.name.toUpperCase()}\n\n#tonight #doorsopen #seeyouinthedark #technofamily #mauritiustechno #firstedition #rupture`
+      }
+    ];
+
+    const generatedPosts = phaseDefs.map((def, idx) => {
+      const artId = shuffled[idx % shuffled.length];
+      const artFileName = `${artId}_v1.jpg`;
+      return {
+        id: def.id,
+        fileStem: artId,
+        phase: def.phase,
+        title: def.title,
+        timing: def.timing,
+        theme: def.theme,
+        archetype: def.archetype,
+        reelAvailable: Boolean(def.reelAvailable),
+        artwork: artFileName,
+        artworkTitle: `${artId} (Curated from Group: ${grp.name})`,
+        family: grp.name,
+        familyId: grp.id,
+        familyRole: 'Curated Group Member',
+        palette: `Obsidian Void + ${grp.name} + Metallic Chrome`,
+        typography: 'Helvetica Neue Condensed Bold 68pt + SFNSMono 20pt',
+        safeArea: 'Centered artwork composition with safe crop zone',
+        caption: def.copy(grp)
+      };
+    });
+
+    const newEdition = {
+      id: editionId,
+      editionNumber: nextGStr,
+      title: editionTitle,
+      chapter: editionChapter,
+      tagline: grp.description || '',
+      status: 'ready',
+      isDynamicGroup: true,
+      groupId: grp.id,
+      groupName: grp.name,
+      groupColor: grp.color || '#7AE7FF',
+      group: grp,
+      basePath: '',
+      primaryFamily: { id: grp.id, name: grp.name },
+      secondaryFamilies: [],
+      inactiveFamilies: [],
+      conceptSummary: userSummary || `Dynamic underground techno campaign randomised entirely from curated artwork group "${grp.name}". All 15 posts mapped across the 4-phase rollout using ${grp.artworkIds.length} approved style-matched artworks.`,
+      postCount: 15,
+      createdAt: new Date().toISOString()
+    };
+
+    // Save edition files
+    const edDir1 = path.join(ROOT, 'campaign/editions', editionId);
+    const edDir2 = path.join(ROOT, 'public/campaign/editions', editionId);
+    await fs.mkdir(edDir1, { recursive: true });
+    await fs.mkdir(edDir2, { recursive: true });
+    const postsStr = JSON.stringify(generatedPosts, null, 2);
+    await fs.writeFile(path.join(edDir1, 'edition_data.json'), postsStr, 'utf8');
+    await fs.writeFile(path.join(edDir2, 'edition_data.json'), postsStr, 'utf8');
+
+    // Update manifest: place new edition at the start of manifest
+    manifest.editions = [newEdition, ...(manifest.editions || [])];
+    manifest.activeEditionId = editionId;
+    const manStr = JSON.stringify(manifest, null, 2);
+    await fs.writeFile(manPath1, manStr, 'utf8');
+    if (existsSync(path.dirname(manPath2))) {
+      await fs.writeFile(manPath2, manStr, 'utf8');
+    }
+
+    return {
+      ok: true,
+      editionId,
+      edition: newEdition,
+      posts: generatedPosts,
+      activeEditionId: editionId
+    };
+  }
 
   if (!primaryFamilyId) {
     throw httpError(400, 'primaryFamilyId is required');
