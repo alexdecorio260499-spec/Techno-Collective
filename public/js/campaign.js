@@ -608,9 +608,10 @@ export function createCampaignView(app) {
   async function loadEditionData(editionId) {
     if (editionsCache[editionId]) return editionsCache[editionId];
     try {
-      const res = await fetch(`/campaign/editions/${editionId}/edition_data.json`);
+      const res = await fetch(`/campaign/editions/${editionId}/edition_data.json?_t=${Date.now()}`);
       if (!res.ok) throw new Error(`Failed to load data for edition ${editionId}`);
-      editionsCache[editionId] = await res.json();
+      const raw = await res.json();
+      editionsCache[editionId] = Array.isArray(raw) ? raw : (raw.posts || []);
     } catch (err) {
       console.error(err);
       editionsCache[editionId] = [];
@@ -1116,11 +1117,11 @@ export function createCampaignView(app) {
                       <div class="flyer-card-overlay">
                         <div class="flyer-card-top mono">
                           <span>RUPTURE // ${p.id}</span>
-                          <span class="flyer-badge">${p.id === '05' ? 'HERO POSTER' : p.id === '04' ? 'SAVE DATE' : p.id === '13' ? 'COUNTDOWN' : p.id === '15' ? 'TONIGHT' : esc(p.phase.split('—')[0].trim())}</span>
+                          <span class="flyer-badge">${p.id === '05' ? 'HERO POSTER' : p.id === '04' ? 'SAVE DATE' : p.id === '13' ? 'COUNTDOWN' : p.id === '15' ? 'TONIGHT' : esc((p.phase || '').split('—')[0].trim())}</span>
                         </div>
                         <div class="flyer-card-center">
-                          <div class="flyer-card-title">${esc(p.title)}</div>
-                          <div class="flyer-card-sub mono">${esc(p.timing.split('(')[0].trim())}</div>
+                          <div class="flyer-card-title">${esc(p.title || '')}</div>
+                          <div class="flyer-card-sub mono">${esc((p.timing || p.date || '').split('(')[0].trim())}</div>
                         </div>
                         <div class="flyer-card-bottom mono">
                           <span>${esc(currentEditionMeta.groupName || 'GROUP')}</span>
@@ -1135,8 +1136,8 @@ export function createCampaignView(app) {
                         ${p.reelAvailable ? `<span class="mono ig-reel-badge" title="9:16 Video / Reel Concept">▶ REEL</span>` : ''}
                         ${p.familyRole ? `<span class="mono ig-family-badge ${p.familyRole.toLowerCase().includes('primary') ? 'primary-badge' : 'secondary-badge'}">${esc(familyName)}</span>` : ''}
                       </div>
-                      <div class="ig-overlay-title">${esc(p.title)}</div>
-                      <div class="ig-overlay-meta mono muted">${esc(p.phase.split('—')[0].trim())} · ${esc(p.archetype || 'Art-Directed')}</div>
+                      <div class="ig-overlay-title">${esc(p.title || '')}</div>
+                      <div class="ig-overlay-meta mono muted">${esc((p.phase || '').split('—')[0].trim())} · ${esc(p.archetype || 'Art-Directed')}</div>
                       <div class="ig-overlay-stats">
                         <span>❤️ ${240 + parseInt(p.id, 10) * 37}</span>
                         <span>💬 ${18 + parseInt(p.id, 10) * 4}</span>
@@ -1159,13 +1160,18 @@ export function createCampaignView(app) {
         <!-- ========================================== -->
         ${viewMode === 'timeline' ? `
           <div class="timeline-wrapper">
-            ${['PHASE 1 — INTRODUCING THE COLLECTIVE', 'PHASE 2 — EVENT ANNOUNCEMENT', 'PHASE 3 — CULTURE AND EXPERIENCE', 'PHASE 4 — BUILDING ANTICIPATION'].map((phaseName) => {
-              const phasePosts = posts.filter(p => p.phase === phaseName);
+            ${['PHASE 1', 'PHASE 2', 'PHASE 3', 'PHASE 4'].map((phasePrefix) => {
+              const phasePosts = posts.filter(p => p.phase && p.phase.toUpperCase().startsWith(phasePrefix));
+              if (!phasePosts.length) return '';
+              const firstPhase = phasePosts[0]?.phase || `${phasePrefix} — CAMPAIGN ROLLOUT`;
+              const phaseParts = firstPhase.split('—');
+              const phaseNum = phaseParts[0].trim();
+              const phaseTitle = phaseParts[1] ? phaseParts[1].trim() : 'CAMPAIGN ROLLOUT';
               return `
                 <div class="timeline-phase-block">
                   <div class="phase-header">
-                    <span class="mono phase-num">${phaseName.split('—')[0].trim()}</span>
-                    <h3 class="phase-title">${esc(phaseName.split('—')[1].trim())}</h3>
+                    <span class="mono phase-num">${esc(phaseNum)}</span>
+                    <h3 class="phase-title">${esc(phaseTitle)}</h3>
                     <span class="phase-count mono muted">${phasePosts.length} POSTS</span>
                   </div>
                   <div class="timeline-posts-row ${aspectMode === 'portrait' ? 'aspect-portrait' : 'aspect-square'}">
@@ -1173,24 +1179,24 @@ export function createCampaignView(app) {
                       const basePath = currentEditionMeta.basePath;
                       const imgSrc = (basePath && basePath.length)
                         ? (aspectMode === 'sq' ? `${basePath}/posts/${p.fileStem}_sq.jpg` : `${basePath}/posts/${p.fileStem}.jpg`)
-                        : `/artworks/masters/${p.artwork}`;
+                        : `/artworks/masters/${p.artwork || 'RUPTURE_M15_v1.jpg'}`;
                       const familyName = p.family || (p.familyId ? familyMap[p.familyId]?.name : 'Core Artwork');
                       return `
                         <div class="timeline-post-card" data-post-id="${p.id}">
                           <div class="timeline-card-image">
-                            <img src="${imgSrc}" alt="${esc(p.title)}" loading="lazy">
+                            <img src="${imgSrc}" alt="${esc(p.title || '')}" loading="lazy">
                             <span class="mono card-tag">POST ${p.id}</span>
                             ${p.archetype ? `<span class="mono card-archetype-tag">${esc(p.archetype.replace(' Composition', ''))}</span>` : ''}
                             ${p.reelAvailable ? `<span class="mono card-reel-tag">▶ 9:16 REEL</span>` : ''}
                             ${p.familyRole ? `<span class="mono card-family-tag ${p.familyRole.toLowerCase().includes('primary') ? 'primary' : 'secondary'}">${esc(familyName)}</span>` : ''}
                           </div>
                           <div class="timeline-card-info">
-                            <div class="mono card-timing muted">${esc(p.timing)}</div>
-                            <h4 class="card-title">${esc(p.title)}</h4>
-                            <p class="card-theme">${esc(p.theme)}</p>
+                            <div class="mono card-timing muted">${esc(p.timing || p.date || '')}</div>
+                            <h4 class="card-title">${esc(p.title || '')}</h4>
+                            <p class="card-theme">${esc(p.theme || '')}</p>
                             ${p.artworkUsage ? `<p class="card-usage-note mono">${esc(p.artworkUsage)}</p>` : ''}
                             <div class="card-art-link mono">
-                              <span class="muted">Ref:</span> <a href="/artworks/masters/${p.artwork}" target="_blank">${esc(p.artwork.replace('_v1.jpg', ''))}</a>
+                              <span class="muted">Ref:</span> <a href="/artworks/masters/${p.artwork || 'RUPTURE_M15_v1.jpg'}" target="_blank">${esc((p.artwork || 'M15').replace('_v1.jpg', ''))}</a>
                             </div>
                             <div class="timeline-card-actions">
                               <button type="button" class="btn small card-inspect-btn">Inspect Post</button>

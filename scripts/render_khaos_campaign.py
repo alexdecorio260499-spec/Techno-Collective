@@ -1290,10 +1290,10 @@ def generate_edition_metadata():
         "posts": posts
     }
     
-    # Save edition_data.json
+    # Save edition_data.json as direct post array matching studio standard
     data_path = os.path.join(OUT_DIR, "edition_data.json")
     with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(edition_meta, f, indent=2, ensure_ascii=False)
+        json.dump(posts, f, indent=2, ensure_ascii=False)
     print(f"Saved {data_path}")
     
     # Update editions manifests
