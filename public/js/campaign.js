@@ -11,7 +11,7 @@ export function createCampaignView(app) {
   let manifest = null;
   let familiesData = null;
   let groupsData = null;
-  let activeEditionId = 'edition_01_hydraulic_void';
+  let activeEditionId = 'edition_khaos_01_system_fracture';
   const editionsCache = {};
   let viewMode = 'grid'; // 'grid' | 'timeline' | 'families' | 'direction' | 'templates' | 'logic'
   let aspectMode = 'sq'; // 'sq' (1:1 profile crop) | 'portrait' (4:5 full feed)
@@ -635,6 +635,7 @@ export function createCampaignView(app) {
 
     // Edition-specific profiles & highlights
     const editionAvatars = {
+      'edition_khaos_01_system_fracture': '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_05_sq.jpg',
       'edition_grp_01_group_test_1': '/artworks/masters/RUPTURE_M43_v1.jpg',
       'edition_01_hydraulic_void': '/artworks/masters/RUPTURE_M15_v1.jpg',
       'edition_02_vitreous_resonance': '/artworks/masters/RUPTURE_M35_v1.jpg',
@@ -660,6 +661,13 @@ export function createCampaignView(app) {
     };
 
     const editionHighlights = {
+      'edition_khaos_01_system_fracture': [
+        { title: 'SIGNAL', img: '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_01_sq.jpg' },
+        { title: 'MANIFESTO', img: '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_02_sq.jpg' },
+        { title: 'IDENTITY', img: '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_03_sq.jpg' },
+        { title: 'LINEUP', img: '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_06_sq.jpg' },
+        { title: 'VENUE', img: '/campaign/editions/edition_khaos_01_system_fracture/posts/KHAOS_IG_POST_12_sq.jpg' }
+      ],
       'edition_grp_01_group_test_1': [
         { title: 'SOUND', img: '/artworks/masters/RUPTURE_M78_v1.jpg' },
         { title: 'LINEUP', img: '/artworks/masters/RUPTURE_M86_v1.jpg' },
@@ -817,6 +825,9 @@ export function createCampaignView(app) {
     };
 
     const editionBios = {
+      'edition_khaos_01_system_fracture': `KHAOS Collective · Mauritius<br>
+        Transmission 01: System Fracture — Saturday 14 June [The Industrial Silo]<br>
+        Fast · Hypnotic · Driving · Dark Techno · Custom 25 Hz Rig · No Phones`,
       'edition_grp_01_group_test_1': `Underground Electronic Music · Mauritius<br>
         Transmission 01: Group Test 1 — Friday · 24 April [Secret Industrial Silo]<br>
         Curated Style Group · 4 Artists · Custom 25 Hz Rig · No Photos`,
