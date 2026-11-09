@@ -1,6 +1,49 @@
 {
-  "activeEditionId": "edition_01_hydraulic_void",
+  "activeEditionId": "edition_khaos_01_system_fracture",
   "editions": [
+    {
+      "id": "edition_khaos_01_system_fracture",
+      "editionNumber": "KH01",
+      "title": "KHAOS // EDITION 01: SYSTEM FRACTURE",
+      "chapter": "KHAOS Collective — Transmission 01: System Fracture & Glitch Architecture",
+      "tagline": "The debut campaign for KHAOS Mauritius. Reference-led sculptural liquid chrome, folded tectonic surfaces, custom fractured typography, and glitch architecture.",
+      "status": "ready",
+      "basePath": "/campaign/editions/edition_khaos_01_system_fracture",
+      "primaryFamily": {
+        "id": "sculptural-chrome",
+        "name": "Sculptural Liquid Chrome"
+      },
+      "secondaryFamilies": [
+        {
+          "id": "folded-surfaces",
+          "name": "Folded Liquid Surfaces"
+        }
+      ],
+      "inactiveFamilies": [
+        "pearlescent-silver",
+        "translucent-glass",
+        "reflective-globes"
+      ],
+      "conceptSummary": "Reference-Led Debut Campaign for KHAOS Collective. Strictly monochromatic chrome, silver, graphite, and pure obsidian void with subtle icy blue accents. Developed from 20 uploaded poster explorations with custom System Fracture and Glitch Architecture typography, diverse layout archetypes (Full Artworks, Fragments, Typography-Led, Mixed-Media, and Cinematic Video), 1:1 safe crops, and 9:16 motion reels.",
+      "postCount": 15,
+      "colorSystem": "Strict Monochromatic (Liquid Chrome, Silver, Obsidian Black, Subtle Icy Blue)",
+      "archetypes": [
+        "Signal Anomaly / Glitch Interference",
+        "Typography-Led Composition",
+        "Signature Brand Monolith",
+        "Sculptural Loop & Fractured Display",
+        "Full Artwork Hero Event Poster",
+        "Artwork Fragments & Lineup Hierarchy",
+        "Cinematic DJ Video Integration",
+        "Acoustic Visualization & Macro Chrome",
+        "Cultural Code / Community Manifesto",
+        "Mixed-Media Architectural Blueprint",
+        "Giant Fractured Countdown & Glitch",
+        "Editorial Information Architecture",
+        "Atmospheric Cinematic Climax"
+      ],
+      "createdAt": "2026-11-09T14:00:00.000Z"
+    },
     {
       "id": "edition_grp_03_campaign_1_waves_fractur_mw6lx9no",
       "editionNumber": "G3",
