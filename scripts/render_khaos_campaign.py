@@ -2,11 +2,13 @@
 """
 KHAOS Mauritius — Universal Campaign Edition Post Renderer & Asset Generator
 Generates a reference-led, 15-post Instagram campaign based on uploaded visual explorations:
-  - Strict monochromatic chrome/silver/graphite/black palette with subtle icy blue
+  - 100% NEW ORIGINAL ARTWORKS (khaos_artwork_01.jpg to khaos_artwork_15.jpg)
+  - ZERO reuse or recycling of previous approved library artworks
   - Custom fractured geometric KHAOS typographic engine (System Fracture & Glitch Architecture)
-  - Layout diversity: Full Artworks, Artwork Fragments & Framing, Typography-Led, Macro, Mixed-Media, and Cinematic DJ Video Integration
+  - Strict monochromatic chrome/silver/graphite/black palette with subtle icy blue (#7ae7ff)
+  - Layout diversity: Full Artworks, Fragments, Typography-Led, Macro, and Cinematic DJ Stage HUDs
   - Outputs: 1080x1350 (4:5 feed), 1080x1080 (1:1 safe crop), and 1080x1920 (9:16 vertical reels)
-  - Reusable graphic asset library exports
+  - 3-column Instagram Grid preview export
   - Complete edition_data.json and editions_manifest.json integration
 """
 
@@ -15,17 +17,27 @@ import sys
 import json
 import math
 import random
+import shutil
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-MASTERS_DIR = os.path.join(ROOT, "artworks", "masters")
-REFS_DIR = os.path.join(ROOT, "references", "khaos")
+# Ensure scripts dir is on python path
+SCRIPTS_DIR = os.path.dirname(__file__)
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
+
+from khaos_typography import render_fractured_text, get_text_width
+
+ROOT = os.path.abspath(os.path.join(SCRIPTS_DIR, ".."))
+KHAOS_ARTWORKS_DIR = os.path.join(ROOT, "artworks", "khaos_new")
 OUT_DIR = os.path.join(ROOT, "campaign", "editions", "edition_khaos_01_system_fracture")
 POSTS_DIR = os.path.join(OUT_DIR, "posts")
+PUBLIC_POSTS_DIR = os.path.join(ROOT, "public", "campaign", "editions", "edition_khaos_01_system_fracture", "posts")
 ASSETS_DIR = os.path.join(ROOT, "public", "campaign", "khaos_assets")
+ARTIFACTS_DIR = "/Users/alex/.gemini/antigravity/brain/caf6c4ea-9b06-4d9f-9428-74b197be24de"
 
 os.makedirs(POSTS_DIR, exist_ok=True)
+os.makedirs(PUBLIC_POSTS_DIR, exist_ok=True)
 os.makedirs(ASSETS_DIR, exist_ok=True)
 
 # Fonts
@@ -59,7 +71,7 @@ COLOR_MUTED_SILVER = (150, 158, 172)
 COLOR_SLATE = (110, 118, 132)
 COLOR_DARK_SLATE = (45, 50, 60)
 COLOR_CHARCOAL = (24, 26, 32)
-COLOR_VOID = (8, 9, 12)
+COLOR_VOID = (5, 5, 5)
 COLOR_GRAPHITE = (14, 16, 20)
 
 COLOR_ICY_BLUE = (122, 231, 255)
@@ -86,13 +98,12 @@ def draw_crosshair(draw, x, y, size=14, color=COLOR_SLATE, width=1):
     draw.line([(x - size, y), (x + size, y)], fill=color, width=width)
     draw.line([(x, y - size), (x, y + size)], fill=color, width=width)
 
-def load_master_artwork(filename, target_size=(1080, 1350), scale=1.05, offset=(0, 0)):
-    path = os.path.join(MASTERS_DIR, filename)
+def load_khaos_artwork(post_num, target_size=(1080, 1350), scale=1.05, offset=(0, 0)):
+    """Loads strictly the newly generated artwork for this post."""
+    filename = f"khaos_artwork_{post_num:02d}.jpg"
+    path = os.path.join(KHAOS_ARTWORKS_DIR, filename)
     if not os.path.exists(path):
-        for f in sorted(os.listdir(MASTERS_DIR)):
-            if f.endswith(".jpg"):
-                path = os.path.join(MASTERS_DIR, f)
-                break
+        raise FileNotFoundError(f"Missing newly generated KHAOS artwork: {path}")
     img = Image.open(path).convert("RGBA")
     w, h = img.size
     tw, th = target_size
@@ -111,11 +122,11 @@ def apply_gradient_overlay(base_img, direction="bottom", height_px=480, max_alph
         start_y = h - height_px
         for y in range(start_y, h):
             alpha = int(max_alpha * ((y - start_y) / float(height_px)) ** 1.3)
-            d.line([(0, y), (w, y)], fill=(8, 9, 12, min(255, alpha)))
+            d.line([(0, y), (w, y)], fill=(5, 5, 5, min(255, alpha)))
     elif direction == "top":
         for y in range(0, height_px):
             alpha = int(max_alpha * (1.0 - (y / float(height_px))) ** 1.3)
-            d.line([(0, y), (w, y)], fill=(8, 9, 12, min(255, alpha)))
+            d.line([(0, y), (w, y)], fill=(5, 5, 5, min(255, alpha)))
     return Image.alpha_composite(base_img.convert("RGBA"), overlay)
 
 def create_horizontal_scanlines(width, height, intensity=35, gap=4):
@@ -126,165 +137,7 @@ def create_horizontal_scanlines(width, height, intensity=35, gap=4):
     return overlay
 
 def render_khaos_wordmark(width=720, height=160, style="fracture", seed=42):
-    """
-    Renders the signature KHAOS geometric wordmark at arbitrary size.
-    Letters: K, H, A, O, S with 45-degree chamfers, open inverted chevron A,
-    faceted O, and angular S.
-    Features:
-      - 'fracture': System Fracture horizontal hairline slice and offset.
-      - 'glitch': Glitch Architecture horizontal displacement blocks.
-      - 'solid': Pure metallic silver chrome gradient.
-    """
-    scale = 3
-    sw, sh = width * scale, height * scale
-    canvas = Image.new("RGBA", (sw, sh), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(canvas)
-    
-    lw = sw / 5.25
-    gap = lw * 0.16
-    st = lw * 0.22
-    cham = st * 0.75
-    
-    letters = ['K', 'H', 'A', 'O', 'S']
-    x_cursor = (sw - (5 * lw + 4 * gap)) / 2.0
-    
-    for ch in letters:
-        x0 = x_cursor
-        x1 = x0 + lw
-        y0 = sh * 0.05
-        y1 = sh * 0.95
-        lh = y1 - y0
-        
-        if ch == 'K':
-            draw.polygon([(x0, y0), (x0 + st, y0), (x0 + st, y1), (x0, y1)], fill=(255, 255, 255, 255))
-            draw.polygon([
-                (x0 + st * 0.8, y0 + lh * 0.52),
-                (x1 - cham, y0),
-                (x1, y0),
-                (x1, y0 + cham * 1.5),
-                (x0 + st * 1.2, y0 + lh * 0.58),
-            ], fill=(255, 255, 255, 255))
-            draw.polygon([
-                (x0 + st * 1.0, y0 + lh * 0.44),
-                (x0 + st * 1.4, y0 + lh * 0.44),
-                (x1, y1 - cham * 1.5),
-                (x1, y1),
-                (x1 - cham, y1),
-                (x0 + st * 0.8, y0 + lh * 0.54)
-            ], fill=(255, 255, 255, 255))
-            
-        elif ch == 'H':
-            draw.polygon([(x0, y0), (x0 + st, y0), (x0 + st, y1), (x0, y1)], fill=(255, 255, 255, 255))
-            draw.polygon([(x1 - st, y0), (x1, y0), (x1, y1), (x1 - st, y1)], fill=(255, 255, 255, 255))
-            cy = y0 + lh * 0.5
-            draw.polygon([(x0 + st, cy - st * 0.45), (x1 - st, cy - st * 0.45), (x1 - st, cy + st * 0.45), (x0 + st, cy + st * 0.45)], fill=(255, 255, 255, 255))
-            
-        elif ch == 'A':
-            apex_x = (x0 + x1) / 2.0
-            draw.polygon([
-                (apex_x - cham, y0),
-                (apex_x + cham, y0),
-                (x1, y1),
-                (x1 - st * 1.15, y1),
-                (apex_x, y0 + st * 1.6),
-                (x0 + st * 1.15, y1),
-                (x0, y1)
-            ], fill=(255, 255, 255, 255))
-            
-        elif ch == 'O':
-            draw.polygon([
-                (x0 + cham, y0), (x1 - cham, y0),
-                (x1, y0 + cham), (x1, y1 - cham),
-                (x1 - cham, y1), (x0 + cham, y1),
-                (x0, y1 - cham), (x0, y0 + cham)
-            ], fill=(255, 255, 255, 255))
-            in_cham = max(cham - st * 0.4, 2)
-            draw.polygon([
-                (x0 + st + in_cham, y0 + st), (x1 - st - in_cham, y0 + st),
-                (x1 - st, y0 + st + in_cham), (x1 - st, y1 - st - in_cham),
-                (x1 - st - in_cham, y1 - st), (x0 + st + in_cham, y1 - st),
-                (x0 + st, y1 - st - in_cham), (x0 + st, y0 + st + in_cham)
-            ], fill=(0, 0, 0, 0))
-            
-        elif ch == 'S':
-            cy = y0 + lh * 0.5
-            draw.polygon([
-                (x0 + cham, y0), (x1, y0), (x1, y0 + st),
-                (x0 + st, y0 + st), (x0 + st, cy - st * 0.4),
-                (x1 - cham, cy - st * 0.4), (x1, cy),
-                (x1, y1 - cham), (x1 - cham, y1),
-                (x0, y1), (x0, y1 - st),
-                (x1 - st, y1 - st), (x1 - st, cy + st * 0.4),
-                (x0 + cham, cy + st * 0.4), (x0, cy),
-                (x0, y0 + cham)
-            ], fill=(255, 255, 255, 255))
-            
-        x_cursor += lw + gap
-
-    res = canvas.resize((width, height), Image.Resampling.LANCZOS)
-    arr = np.array(res)
-    
-    # Metallic specular reflectance gradient
-    grad = np.zeros((height, width, 4), dtype=np.float32)
-    for y in range(height):
-        t = y / float(height)
-        if t < 0.22:
-            r = 255
-            g = 255 - int(20 * (t / 0.22))
-            b = 255 - int(5 * (t / 0.22))
-        elif t < 0.52:
-            t2 = (t - 0.22) / 0.30
-            r = int(255 - 55 * t2)
-            g = int(240 - 45 * t2)
-            b = int(248 - 30 * t2)
-        elif t < 0.80:
-            t3 = (t - 0.52) / 0.28
-            r = int(200 - 65 * t3)
-            g = int(195 - 55 * t3)
-            b = int(218 - 45 * t3)
-        else:
-            t4 = (t - 0.80) / 0.20
-            r = int(135 + 65 * t4)
-            g = int(140 + 65 * t4)
-            b = int(173 + 65 * t4)
-        grad[y, :, 0] = r
-        grad[y, :, 1] = g
-        grad[y, :, 2] = b
-        grad[y, :, 3] = 255
-        
-    alpha_mask = arr[:, :, 3] / 255.0
-    shaded = np.zeros_like(arr)
-    for c in range(3):
-        shaded[:, :, c] = np.clip(grad[:, :, c] * alpha_mask, 0, 255).astype(np.uint8)
-    shaded[:, :, 3] = arr[:, :, 3]
-    
-    if style == "fracture":
-        split_y = int(height * 0.48)
-        upper = shaded[:split_y].copy()
-        lower = shaded[split_y + 3:].copy()
-        shifted_lower = np.zeros_like(lower)
-        shifted_lower[:, 5:] = lower[:, :-5]
-        fractured = np.zeros_like(shaded)
-        fractured[:split_y] = upper
-        fractured[split_y + 3:] = shifted_lower
-        return Image.fromarray(fractured, "RGBA")
-        
-    elif style == "glitch":
-        glitched = shaded.copy()
-        rnd = random.Random(seed)
-        for _ in range(14):
-            sy = rnd.randint(4, height - 14)
-            sh_h = rnd.randint(2, 8)
-            shift = rnd.randint(-22, 22)
-            if shift != 0 and sy + sh_h < height:
-                sl = glitched[sy:sy+sh_h].copy()
-                if shift > 0:
-                    glitched[sy:sy+sh_h, shift:] = sl[:, :-shift]
-                else:
-                    glitched[sy:sy+sh_h, :shift] = sl[:, -shift:]
-        return Image.fromarray(glitched, "RGBA")
-        
-    return Image.fromarray(shaded, "RGBA")
+    return render_fractured_text("KHAOS", height=height, style=style, tracking=6, seed=seed)
 
 def render_cinematic_dj_stage(base_img, box, artist_name, time_slot, bpm_text, seed=42, is_reel=False):
     bx1, by1, bx2, by2 = box
@@ -297,7 +150,7 @@ def render_cinematic_dj_stage(base_img, box, artist_name, time_slot, bpm_text, s
     # Ambient stage atmosphere & dual spotlight cones
     for sy in range(bh):
         f = sy / float(bh)
-        sdraw.line([(0, sy), (bw, sy)], fill=(int(10 + 20 * f), int(12 + 22 * f), int(18 + 32 * f), 255))
+        sdraw.line([(0, sy), (bw, sy)], fill=(int(8 + 18 * f), int(10 + 20 * f), int(16 + 28 * f), 255))
         
     # Blue/cyan laser cones
     cone_poly_l = [(int(bw * 0.08), 0), (int(bw * 0.44), bh), (int(bw * 0.20), bh)]
@@ -315,7 +168,6 @@ def render_cinematic_dj_stage(base_img, box, artist_name, time_slot, bpm_text, s
     sdraw.line([(int(bw * 0.12), tbl_y), (int(bw * 0.88), tbl_y)], fill=(70, 78, 92), width=2)
     
     # Modular synths, knobs, LED indicators
-    rnd = random.Random(seed)
     for k in range(24):
         kx = int(bw * 0.16) + k * 20
         ky = tbl_y + 16 + (k % 3) * 18
@@ -369,7 +221,7 @@ def build_post_01(is_reel=False):
     """01 — THE FIRST SIGNAL (Signal Anomaly / Glitch Interference)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M17_v1.jpg", target_size, scale=1.1, offset=(0, -40))
+    img = load_khaos_artwork(1, target_size, scale=1.10, offset=(0, -40))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.45), max_alpha=240)
     
     # Horizontal glitch displacement across center
@@ -378,29 +230,30 @@ def build_post_01(is_reel=False):
     draw = ImageDraw.Draw(img)
     
     font_mono = get_font(16, "mono")
-    font_bold = get_font(72, "condensed_bold")
-    font_sub = get_font(24, "regular")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 01", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "SIGNAL ANOMALY", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     # Crosshairs
     draw_crosshair(draw, 64, 180, size=14, color=COLOR_DARK_SLATE)
     draw_crosshair(draw, w - 64, 180, size=14, color=COLOR_DARK_SLATE)
     
-    # Center message
+    # Center message rendered with custom typography
     cy = int(h * 0.65)
-    draw_letterspaced(draw, (64, cy - 80), "SOMETHING IS SHIFTING.", font_bold, COLOR_WHITE, spacing=2)
+    headline_img = render_fractured_text("SOMETHING IS SHIFTING", height=52, style="fracture", tracking=4)
+    img.paste(headline_img, (64, cy - 85), headline_img)
+    
+    draw = ImageDraw.Draw(img)
     draw.line([(64, cy - 10), (w - 64, cy - 10)], fill=(50, 58, 70), width=1)
-    draw_letterspaced(draw, (64, cy + 12), "NOT EVERYTHING NEEDS TO FOLLOW THE PATTERN.", font_sub, COLOR_SILVER, spacing=1)
+    draw_letterspaced(draw, (64, cy + 12), "NOT EVERYTHING NEEDS TO FOLLOW THE PATTERN.", get_font(22, "regular"), COLOR_SILVER, spacing=1)
     draw_letterspaced(draw, (64, cy + 50), "A NEW FREQUENCY IS ENTERING THE MAURITIAN UNDERGROUND.", font_mono, COLOR_SLATE, spacing=1)
     
     # Signature Wordmark
-    wordmark = render_khaos_wordmark(820, 175, style="glitch", seed=77)
-    img.paste(wordmark, ((w - 820) // 2, cy + 110), wordmark)
+    wordmark = render_khaos_wordmark(800, 160, style="glitch", seed=77)
+    img.paste(wordmark, ((w - 800) // 2, cy + 105), wordmark)
     draw = ImageDraw.Draw(img)
     
     # Footer
@@ -412,35 +265,37 @@ def build_post_02(is_reel=False):
     """02 — THE MANIFESTO (Typography-Led Composition)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (10, 12, 16, 255))
+    img = Image.new("RGBA", target_size, (6, 7, 10, 255))
     
-    # Razor-thin metallic framing rules (110px) at top and bottom
-    top_band = load_master_artwork("RUPTURE_M21_v1.jpg", (w, 110), scale=1.5, offset=(0, -80))
-    bot_band = load_master_artwork("RUPTURE_M21_v1.jpg", (w, 110), scale=1.5, offset=(0, 120))
+    # Metallic framing rules from newly generated artwork 02
+    band_h = 130
+    top_band = load_khaos_artwork(2, (w, band_h), scale=1.5, offset=(0, -80))
+    bot_band = load_khaos_artwork(2, (w, band_h), scale=1.5, offset=(0, 120))
     img.paste(top_band, (0, 0))
-    img.paste(bot_band, (0, h - 110))
+    img.paste(bot_band, (0, h - band_h))
     
     draw = ImageDraw.Draw(img)
-    draw.line([(0, 110), (w, 110)], fill=(70, 80, 95), width=2)
-    draw.line([(0, h - 110), (w, h - 110)], fill=(70, 80, 95), width=2)
+    draw.line([(0, band_h), (w, band_h)], fill=(70, 80, 95), width=2)
+    draw.line([(0, h - band_h), (w, h - band_h)], fill=(70, 80, 95), width=2)
     
     font_mono = get_font(16, "mono")
-    font_hero = get_font(68, "condensed_black")
-    font_num = get_font(28, "bold")
     font_body = get_font(21, "regular")
     
     # Header
-    draw_letterspaced(draw, (64, 140), "KHAOS // 02", font_mono, COLOR_WHITE, spacing=2)
-    draw_crosshair(draw, 195, 149, size=10, color=COLOR_ICY_BLUE)
-    draw_letterspaced(draw, (220, 142), "PHILOSOPHY & PURPOSE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 140), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (64, 150), "KHAOS // 02", font_mono, COLOR_WHITE, spacing=2)
+    draw_crosshair(draw, 195, 159, size=10, color=COLOR_ICY_BLUE)
+    draw_letterspaced(draw, (220, 152), "PHILOSOPHY & PURPOSE", font_mono, COLOR_ICY_BLUE, spacing=2)
+    draw_letterspaced(draw, (w - 64, 150), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    # Headlines
-    draw_letterspaced(draw, (64, 210), "WE BREAK CONVENTIONS.", font_hero, COLOR_WHITE, spacing=1)
-    draw_letterspaced(draw, (64, 280), "WE CHALLENGE REPETITION.", font_hero, COLOR_SILVER, spacing=1)
+    # Headlines in custom typography
+    hl1 = render_fractured_text("WE BREAK CONVENTIONS", height=48, style="fracture")
+    img.paste(hl1, (64, 215), hl1)
+    hl2 = render_fractured_text("WE CHALLENGE REPETITION", height=48, style="solid", tint=(190, 198, 210))
+    img.paste(hl2, (64, 280), hl2)
     
-    draw.line([(64, 365), (w - 64, 365)], fill=(45, 55, 68), width=1)
-    draw_letterspaced(draw, (64, 385), "THE KHAOS MANIFESTO // 4 CORE TENETS", font_mono, COLOR_ICY_BLUE, spacing=3)
+    draw = ImageDraw.Draw(img)
+    draw.line([(64, 355), (w - 64, 355)], fill=(45, 55, 68), width=1)
+    draw_letterspaced(draw, (64, 375), "THE KHAOS MANIFESTO // 4 CORE TENETS", font_mono, COLOR_ICY_BLUE, spacing=3)
     
     tenets = [
         ("[01]", "DESTRUCTION OF THE PREDICTABLE", "Rejecting commercial club formulas, VIP divisions, and playlist conformity."),
@@ -449,30 +304,34 @@ def build_post_02(is_reel=False):
         ("[04]", "ZERO COMPROMISE. NO NOSTALGIA", "Forward-leaning electronic sound. Leave your ego outside the door.")
     ]
     
-    start_y = 440
+    start_y = 430
     step_y = 150 if not is_reel else 210
     for i, (num, title, desc) in enumerate(tenets):
         y = start_y + i * step_y
-        draw.text((64, y), num, font=font_num, fill=COLOR_ICY_BLUE)
-        draw.text((150, y + 4), title, font=get_font(22, "bold"), fill=COLOR_WHITE)
-        draw.text((150, y + 38), desc, font=font_body, fill=COLOR_MUTED_SILVER)
-        draw.line([(64, y + 105), (w - 64, y + 105)], fill=(30, 36, 46), width=1)
+        num_img = render_fractured_text(num, height=24, style="solid", tint=COLOR_ICY_BLUE)
+        img.paste(num_img, (64, y), num_img)
         
-    draw_letterspaced(draw, (64, h - 145), "KHAOS COLLECTIVE · MAURITIUS · EST. 2026", font_mono, COLOR_SLATE, spacing=2)
-    draw_crosshair(draw, w - 64, h - 140, size=12, color=COLOR_SLATE)
+        draw = ImageDraw.Draw(img)
+        draw.text((150, y - 2), title, font=get_font(22, "bold"), fill=COLOR_WHITE)
+        draw.text((150, y + 34), desc, font=font_body, fill=COLOR_MUTED_SILVER)
+        draw.line([(64, y + 100), (w - 64, y + 100)], fill=(30, 36, 46), width=1)
+        
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (64, h - 165), "KHAOS COLLECTIVE · MAURITIUS · EST. 2026", font_mono, COLOR_SLATE, spacing=2)
+    draw_crosshair(draw, w - 64, h - 160, size=12, color=COLOR_SLATE)
     return img
 
 def build_post_03(is_reel=False):
     """03 — THE IDENTITY (Signature Brand Monolith)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (8, 9, 12, 255))
+    img = Image.new("RGBA", target_size, (5, 5, 5, 255))
     
-    # Liquid chrome ribbons entering from 4 corners
-    corner_nw = load_master_artwork("RUPTURE_M74_v1.jpg", (420, 420), scale=1.4).crop((0, 0, 420, 420))
-    corner_se = load_master_artwork("RUPTURE_M74_v1.jpg", (420, 420), scale=1.4).rotate(180)
+    # Liquid chrome torus ribbons from newly generated artwork 03 entering corners
+    corner_nw = load_khaos_artwork(3, (460, 460), scale=1.3).crop((0, 0, 460, 460))
+    corner_se = load_khaos_artwork(3, (460, 460), scale=1.3).rotate(180)
     img.paste(corner_nw, (0, 0), corner_nw)
-    img.paste(corner_se, (w - 420, h - 420), corner_se)
+    img.paste(corner_se, (w - 460, h - 460), corner_se)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(16, "mono")
@@ -481,7 +340,7 @@ def build_post_03(is_reel=False):
     draw_letterspaced(draw, (64, 68), "KHAOS // 03", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "BRAND IDENTITY", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     # Corner registration marks
     draw_crosshair(draw, 64, 180, size=18, color=COLOR_SLATE)
@@ -493,11 +352,13 @@ def build_post_03(is_reel=False):
     cy = h // 2
     wordmark = render_khaos_wordmark(860, 185, style="fracture")
     img.paste(wordmark, ((w - 860) // 2, cy - 130), wordmark)
-    draw = ImageDraw.Draw(img)
     
-    # Subtitle and motto
-    draw_letterspaced(draw, (w // 2, cy + 90), "T E C H N O   C O L L E C T I V E", get_font(26, "bold"), COLOR_WHITE, spacing=8, align="center")
-    draw_letterspaced(draw, (w // 2, cy + 145), "MORE THAN A PARTY", get_font(20, "light"), COLOR_SILVER, spacing=4, align="center")
+    # Subtitle in custom typography
+    sub_img = render_fractured_text("TECHNO COLLECTIVE", height=34, style="solid", tracking=6)
+    img.paste(sub_img, ((w - sub_img.width) // 2, cy + 90), sub_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (w // 2, cy + 155), "MORE THAN A PARTY", get_font(20, "light"), COLOR_SILVER, spacing=4, align="center")
     draw_letterspaced(draw, (w // 2, cy + 195), "SOUND · MOVEMENT · UNITY", font_mono, COLOR_ICY_BLUE, spacing=4, align="center")
     
     # Footer
@@ -506,41 +367,48 @@ def build_post_03(is_reel=False):
     return img
 
 def build_post_04(is_reel=False):
-    """04 — SAVE THE DATE (Sculptural Loop & Fractured Type)"""
+    """04 — SAVE THE DATE (Sculptural Chrome Pillar & Fractured Display)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M18_v1.jpg", target_size, scale=1.12, offset=(0, 20))
-    img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.35), max_alpha=230)
+    img = load_khaos_artwork(4, target_size, scale=1.12, offset=(0, 20))
+    img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.40), max_alpha=240)
     img = apply_gradient_overlay(img, "top", height_px=int(h * 0.25), max_alpha=220)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(16, "mono")
-    font_big = get_font(84, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 04", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "CALENDAR LOCK", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    # Centered "SAVE THE DATE"
-    cy = int(h * 0.46)
-    draw_letterspaced(draw, (w // 2, cy - 90), "SAVE", font_big, COLOR_WHITE, spacing=6, align="center")
-    draw_letterspaced(draw, (w // 2, cy - 5), "THE", font_big, COLOR_WHITE, spacing=6, align="center")
-    draw_letterspaced(draw, (w // 2, cy + 80), "DATE", font_big, COLOR_WHITE, spacing=6, align="center")
+    # Centered "SAVE THE DATE" in custom typography
+    cy = int(h * 0.44)
+    save_img = render_fractured_text("SAVE", height=78, style="fracture")
+    the_img = render_fractured_text("THE", height=78, style="fracture")
+    date_img = render_fractured_text("DATE", height=78, style="fracture")
+    img.paste(save_img, ((w - save_img.width) // 2, cy - 120), save_img)
+    img.paste(the_img, ((w - the_img.width) // 2, cy - 35), the_img)
+    img.paste(date_img, ((w - date_img.width) // 2, cy + 50), date_img)
     
-    # Bottom date banner
-    draw.line([(64, h - 230), (w - 64, h - 230)], fill=(60, 70, 85), width=1)
-    draw_letterspaced(draw, (w // 2, h - 190), "SATURDAY 14 JUNE 2026", get_font(34, "bold"), COLOR_WHITE, spacing=3, align="center")
-    draw_letterspaced(draw, (w // 2, h - 140), "SECRET INDUSTRIAL SILO // BLACK RIVER DISTRICT", font_mono, COLOR_ICY_BLUE, spacing=3, align="center")
-    draw_letterspaced(draw, (w // 2, h - 105), "CAPACITY RESTRICTED TO 350 DANCERS · PRE-REGISTRATION ESSENTIAL", font_mono, COLOR_SLATE, spacing=1, align="center")
+    # Bottom date banner with custom fractured numerals
+    draw = ImageDraw.Draw(img)
+    draw.line([(64, h - 235), (w - 64, h - 235)], fill=(60, 70, 85), width=1)
+    
+    date_num_img = render_fractured_text("28 . 11 . 2026", height=42, style="solid", tint=COLOR_WHITE, tracking=5)
+    img.paste(date_num_img, ((w - date_num_img.width) // 2, h - 215), date_num_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (w // 2, h - 150), "SECRET INDUSTRIAL SILO // BLACK RIVER DISTRICT", font_mono, COLOR_ICY_BLUE, spacing=3, align="center")
+    draw_letterspaced(draw, (w // 2, h - 110), "CAPACITY RESTRICTED TO 350 DANCERS · PRE-REGISTRATION ESSENTIAL", font_mono, COLOR_SLATE, spacing=1, align="center")
     return img
 
 def build_post_05(is_reel=False):
-    """05 — MAIN EVENT POSTER (Full Artwork Hero Event Poster)"""
+    """05 — MAIN EVENT POSTER (Hero Biomechanical Sculpture)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M45_v1.jpg", target_size, scale=1.06, offset=(0, -60))
+    img = load_khaos_artwork(5, target_size, scale=1.06, offset=(0, -60))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.48), max_alpha=245)
     
     draw = ImageDraw.Draw(img)
@@ -554,15 +422,17 @@ def build_post_05(is_reel=False):
     cy = int(h * 0.58)
     wordmark = render_khaos_wordmark(860, 185, style="fracture")
     img.paste(wordmark, ((w - 860) // 2, cy - 80), wordmark)
-    draw = ImageDraw.Draw(img)
     
-    # Event Subtitle
-    draw_letterspaced(draw, (w // 2, cy + 120), "SYSTEM FRACTURE // EDITION 01", get_font(32, "condensed_bold"), COLOR_WHITE, spacing=4, align="center")
-    draw_letterspaced(draw, (w // 2, cy + 165), "SATURDAY 14 JUNE 2026 · DOORS 22:00", font_mono, COLOR_ICY_BLUE, spacing=2, align="center")
+    # Event Subtitle in custom fractured type
+    title_img = render_fractured_text("SYSTEM FRACTURE", height=44, style="fracture", tint=COLOR_WHITE)
+    img.paste(title_img, ((w - title_img.width) // 2, cy + 120), title_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (w // 2, cy + 180), "SATURDAY 28 NOVEMBER 2026 · DOORS 22:00", font_mono, COLOR_ICY_BLUE, spacing=2, align="center")
     
     # Lineup strip
-    draw.rectangle([(64, cy + 210), (w - 64, cy + 280)], fill=(12, 14, 18, 220), outline=(50, 60, 75), width=1)
-    draw_letterspaced(draw, (w // 2, cy + 232), "ARTIST 01  ·  ARTIST 02 [LIVE]  ·  ARTIST 03  ·  ARTIST 04", get_font(21, "bold"), COLOR_WHITE, spacing=2, align="center")
+    draw.rectangle([(64, cy + 220), (w - 64, cy + 285)], fill=(12, 14, 18, 220), outline=(50, 60, 75), width=1)
+    draw_letterspaced(draw, (w // 2, cy + 242), "ARTIST 01  ·  ARTIST 02 [LIVE]  ·  ARTIST 03  ·  ARTIST 04", get_font(21, "bold"), COLOR_WHITE, spacing=2, align="center")
     
     # Footer Specs
     draw_letterspaced(draw, (64, h - 68), "THE INDUSTRIAL SILO · BLACK RIVER · MAURITIUS", font_mono, COLOR_SLATE, spacing=2)
@@ -570,15 +440,15 @@ def build_post_05(is_reel=False):
     return img
 
 def build_post_06(is_reel=False):
-    """06 — LINEUP REVEAL (Artwork Fragments & Lineup Hierarchy)"""
+    """06 — LINEUP REVEAL (Stratified Metallic Sheets & Hierarchy)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (10, 12, 16, 255))
+    img = Image.new("RGBA", target_size, (6, 7, 10, 255))
     
-    # Folded liquid metallic sheets framing top and bottom borders (220px each)
+    # Folded liquid metallic sheets framing top and bottom borders from artwork 06
     band_h = 200 if not is_reel else 260
-    top_band = load_master_artwork("RUPTURE_M92_v1.jpg", (w, band_h), scale=1.3, offset=(0, -60))
-    bot_band = load_master_artwork("RUPTURE_M92_v1.jpg", (w, band_h), scale=1.3, offset=(0, 60))
+    top_band = load_khaos_artwork(6, (w, band_h), scale=1.3, offset=(0, -60))
+    bot_band = load_khaos_artwork(6, (w, band_h), scale=1.3, offset=(0, 60))
     img.paste(top_band, (0, 0))
     img.paste(bot_band, (0, h - band_h))
     
@@ -587,15 +457,18 @@ def build_post_06(is_reel=False):
     draw.line([(0, h - band_h), (w, h - band_h)], fill=(70, 80, 95), width=2)
     
     font_mono = get_font(16, "mono")
-    font_hero = get_font(54, "condensed_black")
     
     # Lineup Header
     draw_letterspaced(draw, (64, band_h + 30), "KHAOS // 06", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, band_h + 39, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, band_h + 32), "FULL SOUND CURATION", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, band_h + 30), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, band_h + 30), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    draw_letterspaced(draw, (64, band_h + 80), "THE ARTISTS.", font_hero, COLOR_WHITE, spacing=2)
+    # Headline in custom typography
+    title_img = render_fractured_text("THE LINEUP", height=48, style="fracture")
+    img.paste(title_img, (64, band_h + 80), title_img)
+    
+    draw = ImageDraw.Draw(img)
     draw.line([(64, band_h + 145), (w - 64, band_h + 145)], fill=(45, 55, 68), width=1)
     
     artists = [
@@ -609,25 +482,30 @@ def build_post_06(is_reel=False):
     step_y = 125 if not is_reel else 165
     for i, (idx, name, role, desc, slot) in enumerate(artists):
         y = start_y + i * step_y
-        draw.text((64, y), f"[{idx}]", font=get_font(20, "mono"), fill=COLOR_ICY_BLUE)
-        draw.text((125, y - 4), name, font=get_font(34, "condensed_bold"), fill=COLOR_WHITE)
-        draw.text((320, y + 2), role, font=get_font(16, "mono"), fill=COLOR_SILVER)
+        num_img = render_fractured_text(f"[{idx}]", height=22, style="solid", tint=COLOR_ICY_BLUE)
+        img.paste(num_img, (64, y), num_img)
+        
+        name_img = render_fractured_text(name, height=28, style="solid", tint=COLOR_WHITE)
+        img.paste(name_img, (140, y - 4), name_img)
+        
+        draw = ImageDraw.Draw(img)
+        draw.text((360, y + 2), role, font=get_font(16, "mono"), fill=COLOR_SILVER)
         draw_letterspaced(draw, (w - 64, y + 2), slot, font_mono, COLOR_ICY_BLUE, spacing=1, align="right")
-        draw.text((125, y + 36), desc, font=get_font(18, "regular"), fill=COLOR_MUTED_SILVER)
+        draw.text((140, y + 36), desc, font=get_font(18, "regular"), fill=COLOR_MUTED_SILVER)
         draw.line([(64, y + 75), (w - 64, y + 75)], fill=(30, 36, 46), width=1)
         
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, h - band_h - 40), "SOUND SYSTEM INTEGRITY // 25 HZ SUB-BASS REINFORCEMENT", font_mono, COLOR_SLATE, spacing=2)
     return img
 
 def build_post_07(is_reel=False):
-    """07 — DJ SPOTLIGHT 01 — HEADLINER (Cinematic DJ Video Integration)"""
+    """07 — DJ SPOTLIGHT 01 — HEADLINER (Cinematic DJ Stage & Visor Frame)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M52_v1.jpg", target_size, scale=1.08, offset=(0, 0))
+    img = load_khaos_artwork(7, target_size, scale=1.08, offset=(0, 0))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.40), max_alpha=240)
     img = apply_gradient_overlay(img, "top", height_px=int(h * 0.35), max_alpha=240)
     
-    # Central Video Container
     if not is_reel:
         stage_box = (64, 280, w - 64, 980)
     else:
@@ -641,28 +519,26 @@ def build_post_07(is_reel=False):
     draw_letterspaced(draw, (64, 68), "KHAOS // 07", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "HEADLINER SPOTLIGHT", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     # Footer Details
     fy = stage_box[3] + 45
-    draw_letterspaced(draw, (64, fy), "ARTIST 01 // HEADLINE SET", get_font(36, "condensed_bold"), COLOR_WHITE, spacing=2)
+    name_img = render_fractured_text("ARTIST 01 // HEADLINE SET", height=38, style="fracture")
+    img.paste(name_img, (64, fy), name_img)
+    
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, fy + 48), "FAST HYPNOTIC CONTINUITY · LIVE HARDWARE AUDIO PROCESSORS", font_mono, COLOR_ICY_BLUE, spacing=1)
     draw_letterspaced(draw, (64, fy + 80), "PIONEER CDJ-3000 / DJM-V10 / EVENTIDE H90 / BOSS RE-20", font_mono, COLOR_SLATE, spacing=1)
-    
     draw_letterspaced(draw, (w - 64, fy + 48), "01:30 — 03:30 // SILO A", font_mono, COLOR_WHITE, spacing=2, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    """08 — DJ SPOTLIGHT 02 — LIVE HARDWARE (Cinematic Video / Glitch Architecture)"""
+    """08 — DJ SPOTLIGHT 02 — LIVE HARDWARE (Helical Loop & Glitch Stage)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (10, 12, 16, 255))
-    
-    # Glitch scanlines & tectonic metal background
-    bg = load_master_artwork("RUPTURE_M87_v1.jpg", target_size, scale=1.1, offset=(0, 0))
-    scan = create_horizontal_scanlines(w, h, intensity=50, gap=3)
-    bg = Image.alpha_composite(bg, scan)
-    img.paste(bg, (0, 0))
+    img = load_khaos_artwork(8, target_size, scale=1.1, offset=(0, 0))
+    scan = create_horizontal_scanlines(w, h, intensity=40, gap=3)
+    img = Image.alpha_composite(img, scan)
     
     if not is_reel:
         stage_box = (64, 280, w - 64, 980)
@@ -677,23 +553,26 @@ def build_post_08(is_reel=False):
     draw_letterspaced(draw, (64, 68), "KHAOS // 08", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "LIVE MODULAR PERFORMANCE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     fy = stage_box[3] + 45
-    draw_letterspaced(draw, (64, fy), "ARTIST 02 // LIVE HARDWARE ACT", get_font(36, "condensed_bold"), COLOR_WHITE, spacing=2)
+    name_img = render_fractured_text("ARTIST 02 // LIVE HARDWARE", height=38, style="glitch")
+    img.paste(name_img, (64, fy), name_img)
+    
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, fy + 48), "HARDWARE: ELEKTRON OCTATRACK · ERICA SYNTHS SYNTHRX · ROLAND TR-909", font_mono, COLOR_ICY_BLUE, spacing=1)
     draw_letterspaced(draw, (64, fy + 80), "PURE ANALOG IMPROVISATION · ZERO LAPTOPS · 100% HARDWARE SIGNAL", font_mono, COLOR_SLATE, spacing=1)
     return img
 
 def build_post_09(is_reel=False):
-    """09 — DJ SPOTLIGHT 03 — RESIDENT / CLOSING (Asymmetric Spire Framing)"""
+    """09 — DJ SPOTLIGHT 03 — CLOSING RITUAL (Sculptural Blade Framing)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (10, 12, 16, 255))
+    img = Image.new("RGBA", target_size, (6, 7, 10, 255))
     
-    # Asymmetric liquid chrome spire on right margin
-    spire = load_master_artwork("RUPTURE_M130_v1.jpg", (520, h), scale=1.3, offset=(40, 0))
-    img.paste(spire, (w - 480, 0))
+    # Asymmetric liquid chrome blade from artwork 09 on right margin
+    blade = load_khaos_artwork(9, (520, h), scale=1.2, offset=(30, 0))
+    img.paste(blade, (w - 480, 0))
     
     if not is_reel:
         stage_box = (64, 280, w - 240, 980)
@@ -708,46 +587,52 @@ def build_post_09(is_reel=False):
     draw_letterspaced(draw, (64, 68), "KHAOS // 09", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "CLOSING RITUAL", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     fy = stage_box[3] + 45
-    draw_letterspaced(draw, (64, fy), "ARTIST 03 // CLOSING PRESSURE", get_font(36, "condensed_bold"), COLOR_WHITE, spacing=2)
+    name_img = render_fractured_text("ARTIST 03 // CLOSING PRESSURE", height=36, style="fracture")
+    img.paste(name_img, (64, fy), name_img)
+    
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, fy + 48), "INDUSTRIAL GROOVE & RELENTLESS VELOCITY // 144 BPM", font_mono, COLOR_ICY_BLUE, spacing=1)
     draw_letterspaced(draw, (64, fy + 80), "CARRYING THE DANCEFLOOR INTO THE DAWN AT SILO A", font_mono, COLOR_SLATE, spacing=1)
     return img
 
 def build_post_10(is_reel=False):
-    """10 — THE SOUND (Acoustic Visualization & Macro Chrome)"""
+    """10 — THE SOUND (Kinetic Cymatic Chrome Waves & Acoustic Specs)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M103_v1.jpg", target_size, scale=1.1, offset=(0, -20))
+    img = load_khaos_artwork(10, target_size, scale=1.1, offset=(0, -20))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.45), max_alpha=240)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(16, "mono")
-    font_hero = get_font(60, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 10", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "ACOUSTIC RIGIDITY", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
     # Sound frequency matrix
     cy = int(h * 0.60)
-    draw_letterspaced(draw, (64, cy - 80), "THE SOUND.", font_hero, COLOR_WHITE, spacing=2)
-    draw_letterspaced(draw, (64, cy - 10), "FAST. HYPNOTIC. GROOVY. DRIVING. DARK.", get_font(26, "bold"), COLOR_WHITE, spacing=2)
-    draw.line([(64, cy + 30), (w - 64, cy + 30)], fill=(50, 60, 75), width=1)
+    title_img = render_fractured_text("THE SOUND", height=54, style="fracture")
+    img.paste(title_img, (64, cy - 85), title_img)
     
-    # Acoustic crosshairs & frequencies
-    draw_crosshair(draw, 64, cy + 70, size=12, color=COLOR_ICY_BLUE)
-    draw_letterspaced(draw, (95, cy + 62), "LOW FREQUENCY RESPONSE: 25 HZ // SUB-BASS PRESSURE", font_mono, COLOR_ICY_BLUE, spacing=2)
+    sub_img = render_fractured_text("FAST . HYPNOTIC . GROOVY . DRIVING", height=24, style="solid", tint=COLOR_ICY_BLUE)
+    img.paste(sub_img, (64, cy - 15), sub_img)
     
-    draw_crosshair(draw, 64, cy + 115, size=12, color=COLOR_ICY_BLUE)
-    draw_letterspaced(draw, (95, cy + 107), "TEMPO RANGE: 140 — 144 BPM // NON-STOP CONTINUITY", font_mono, COLOR_WHITE, spacing=2)
+    draw = ImageDraw.Draw(img)
+    draw.line([(64, cy + 25), (w - 64, cy + 25)], fill=(50, 60, 75), width=1)
     
-    draw_crosshair(draw, 64, cy + 160, size=12, color=COLOR_ICY_BLUE)
-    draw_letterspaced(draw, (95, cy + 152), "SOUND SYSTEM: CUSTOM TUNED MULTI-POINT CONCRETE STACK", font_mono, COLOR_SLATE, spacing=2)
+    draw_crosshair(draw, 64, cy + 65, size=12, color=COLOR_ICY_BLUE)
+    draw_letterspaced(draw, (95, cy + 57), "LOW FREQUENCY RESPONSE: 25 HZ // SUB-BASS PRESSURE", font_mono, COLOR_ICY_BLUE, spacing=2)
+    
+    draw_crosshair(draw, 64, cy + 110, size=12, color=COLOR_ICY_BLUE)
+    draw_letterspaced(draw, (95, cy + 102), "TEMPO RANGE: 140 — 146 BPM // NON-STOP CONTINUITY", font_mono, COLOR_WHITE, spacing=2)
+    
+    draw_crosshair(draw, 64, cy + 155, size=12, color=COLOR_ICY_BLUE)
+    draw_letterspaced(draw, (95, cy + 147), "SOUND SYSTEM: CUSTOM TUNED MULTI-POINT CONCRETE STACK", font_mono, COLOR_SLATE, spacing=2)
     
     draw_letterspaced(draw, (64, h - 68), "ACOUSTIC ENGINEERING COMPLETE // CALIBRATED FOR THE VOID", font_mono, COLOR_SLATE, spacing=2)
     return img
@@ -756,14 +641,16 @@ def build_post_11(is_reel=False):
     """11 — THE CODE (Cultural Code / Community Manifesto)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (8, 9, 12, 255))
+    img = Image.new("RGBA", target_size, (5, 5, 5, 255))
+    
+    # Monolithic tectonic chrome slab from artwork 11 as right accent
+    monolith = load_khaos_artwork(11, (440, h), scale=1.1, offset=(0, 0))
+    img.paste(monolith, (w - 420, 0))
     
     draw = ImageDraw.Draw(img)
-    # Hairline frame
     draw.rectangle([(32, 32), (w - 32, h - 32)], outline=(35, 42, 54), width=1)
     
     font_mono = get_font(16, "mono")
-    font_hero = get_font(60, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 11", font_mono, COLOR_WHITE, spacing=2)
@@ -771,9 +658,12 @@ def build_post_11(is_reel=False):
     draw_letterspaced(draw, (220, 70), "DANCEFLOOR CODE", font_mono, COLOR_ICY_BLUE, spacing=2)
     draw_letterspaced(draw, (w - 64, 68), "COMMUNITY VALUES", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    draw_letterspaced(draw, (64, 150), "THE KHAOS CODE.", font_hero, COLOR_WHITE, spacing=2)
-    draw_letterspaced(draw, (64, 220), "FOUR MANDATORY PRINCIPLES FOR ENTERING OUR SPACE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw.line([(64, 260), (w - 64, 260)], fill=(50, 60, 75), width=1)
+    title_img = render_fractured_text("THE KHAOS CODE", height=50, style="fracture")
+    img.paste(title_img, (64, 140), title_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (64, 210), "FOUR MANDATORY PRINCIPLES FOR ENTERING OUR SPACE", font_mono, COLOR_ICY_BLUE, spacing=2)
+    draw.line([(64, 250), (w - 64, 250)], fill=(50, 60, 75), width=1)
     
     rules = [
         ("[01]", "RADICAL INCLUSIVITY & AUTONOMY", "A sanctuary for all identities, backgrounds, and bodies. Wear what you want. Be who you are. Absolute bodily autonomy."),
@@ -782,38 +672,43 @@ def build_post_11(is_reel=False):
         ("[04]", "LEAVE YOUR EGO AT THE DOOR", "No VIP sections. No backstage hierarchy. No bottle service. We are all equals before the sound system.")
     ]
     
-    start_y = 310
+    start_y = 300
     step_y = 190 if not is_reel else 250
     for idx, (num, title, body) in enumerate(rules):
         y = start_y + idx * step_y
-        draw.text((64, y), num, font=get_font(26, "bold"), fill=COLOR_ICY_BLUE)
-        draw.text((140, y + 2), title, font=get_font(24, "condensed_bold"), fill=COLOR_WHITE)
-        draw.text((140, y + 36), body, font=get_font(19, "regular"), fill=COLOR_MUTED_SILVER)
-        draw.line([(64, y + 130), (w - 64, y + 130)], fill=(25, 30, 40), width=1)
+        num_img = render_fractured_text(num, height=24, style="solid", tint=COLOR_ICY_BLUE)
+        img.paste(num_img, (64, y), num_img)
         
+        draw = ImageDraw.Draw(img)
+        draw.text((150, y - 2), title, font=get_font(23, "condensed_bold"), fill=COLOR_WHITE)
+        draw.text((150, y + 34), body, font=get_font(18, "regular"), fill=COLOR_MUTED_SILVER)
+        draw.line([(64, y + 125), (w - 64, y + 125)], fill=(25, 30, 40), width=1)
+        
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, h - 68), "OUR CARE TEAM IS PRESENT ALL NIGHT · SEEK ASSISTANCE AT ANY TIME", font_mono, COLOR_SLATE, spacing=1)
     return img
 
 def build_post_12(is_reel=False):
-    """12 — THE VENUE / EXPERIENCE (Mixed-Media Architectural Blueprint)"""
+    """12 — THE VENUE / EXPERIENCE (Brutalist Cavern Archway & Blueprint)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M100_v1.jpg", target_size, scale=1.08, offset=(0, 0))
+    img = load_khaos_artwork(12, target_size, scale=1.08, offset=(0, 0))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.45), max_alpha=245)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(16, "mono")
-    font_hero = get_font(58, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 12", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "VENUE ARCHITECTURE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    # Blueprint Specs
     cy = int(h * 0.58)
-    draw_letterspaced(draw, (64, cy - 60), "THE INDUSTRIAL SILO.", font_hero, COLOR_WHITE, spacing=2)
+    title_img = render_fractured_text("THE INDUSTRIAL SILO", height=50, style="fracture")
+    img.paste(title_img, (64, cy - 65), title_img)
+    
+    draw = ImageDraw.Draw(img)
     draw_letterspaced(draw, (64, cy + 10), "RAW CONCRETE. 18-METRE NATURAL REVERB HEIGHT. OPEN-AIR COOLING YARD.", font_mono, COLOR_ICY_BLUE, spacing=1)
     draw.line([(64, cy + 45), (w - 64, cy + 45)], fill=(50, 60, 75), width=1)
     
@@ -831,57 +726,66 @@ def build_post_12(is_reel=False):
     return img
 
 def build_post_13(is_reel=False):
-    """13 — COUNTDOWN (Giant Fractured Countdown & Glitch)"""
+    """13 — COUNTDOWN (Fractured Sphere & Colossal Countdown)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M58_v1.jpg", target_size, scale=1.1, offset=(0, 20))
+    img = load_khaos_artwork(13, target_size, scale=1.1, offset=(0, 20))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.45), max_alpha=240)
     
-    scan = create_horizontal_scanlines(w, h, intensity=45, gap=3)
+    scan = create_horizontal_scanlines(w, h, intensity=40, gap=3)
     img = Image.alpha_composite(img, scan)
     draw = ImageDraw.Draw(img)
     
     font_mono = get_font(16, "mono")
-    font_giant = get_font(260 if not is_reel else 320, "condensed_black")
-    font_hero = get_font(68, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 13", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "COUNTDOWN SEQUENCE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    # Colossal 07
-    draw.text((64, 180), "07", font=font_giant, fill=COLOR_WHITE)
-    draw_letterspaced(draw, (64, 520 if not is_reel else 600), "DAYS REMAINING.", font_hero, COLOR_WHITE, spacing=2)
-    draw_letterspaced(draw, (64, 600 if not is_reel else 680), "SATURDAY 14 JUNE · SILO A", get_font(26, "mono"), COLOR_ICY_BLUE, spacing=2)
+    # Colossal 07 in custom fractured typography
+    num_07 = render_fractured_text("07", height=240 if not is_reel else 300, style="glitch", tint=COLOR_WHITE)
+    img.paste(num_07, (64, 180), num_07)
     
-    draw.rectangle([(64, 680), (w - 64, 780)], fill=(12, 14, 18, 220), outline=(50, 60, 75), width=1)
-    draw.text((90, 704), "TICKET ALLOCATION // FINAL RELEASE:", font=font_mono, fill=COLOR_MUTED_SILVER)
-    draw.text((90, 736), "85% ALLOCATION CLAIMED · STRICTLY ZERO DOOR SALES · CAPACITY 350", font=font_mono, fill=COLOR_ICY_BLUE)
+    days_img = render_fractured_text("DAYS REMAINING", height=54, style="fracture", tint=COLOR_WHITE)
+    img.paste(days_img, (64, 460 if not is_reel else 540), days_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (64, 540 if not is_reel else 620), "SATURDAY 28 NOVEMBER · SILO A", get_font(26, "mono"), COLOR_ICY_BLUE, spacing=2)
+    
+    draw.rectangle([(64, 620 if not is_reel else 700), (w - 64, 720 if not is_reel else 800)], fill=(12, 14, 18, 220), outline=(50, 60, 75), width=1)
+    draw.text((90, 644 if not is_reel else 724), "TICKET ALLOCATION // FINAL RELEASE:", font=font_mono, fill=COLOR_MUTED_SILVER)
+    draw.text((90, 676 if not is_reel else 756), "85% ALLOCATION CLAIMED · STRICTLY ZERO DOOR SALES · CAPACITY 350", font=font_mono, fill=COLOR_ICY_BLUE)
     
     draw_letterspaced(draw, (64, h - 68), "SOUND SYSTEM CALIBRATED AT 142 BPM · PREPARE YOUR MIND", font_mono, COLOR_SLATE, spacing=1)
     return img
 
 def build_post_14(is_reel=False):
-    """14 — FINAL INFORMATION (Editorial Information Architecture)"""
+    """14 — FINAL INFORMATION (Precision Chrome Beams & Logistics)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = Image.new("RGBA", target_size, (10, 12, 16, 255))
+    img = Image.new("RGBA", target_size, (6, 7, 10, 255))
+    
+    # Structural chrome divider beams from artwork 14
+    beams = load_khaos_artwork(14, target_size, scale=1.0)
+    img.paste(beams, (0, 0), beams)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(16, "mono")
-    font_hero = get_font(54, "condensed_black")
     
     # Header
     draw_letterspaced(draw, (64, 68), "KHAOS // 14", font_mono, COLOR_WHITE, spacing=2)
     draw_crosshair(draw, 195, 77, size=10, color=COLOR_ICY_BLUE)
     draw_letterspaced(draw, (220, 70), "PRACTICAL GUIDE", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw_letterspaced(draw, (w - 64, 68), "SAT. 14.06 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
+    draw_letterspaced(draw, (w - 64, 68), "SAT. 28.11 // MAURITIUS", font_mono, COLOR_SLATE, spacing=1, align="right")
     
-    draw_letterspaced(draw, (64, 140), "FINAL EVENT INFORMATION.", font_hero, COLOR_WHITE, spacing=2)
-    draw_letterspaced(draw, (64, 205), "EVERYTHING YOU NEED TO KNOW BEFORE ENTERING SILO A", font_mono, COLOR_ICY_BLUE, spacing=2)
-    draw.line([(64, 240), (w - 64, 240)], fill=(50, 60, 75), width=1)
+    title_img = render_fractured_text("FINAL INFORMATION", height=46, style="fracture")
+    img.paste(title_img, (64, 130), title_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (64, 195), "EVERYTHING YOU NEED TO KNOW BEFORE ENTERING SILO A", font_mono, COLOR_ICY_BLUE, spacing=2)
+    draw.line([(64, 230), (w - 64, 230)], fill=(50, 60, 75), width=1)
     
     sections = [
         ("01", "HOURS & TIMETABLE", [
@@ -902,11 +806,11 @@ def build_post_14(is_reel=False):
         ])
     ]
     
-    start_y = 280
+    start_y = 270
     step_y = 200 if not is_reel else 260
     for idx, (num, title, items) in enumerate(sections):
         y = start_y + idx * step_y
-        draw.rectangle([(64, y), (w - 64, y + 160)], fill=(14, 17, 22), outline=(35, 42, 54), width=1)
+        draw.rectangle([(64, y), (w - 64, y + 160)], fill=(12, 14, 18, 220), outline=(35, 42, 54), width=1)
         draw.text((90, y + 20), f"[{num}]  {title}", font=get_font(20, "condensed_bold"), fill=COLOR_ICY_BLUE)
         for j, item in enumerate(items):
             draw.text((90, y + 65 + j * 32), f"· {item}", font=font_mono, fill=COLOR_WHITE)
@@ -915,24 +819,25 @@ def build_post_14(is_reel=False):
     return img
 
 def build_post_15(is_reel=False):
-    """15 — TONIGHT (Atmospheric Cinematic Climax)"""
+    """15 — TONIGHT (Liquid Chrome Corona Bloom & Climax)"""
     target_size = (1080, 1920) if is_reel else (1080, 1350)
     w, h = target_size
-    img = load_master_artwork("RUPTURE_M45_v1.jpg", target_size, scale=1.06, offset=(0, -40))
+    img = load_khaos_artwork(15, target_size, scale=1.06, offset=(0, -40))
     img = apply_gradient_overlay(img, "bottom", height_px=int(h * 0.50), max_alpha=245)
     
     draw = ImageDraw.Draw(img)
     font_mono = get_font(18, "mono")
-    font_colossal = get_font(136 if not is_reel else 160, "condensed_black")
-    font_mono_lg = get_font(26, "mono")
     
     # Header
     draw_letterspaced(draw, (w // 2, 90), "KHAOS 01 // SYSTEM FRACTURE", font_mono, COLOR_ICY_BLUE, spacing=4, align="center")
     
-    # Center
-    cy = int(h * 0.58)
-    draw_letterspaced(draw, (w // 2, cy - 80), "TONIGHT", font_colossal, COLOR_WHITE, spacing=4, align="center")
-    draw_letterspaced(draw, (w // 2, cy + 80), "DOORS OPEN 22:00 // SILO A", font_mono_lg, COLOR_SILVER, spacing=3, align="center")
+    # Center colossal TONIGHT in custom fractured type
+    cy = int(h * 0.56)
+    tonight_img = render_fractured_text("TONIGHT", height=120 if not is_reel else 145, style="fracture")
+    img.paste(tonight_img, ((w - tonight_img.width) // 2, cy - 70), tonight_img)
+    
+    draw = ImageDraw.Draw(img)
+    draw_letterspaced(draw, (w // 2, cy + 85), "DOORS OPEN 22:00 // SILO A", get_font(24, "mono"), COLOR_SILVER, spacing=3, align="center")
     draw_letterspaced(draw, (w // 2, cy + 145), "STRICTLY SOLD OUT // NO TICKETS AT THE DOOR", font_mono, COLOR_WHITE, spacing=2, align="center")
     draw_letterspaced(draw, (w // 2, cy + 185), "NO PHONES ON THE DANCEFLOOR · LEAVE YOUR EGO OUTSIDE", font_mono, COLOR_SLATE, spacing=2, align="center")
     
@@ -940,10 +845,6 @@ def build_post_15(is_reel=False):
     wordmark = render_khaos_wordmark(640, 135, style="fracture")
     img.paste(wordmark, ((w - 640) // 2, h - 180), wordmark)
     return img
-
-# -------------------------------------------------------------
-# DISK EXPORT & PIPELINE
-# -------------------------------------------------------------
 
 POST_BUILDERS = {
     1: build_post_01,
@@ -960,7 +861,7 @@ POST_BUILDERS = {
     12: build_post_12,
     13: build_post_13,
     14: build_post_14,
-    15: build_post_15,
+    15: build_post_15
 }
 
 REEL_POST_IDS = [1, 4, 7, 8, 9, 10, 13, 15]
@@ -973,19 +874,18 @@ def crop_1x1_square(img_4x5):
 
 def export_reusable_assets():
     print("Exporting reusable KHAOS graphic elements...")
-    # 1. Fractured wordmark
     wm_fracture = render_khaos_wordmark(1080, 240, style="fracture")
     wm_fracture.save(os.path.join(ASSETS_DIR, "khaos_wordmark_fractured.png"))
+    wm_fracture.save(os.path.join(ARTIFACTS_DIR, "khaos_wordmark_fractured.png"))
     
-    # 2. Glitch wordmark
     wm_glitch = render_khaos_wordmark(1080, 240, style="glitch")
     wm_glitch.save(os.path.join(ASSETS_DIR, "khaos_wordmark_glitch.png"))
+    wm_glitch.save(os.path.join(ARTIFACTS_DIR, "khaos_wordmark_glitch.png"))
     
-    # 3. Solid silver wordmark
     wm_solid = render_khaos_wordmark(1080, 240, style="solid")
     wm_solid.save(os.path.join(ASSETS_DIR, "khaos_wordmark_solid.png"))
+    wm_solid.save(os.path.join(ARTIFACTS_DIR, "khaos_wordmark_solid.png"))
     
-    # 4. Crosshairs & registration marks set
     ch_img = Image.new("RGBA", (400, 400), (0, 0, 0, 0))
     cdraw = ImageDraw.Draw(ch_img)
     draw_crosshair(cdraw, 200, 200, size=50, color=COLOR_WHITE, width=2)
@@ -994,10 +894,11 @@ def export_reusable_assets():
     draw_crosshair(cdraw, 100, 300, size=25, color=COLOR_ICY_BLUE, width=1)
     draw_crosshair(cdraw, 300, 300, size=25, color=COLOR_ICY_BLUE, width=1)
     ch_img.save(os.path.join(ASSETS_DIR, "khaos_crosshairs_set.png"))
+    ch_img.save(os.path.join(ARTIFACTS_DIR, "khaos_crosshairs_set.png"))
     
-    # 5. Scanline overlay
     scan = create_horizontal_scanlines(1080, 1350, intensity=50, gap=4)
     scan.save(os.path.join(ASSETS_DIR, "khaos_scanlines_overlay.png"))
+    scan.save(os.path.join(ARTIFACTS_DIR, "khaos_scanlines_overlay.png"))
     print("Reusable assets saved.")
 
 def generate_edition_metadata():
@@ -1013,7 +914,7 @@ def generate_edition_metadata():
             "archetypeDescription": "Mysterious opening transmission introducing the KHAOS identity. Liquid chrome ribbon cutting through a digital scanline matrix in deep obsidian space.",
             "artworkUsage": "Dynamic liquid chrome ribbon with horizontal scanline interference blocks.",
             "reelAvailable": True,
-            "typography": "Custom KHAOS Glitch Wordmark + Helvetica Neue Condensed Bold + SFNSMono",
+            "typography": "Custom KHAOS Glitch Wordmark + Fractured Geometric Alphabet + SFNSMono",
             "safeArea": "Centered glyph and title securely within Y=200..1050; tick marks for 1:1 Instagram profile crop.",
             "caption": "Signal 001.\n\nAn anomaly detected in the soundscape.\n\nNot everything needs to follow the predictable pattern. A new frequency is entering the Mauritian underground.\n\nNo announcements yet. Just a shift in atmospheric pressure.\n\nSound is arriving.\n\n// KHAOS COLLECTIVE\n// CHAPTER I: SYSTEM FRACTURE\n// FREQ 142.0 MHz\n\n#khaoscollective #undergroundtechno #mauritiustechno #hypnotictechno #systemfracture #glitcharchitecture #liquidchrome"
         },
@@ -1024,10 +925,10 @@ def generate_edition_metadata():
             "title": "THE MANIFESTO",
             "date": "9 WEEKS OUT // TUESDAY 19:00",
             "archetype": "Typography-Led Composition",
-            "archetypeDescription": "Modernist Swiss editorial typography on deep graphite void. Abstract metallic artwork is restrained strictly to razor-thin 110px accent rules at top and bottom.",
+            "archetypeDescription": "Modernist Swiss editorial typography on deep graphite void. Abstract metallic artwork is restrained strictly to razor-thin 130px accent rules at top and bottom.",
             "artworkUsage": "Razor-thin sheared metallic boundary rules framing editorial text.",
             "reelAvailable": False,
-            "typography": "Helvetica Neue Condensed Black 72pt + SFNSMono 18pt + Regular 21pt",
+            "typography": "Custom KHAOS Fractured Alphabet + SFNSMono 16pt + Regular 21pt",
             "safeArea": "Manifesto tenets [01] to [04] structured cleanly within central safe bounds.",
             "caption": "We challenge repetition. We break conventions.\n\nOur manifesto:\n\n[01] DESTRUCTION OF THE PREDICTABLE.\nRejecting commercial club formulas, VIP divisions, and playlist conformity.\n\n[02] ACOUSTIC RIGIDITY & HYPNOTIC CONTINUITY.\nCurating fast, dark, groove-laden rhythms with absolute 25 Hz sub-bass integrity.\n\n[03] A RADICAL DANCEFLOOR SANCTUARY.\nA community built on bodily autonomy, radical safety, mutual respect, and pure freedom.\n\n[04] ZERO COMPROMISE. NO NOSTALGIA.\nForward-leaning electronic sound. Leave your ego outside the door.\n\nThis is our foundation.\n\n#khaosmanifesto #undergroundculture #technocollective #mauritiuselectronic #noharassment #saferspace #puretechno"
         },
@@ -1041,7 +942,7 @@ def generate_edition_metadata():
             "archetypeDescription": "Signature monolithic KHAOS wordmark centered in pure obsidian negative space, flanked by liquid chrome corner accents.",
             "artworkUsage": "Liquid chrome ribbons entering from 4 corners, leaving central 70% void.",
             "reelAvailable": False,
-            "typography": "Custom KHAOS Fractured Wordmark (860px) + Helvetica Neue Bold + SFNSMono",
+            "typography": "Custom KHAOS Fractured Wordmark (860px) + Fractured Alphabet + SFNSMono",
             "safeArea": "Central monolithic wordmark and motto framed with 64px padding.",
             "caption": "KHAOS.\n\nMore than an event. More than a party.\n\nAn uncompromising underground techno collective based in Mauritius.\n\nSound. Movement. Unity.\n\nFollow the signal.\n\n#khaos #technocollective #brandidentity #undergroundtechno #mauritiusnightlife #electronicmusic"
         },
@@ -1052,12 +953,12 @@ def generate_edition_metadata():
             "title": "SAVE THE DATE",
             "date": "7 WEEKS OUT // SUNDAY 18:00",
             "archetype": "Sculptural Loop & Fractured Display",
-            "archetypeDescription": "Suspended liquid chrome celestial torus ring glowing in dark void, with SAVE THE DATE typography centered through the loop.",
-            "artworkUsage": "Fluid chrome torus ring hovering in center with specular refraction.",
+            "archetypeDescription": "Monolithic vertical liquid chrome pillar with tectonic fissures, featuring fractured SAVE THE DATE lettering and custom date numerals.",
+            "artworkUsage": "Fluid chrome monolithic pillar with specular refraction.",
             "reelAvailable": True,
-            "typography": "Helvetica Neue Condensed Black 84pt + SFNSMono 18pt",
+            "typography": "Custom Fractured Display + Fractured Numerals 28.11.2026 + SFNSMono",
             "safeArea": "Central circular loop and date block centered within 1080x1080 grid crop.",
-            "caption": "Lock the date.\n\nSaturday 14 June 2026.\n\nKHAOS 01: SYSTEM FRACTURE.\n\nSecret industrial location // Black River District.\nCapacity restricted to 350 dancers.\n\nPre-registration opens next week.\n\n#savethedate #khaos01 #mauritiustechno #blackriver #industrialtechno #technoevent"
+            "caption": "Lock the date.\n\nSaturday 28 November 2026.\n\nKHAOS 01: SYSTEM FRACTURE.\n\nSecret industrial location // Black River District.\nCapacity restricted to 350 dancers.\n\nPre-registration opens next week.\n\n#savethedate #khaos01 #mauritiustechno #blackriver #industrialtechno #technoevent"
         },
         {
             "id": "05",
@@ -1066,12 +967,12 @@ def generate_edition_metadata():
             "title": "MAIN EVENT POSTER",
             "date": "6 WEEKS OUT // FRIDAY 19:00",
             "archetype": "Full Artwork Hero Event Poster",
-            "archetypeDescription": "Centerpiece promotional event poster featuring a monumental liquid chrome hydraulic crest with full artist billing and ticket release protocol.",
+            "archetypeDescription": "Centerpiece promotional event poster featuring a monumental biomechanical liquid chrome sculpture with full artist billing and ticket release protocol.",
             "artworkUsage": "Monumental liquid chrome crest anchoring the primary event announcement.",
             "reelAvailable": False,
-            "typography": "Custom KHAOS Wordmark + Condensed Bold 36pt + SFNSMono 16pt",
+            "typography": "Custom KHAOS Wordmark + Fractured Event Title + SFNSMono 16pt",
             "safeArea": "All critical event billing and artist names securely inside Y=240..1120.",
-            "caption": "KHAOS COLLECTIVE PRESENTS:\n\nKHAOS 01: SYSTEM FRACTURE\n\nSaturday 14 June 2026\nDoors open 22:00\n\nLINEUP:\n· ARTIST 01 [International Headliner]\n· ARTIST 02 [Live Hardware Modular]\n· ARTIST 03 [Industrial Groove]\n· ARTIST 04 [Resident Opening Ritual]\n\nLocation: The Industrial Silo, Black River District\nSound System: 25 Hz Custom Tuned Multi-Point Concrete Stack\n\nPrivate ticket access link dispatched to registered members.\n\n#khaos #technoposter #mauritiusevents #undergroundrave #systemfracture #hypnotictechno"
+            "caption": "KHAOS COLLECTIVE PRESENTS:\n\nKHAOS 01: SYSTEM FRACTURE\n\nSaturday 28 November 2026\nDoors open 22:00\n\nLINEUP:\n· ARTIST 01 [International Headliner]\n· ARTIST 02 [Live Hardware Modular]\n· ARTIST 03 [Industrial Groove]\n· ARTIST 04 [Resident Opening Ritual]\n\nLocation: The Industrial Silo, Black River District\nSound System: 25 Hz Custom Tuned Multi-Point Concrete Stack\n\nPrivate ticket access link dispatched to registered members.\n\n#khaos #technoposter #mauritiusevents #undergroundrave #systemfracture #hypnotictechno"
         },
         {
             "id": "06",
@@ -1080,12 +981,12 @@ def generate_edition_metadata():
             "title": "LINEUP REVEAL",
             "date": "5 WEEKS OUT // TUESDAY 18:00",
             "archetype": "Artwork Fragments & Lineup Hierarchy",
-            "archetypeDescription": "Folded liquid metallic sheets framing top and bottom borders, leaving a clean dark obsidian void for a strong typographic artist hierarchy.",
+            "archetypeDescription": "Stratified horizontal liquid chrome ribbons framing top and bottom borders, leaving a clean dark obsidian void for a strong typographic artist hierarchy.",
             "artworkUsage": "Folded tectonic metallic sheets as top and bottom framing bands.",
             "reelAvailable": False,
-            "typography": "Helvetica Neue Condensed Black 54pt + Bold 34pt + SFNSMono 16pt",
+            "typography": "Custom KHAOS Fractured Display + Fractured Numerals + SFNSMono",
             "safeArea": "All 4 artist cards positioned between Y=280..1060.",
-            "caption": "The sound curation for Saturday 14 June:\n\n[01] ARTIST 01\nHypnotic, driving underground techno. Precision drum architecture and relentless momentum.\n\n[02] ARTIST 02 [LIVE]\nModular synthesizer improvisations, raw analog distortion & acid lines. Zero laptops.\n\n[03] ARTIST 03\nHigh-velocity industrial groove & hypnotic closing pressure.\n\n[04] ARTIST 04\nDeep textural ambient prelude & rhythmic frequency calibration.\n\nTickets via private allocation only.\n\n#khaoslineup #livehardware #modulartechno #undergrounddjs #mauritiustechno"
+            "caption": "The sound curation for Saturday 28 November:\n\n[01] ARTIST 01\nHypnotic, driving underground techno. Precision drum architecture and relentless momentum.\n\n[02] ARTIST 02 [LIVE]\nModular synthesizer improvisations, raw analog distortion & acid lines. Zero laptops.\n\n[03] ARTIST 03\nHigh-velocity industrial groove & hypnotic closing pressure.\n\n[04] ARTIST 04\nDeep textural ambient prelude & rhythmic frequency calibration.\n\nTickets via private allocation only.\n\n#khaoslineup #livehardware #modulartechno #undergrounddjs #mauritiustechno"
         },
         {
             "id": "07",
@@ -1094,8 +995,8 @@ def generate_edition_metadata():
             "title": "DJ SPOTLIGHT 01 — HEADLINER",
             "date": "4 WEEKS OUT // THURSDAY 19:00",
             "archetype": "Cinematic DJ Video Integration",
-            "archetypeDescription": "Cinematic live performance video window framed by liquid chrome ribbons, live audio telemetry, 142 BPM waveform HUD, and integrated typography.",
-            "artworkUsage": "Fluid chrome ribbons framing central live performance video window.",
+            "archetypeDescription": "Cinematic live performance video window framed by liquid chrome curved visor, live audio telemetry, 142 BPM waveform HUD, and integrated typography.",
+            "artworkUsage": "Fluid chrome visor and shroud framing central live performance video window.",
             "reelAvailable": True,
             "videoData": {
                 "artist": "ARTIST 01",
@@ -1105,9 +1006,9 @@ def generate_edition_metadata():
                 "timeSlot": "01:30 — 03:30",
                 "hardware": "Pioneer CDJ-3000 / DJM-V10 / Eventide H90"
             },
-            "typography": "Helvetica Neue Condensed Bold 36pt + SFNSMono 16pt HUD",
+            "typography": "Custom Fractured Artist Header + SFNSMono 16pt HUD",
             "safeArea": "Video viewport centered with HUD and artist details safely within bounds.",
-            "caption": "Artist Spotlight 01 // ARTIST 01\n\nTaking over the peak-time ritual from 01:30 to 03:30.\n\nKnown for surgical percussive rhythm, deep sub frequencies, and uncompromising hypnotic velocity.\n\nTrack preview in reel.\n\nSaturday 14 June // The Industrial Silo.\n\n#artistspotlight #headliner #hypnotictechno #peaktime #khaos01 #djset"
+            "caption": "Artist Spotlight 01 // ARTIST 01\n\nTaking over the peak-time ritual from 01:30 to 03:30.\n\nKnown for surgical percussive rhythm, deep sub frequencies, and uncompromising hypnotic velocity.\n\nTrack preview in reel.\n\nSaturday 28 November // The Industrial Silo.\n\n#artistspotlight #headliner #hypnotictechno #peaktime #khaos01 #djset"
         },
         {
             "id": "08",
@@ -1116,8 +1017,8 @@ def generate_edition_metadata():
             "title": "DJ SPOTLIGHT 02 — LIVE HARDWARE",
             "date": "3 WEEKS OUT // TUESDAY 19:00",
             "archetype": "Cinematic Video / Glitch Architecture",
-            "archetypeDescription": "Glitch architecture scanlines and horizontal displacement framing a modular hardware performance with live synthesizer telemetry.",
-            "artworkUsage": "Glitch scanlines and tectonic metal fragments surrounding video frame.",
+            "archetypeDescription": "Helical liquid chrome spiral and horizontal displacement framing a modular hardware performance with live synthesizer telemetry.",
+            "artworkUsage": "Helical chrome spiral and mercury droplets surrounding video frame.",
             "reelAvailable": True,
             "videoData": {
                 "artist": "ARTIST 02",
@@ -1127,7 +1028,7 @@ def generate_edition_metadata():
                 "timeSlot": "00:00 — 01:30",
                 "hardware": "Elektron Octatrack DPS-1 / Erica Synths SynthrX / Roland TR-909"
             },
-            "typography": "Helvetica Neue Condensed Bold 36pt + SFNSMono 16pt",
+            "typography": "Custom Glitch Artist Header + SFNSMono 16pt",
             "safeArea": "Modular performance window framed by glitch telemetry.",
             "caption": "Artist Spotlight 02 // ARTIST 02 [LIVE]\n\nZero laptops. Zero pre-recorded sequences.\n\n90 minutes of pure live hardware improvisation using Eurorack modular, analog filters, and analog drum machines.\n\nTime slot: 00:00 — 01:30.\n\n#modulartechno #livehardware #elektron #synthrx #tr909 #analogtechno #khaoslive"
         },
@@ -1138,8 +1039,8 @@ def generate_edition_metadata():
             "title": "DJ SPOTLIGHT 03 — CLOSING RITUAL",
             "date": "2.5 WEEKS OUT // FRIDAY 19:00",
             "archetype": "Asymmetric Spire Framing",
-            "archetypeDescription": "Asymmetric vertical liquid chrome spire cutting in from the right margin, framing a vertical performance video on the left.",
-            "artworkUsage": "Asymmetrical liquid chrome spire defining right third of frame.",
+            "archetypeDescription": "Asymmetric aerodynamic liquid chrome blade cutting in from the right margin, framing a vertical performance video on the left.",
+            "artworkUsage": "Asymmetrical liquid chrome blade defining right third of frame.",
             "reelAvailable": True,
             "videoData": {
                 "artist": "ARTIST 03",
@@ -1149,7 +1050,7 @@ def generate_edition_metadata():
                 "timeSlot": "03:30 — 06:00",
                 "hardware": "Vinyl Turntables / AlphaTheta Euphoria / Custom Rotary"
             },
-            "typography": "Helvetica Neue Condensed Bold 36pt + SFNSMono 16pt",
+            "typography": "Custom Fractured Artist Header + SFNSMono 16pt",
             "safeArea": "Asymmetric left video container and text within safe area.",
             "caption": "Artist Spotlight 03 // ARTIST 03\n\nThe closing ritual: 03:30 to 06:00.\n\nRaw industrial momentum, heavy groove, and relentless pressure as dawn enters the silo courtyard.\n\nStay until the final frequency.\n\n#closingritual #industrialtechno #rawtechno #siloafterhours #khaosmauritius"
         },
@@ -1160,10 +1061,10 @@ def generate_edition_metadata():
             "title": "THE SOUND",
             "date": "2 WEEKS OUT // TUESDAY 20:00",
             "archetype": "Acoustic Visualization & Macro Chrome",
-            "archetypeDescription": "Macro close-up of liquid metal ripples with acoustic frequency crosshairs and audio spectrum markers.",
-            "artworkUsage": "Macro fluid metal crest with ripple interference patterns.",
+            "archetypeDescription": "Kinetic liquid chrome cymatic wave ripples with acoustic frequency crosshairs and audio spectrum markers.",
+            "artworkUsage": "Macro fluid metal ripple crest with shockwave folds.",
             "reelAvailable": True,
-            "typography": "Helvetica Neue Condensed Black 60pt + SFNSMono 16pt",
+            "typography": "Custom Fractured Header + Solid Display + SFNSMono 16pt",
             "safeArea": "Central acoustic ripple and text within safe area.",
             "caption": "The Sound of KHAOS.\n\nFast. Hypnotic. Groovy. Driving. Dark.\n\nWe do not play generic EDM drops. We do not follow commercial radio structures.\n\nWe curate a continuous acoustic journey powered by 25 Hz sub-bass enclosures, engineered for psychological release.\n\nThe dancefloor is an instrument.\n\n#khaossound #technoaesthetics #subbass #funktionone #hypnoticgroove #puretechno"
         },
@@ -1174,10 +1075,10 @@ def generate_edition_metadata():
             "title": "THE CODE",
             "date": "10 DAYS OUT // WEDNESDAY 19:00",
             "archetype": "Cultural Code / Community Manifesto",
-            "archetypeDescription": "Pure dark void with hairline metallic framing borders and floating crosshairs, articulating the collective's dancefloor values.",
-            "artworkUsage": "Minimal obsidian void with technical hairline frame and crosshairs.",
+            "archetypeDescription": "Architectural monolithic chrome block with shear fissures, hairline metallic framing borders, and custom fractured typography.",
+            "artworkUsage": "Monolithic tectonic chrome block with micro-crevasses and weeping silver.",
             "reelAvailable": False,
-            "typography": "Helvetica Neue Condensed Black 60pt + SFNSMono 16pt + Regular 19pt",
+            "typography": "Custom Fractured Header + Fractured Numerals + SFNSMono 16pt",
             "safeArea": "The 4 code principles neatly bounded inside safe margins.",
             "caption": "The KHAOS Dancefloor Code:\n\n[01] RADICAL INCLUSIVITY & AUTONOMY\nA sanctuary for all identities, backgrounds, and bodies. Wear what you want. Be who you are.\n\n[02] ZERO TOLERANCE FOR HARASSMENT\nAny racism, sexism, homophobia, transphobia, or non-consensual behavior results in immediate permanent ban.\n\n[03] NO PHONES ON THE DANCEFLOOR\nProtect the sanctuary. Cameras and flash are strictly prohibited. Be present in the sound.\n\n[04] LEAVE YOUR EGO AT THE DOOR\nNo VIP tables. No bottle service. No backstage status. We exist as one before the sound system.\n\nRespect the space. Respect each other.\n\n#dancefloorcode #saferspace #inclusiverave #technocommunity #nopartyphotos #khaosvalues"
         },
@@ -1188,10 +1089,10 @@ def generate_edition_metadata():
             "title": "THE VENUE / EXPERIENCE",
             "date": "8 DAYS OUT // FRIDAY 18:00",
             "archetype": "Mixed-Media Architectural Blueprint",
-            "archetypeDescription": "Industrial silo architectural blueprint merged with liquid tectonic plates and technical GPS coordinate stamps.",
-            "artworkUsage": "Industrial silo perspective blended with liquid tectonic metal.",
+            "archetypeDescription": "Subterranean brutalist cavern archway with mercury pool merged with technical GPS coordinate stamps and venue specifications.",
+            "artworkUsage": "Industrial brutalist cavern perspective draped in liquid chrome.",
             "reelAvailable": False,
-            "typography": "Helvetica Neue Condensed Black 58pt + SFNSMono 16pt",
+            "typography": "Custom Fractured Header + SFNSMono 16pt",
             "safeArea": "Coordinates and venue specs aligned inside safe margins.",
             "caption": "The Venue // The Industrial Silo\n\nLocation: Black River District · 20.3541° S · 57.3682° E\n\nRaw reinforced concrete structure with 18-metre natural reverb acoustics, open-air cooling yard, and custom multi-point sound system.\n\nDetailed access guide and private shuttle coordinates dispatched via email to all ticket holders.\n\nZero on-site private parking. Use the official shuttles.\n\n#industrialsilo #blackriver #technolocation #concreteacoustics #khaosvenue"
         },
@@ -1202,12 +1103,12 @@ def generate_edition_metadata():
             "title": "COUNTDOWN — 07 DAYS",
             "date": "7 DAYS OUT // SATURDAY 18:00",
             "archetype": "Giant Fractured Countdown & Glitch",
-            "archetypeDescription": "Colossal fractured numeral 07 (280pt) intersecting digital glitch scanlines and a macro liquid chrome crest.",
-            "artworkUsage": "Macro chrome spheres and folded metal intersecting glitch scanlines.",
+            "archetypeDescription": "Colossal fractured numeral 07 intersecting digital glitch scanlines and a bursting liquid chrome sphere in obsidian void.",
+            "artworkUsage": "Bursting chrome sphere and suspended mercury droplets.",
             "reelAvailable": True,
-            "typography": "Helvetica Neue Condensed Black 260pt + 68pt + SFNSMono 16pt",
+            "typography": "Custom Colossal Glitch Numeral 07 + Fractured Display + SFNSMono 16pt",
             "safeArea": "Numeral 07 and ticket warning positioned within 1:1 safe crop.",
-            "caption": "07 DAYS REMAINING.\n\nSaturday 14 June · The Industrial Silo.\n\nTicket status: 85% of capacity claimed.\nCapacity capped at 350 dancers. No door sales under any circumstance.\n\nSound system engineering complete. The room is calibrated for 142 BPM.\n\nClaim final tickets via link in bio.\n\n#countdown #7days #technorave #systemfracture #khaoscountdown"
+            "caption": "07 DAYS REMAINING.\n\nSaturday 28 November · The Industrial Silo.\n\nTicket status: 85% of capacity claimed.\nCapacity capped at 350 dancers. No door sales under any circumstance.\n\nSound system engineering complete. The room is calibrated for 142 BPM.\n\nClaim final tickets via link in bio.\n\n#countdown #7days #technorave #systemfracture #khaoscountdown"
         },
         {
             "id": "14",
@@ -1216,12 +1117,12 @@ def generate_edition_metadata():
             "title": "FINAL INFORMATION",
             "date": "3 DAYS OUT // WEDNESDAY 19:00",
             "archetype": "Editorial Information Architecture",
-            "archetypeDescription": "Four structured graphite information cards on deep void, ensuring 100% mobile readability for all practical event logistics.",
-            "artworkUsage": "Minimal dark graphite void with 4 structured card panels.",
+            "archetypeDescription": "Precision-engineered structural chrome beams and joints framing 4 structured practical cards on deep void for 100% mobile readability.",
+            "artworkUsage": "Structural chrome beams and knurled fluid joints.",
             "reelAvailable": False,
-            "typography": "Helvetica Neue Condensed Black 54pt + Bold 20pt + SFNSMono 16pt",
+            "typography": "Custom Fractured Header + Bold 20pt + SFNSMono 16pt",
             "safeArea": "All 4 practical cards placed within safe mobile reading zone.",
-            "caption": "Essential event logistics for Saturday 14 June:\n\n[01] TIMETABLE\nDoors open 22:00 sharp. First sound 22:30. Curfew 06:00. Arrive early to experience the full ritual.\n\n[02] SHUTTLE LOGISTICS\nPickups from Grand Baie (21:30) and Flic-en-Flac (22:00). Returns every 45 min from 04:30.\n\n[03] ADMISSION\nValid ID + digital ticket QR code required. Strict 18+ policy. Strictly no tickets sold at door.\n\n[04] CARE & SANCTUARY\nFree water stations. Earplugs at entrance. Care crew on site.\n\nPrepare your mind.\n\n#eventinfo #technologistica #shuttleinfo #mauritiustechno #khaosguide"
+            "caption": "Essential event logistics for Saturday 28 November:\n\n[01] TIMETABLE\nDoors open 22:00 sharp. First sound 22:30. Curfew 06:00. Arrive early to experience the full ritual.\n\n[02] SHUTTLE LOGISTICS\nPickups from Grand Baie (21:30) and Flic-en-Flac (22:00). Returns every 45 min from 04:30.\n\n[03] ADMISSION\nValid ID + digital ticket QR code required. Strict 18+ policy. Strictly no tickets sold at door.\n\n[04] CARE & SANCTUARY\nFree water stations. Earplugs at entrance. Care crew on site.\n\nPrepare your mind.\n\n#eventinfo #technologistica #shuttleinfo #mauritiustechno #khaosguide"
         },
         {
             "id": "15",
@@ -1230,8 +1131,8 @@ def generate_edition_metadata():
             "title": "TONIGHT",
             "date": "EVENT DAY // SATURDAY 14:00",
             "archetype": "Atmospheric Cinematic Climax",
-            "archetypeDescription": "Suspended liquid chrome spire in obsidian void, with colossal white TONIGHT typography, minimal summons, and atmospheric sub-bass audio teaser.",
-            "artworkUsage": "Monumental liquid chrome spire anchored in pure void.",
+            "archetypeDescription": "Explosive liquid chrome bloom and suspended mercury droplets in obsidian void with colossal fractured TONIGHT typography.",
+            "artworkUsage": "Explosive liquid chrome corona bloom in pure void.",
             "reelAvailable": True,
             "videoData": {
                 "track": "KHAOS 01 SYSTEM FRACTURE (Original Signal)",
@@ -1239,7 +1140,7 @@ def generate_edition_metadata():
                 "key": "D-Minor",
                 "timeSlot": "DOORS 22:00 // SILO A"
             },
-            "typography": "Helvetica Neue Condensed Black 136pt + SFNSMono 18pt / 26pt",
+            "typography": "Custom Colossal Fractured TONIGHT + Fractured Wordmark + SFNSMono",
             "safeArea": "TONIGHT summons and doors text centered inside 1080x1080 crop.",
             "caption": "TONIGHT.\n\nKHAOS 01: SYSTEM FRACTURE.\n\nDoors open 22:00.\nThe Industrial Silo // Black River District.\n\nStrictly sold out. Zero door sales.\n\nNo phones on the dancefloor.\nLeave your ego outside.\n\nSee you in the sub-bass.\n\n// KHAOS COLLECTIVE\n\n#tonight #khaos01 #systemfracture #undergroundtechno #puretechno #thevoidawaits"
         }
@@ -1268,7 +1169,7 @@ def generate_edition_metadata():
             "translucent-glass",
             "reflective-globes"
         ],
-        "conceptSummary": "Reference-Led Debut Campaign for KHAOS Collective. Strictly monochromatic chrome, silver, graphite, and pure obsidian void with subtle icy blue accents. Developed from 20 uploaded poster explorations with custom System Fracture and Glitch Architecture typography, diverse layout archetypes (Full Artworks, Fragments, Typography-Led, Mixed-Media, and Cinematic Video), 1:1 safe crops, and 9:16 motion reels.",
+        "conceptSummary": "Reference-Led Debut Campaign for KHAOS Collective. Strictly monochromatic chrome, silver, graphite, and pure obsidian void with subtle icy blue accents. Developed from 20 uploaded poster explorations with 15 completely original artworks, custom System Fracture and Glitch Architecture typography, diverse layout archetypes (Full Artworks, Fragments, Typography-Led, Mixed-Media, and Cinematic Video), 1:1 safe crops, and 9:16 motion reels.",
         "postCount": len(posts),
         "createdAt": "2026-11-09T14:00:00.000Z",
         "colorSystem": "Strict Monochromatic (Liquid Chrome, Silver, Obsidian Black, Subtle Icy Blue)",
@@ -1296,6 +1197,18 @@ def generate_edition_metadata():
         json.dump(posts, f, indent=2, ensure_ascii=False)
     print(f"Saved {data_path}")
     
+    # Copy to public folder
+    pub_data_path = os.path.join(PUBLIC_POSTS_DIR, "..", "edition_data.json")
+    pub_data_path = os.path.abspath(pub_data_path)
+    os.makedirs(os.path.dirname(pub_data_path), exist_ok=True)
+    with open(pub_data_path, "w", encoding="utf-8") as f:
+        json.dump(posts, f, indent=2, ensure_ascii=False)
+        
+    # Copy to artifact folder
+    art_data_path = os.path.join(ARTIFACTS_DIR, "khaos_edition_data.json")
+    with open(art_data_path, "w", encoding="utf-8") as f:
+        json.dump(posts, f, indent=2, ensure_ascii=False)
+    
     # Update editions manifests
     manifest_paths = [
         os.path.join(ROOT, "campaign", "editions_manifest.json"),
@@ -1308,7 +1221,6 @@ def generate_edition_metadata():
                 with open(mp, "r", encoding="utf-8") as mf:
                     mdata = json.load(mf)
                 
-                # Check if already present
                 editions = mdata.get("editions", [])
                 existing_idx = next((i for i, e in enumerate(editions) if e.get("id") == edition_meta["id"]), None)
                 
@@ -1333,7 +1245,6 @@ def generate_edition_metadata():
                 if existing_idx is not None:
                     editions[existing_idx] = manifest_entry
                 else:
-                    # Insert at top as premier active edition
                     editions.insert(0, manifest_entry)
                     
                 mdata["editions"] = editions
@@ -1344,6 +1255,55 @@ def generate_edition_metadata():
                 print(f"Updated manifest {mp}")
             except Exception as e:
                 print(f"Error updating manifest {mp}: {e}")
+
+def render_instagram_grid_preview():
+    """Renders a realistic 3-column Instagram Grid preview showing all 15 posts."""
+    print("Generating 3-column Instagram Grid preview...")
+    cols = 3
+    rows = 5
+    cell_size = 360
+    gap = 4
+    header_h = 140
+    
+    gw = cols * cell_size + (cols - 1) * gap + 32
+    gh = header_h + rows * cell_size + (rows - 1) * gap + 32
+    
+    grid_img = Image.new("RGBA", (gw, gh), (12, 14, 18, 255))
+    gdraw = ImageDraw.Draw(grid_img)
+    
+    # Grid Header (Instagram profile bar)
+    gdraw.text((24, 28), "KHAOS // MAURITIUS", font=get_font(20, "bold"), fill=COLOR_WHITE)
+    gdraw.text((24, 56), "15 POSTS · 2.4K FOLLOWERS · UNDERGROUND ELECTRONIC CULTURE", font=get_font(13, "mono"), fill=COLOR_SLATE)
+    gdraw.line([(16, 95), (gw - 16, 95)], fill=(35, 42, 54), width=1)
+    
+    for idx, pid in enumerate(range(1, 16)):
+        r = idx // cols
+        c = idx % cols
+        x = 16 + c * (cell_size + gap)
+        y = header_h + r * (cell_size + gap)
+        
+        sq_path = os.path.join(POSTS_DIR, f"KHAOS_IG_POST_{pid:02d}_sq.jpg")
+        if os.path.exists(sq_path):
+            sq_img = Image.open(sq_path).resize((cell_size, cell_size), Image.Resampling.LANCZOS)
+            grid_img.paste(sq_img, (x, y))
+            
+            # Post index overlay badge
+            badge_d = ImageDraw.Draw(grid_img)
+            badge_d.rectangle([(x + 8, y + 8), (x + 64, y + 32)], fill=(5, 5, 5, 200), outline=(50, 60, 75))
+            badge_d.text((x + 14, y + 12), f"#{pid:02d}", font=get_font(12, "mono"), fill=COLOR_ICY_BLUE)
+            
+            if pid in REEL_POST_IDS:
+                badge_d.rectangle([(x + cell_size - 40, y + 8), (x + cell_size - 8, y + 32)], fill=(5, 5, 5, 200))
+                badge_d.polygon([(x + cell_size - 30, y + 14), (x + cell_size - 30, y + 26), (x + cell_size - 18, y + 20)], fill=COLOR_WHITE)
+                
+    preview_path = os.path.join(OUT_DIR, "khaos_instagram_grid_preview.jpg")
+    pub_preview_path = os.path.join(ROOT, "public", "campaign", "editions", "edition_khaos_01_system_fracture", "khaos_instagram_grid_preview.jpg")
+    art_preview_path = os.path.join(ARTIFACTS_DIR, "khaos_instagram_grid_preview.jpg")
+    
+    grid_img.convert("RGB").save(preview_path, quality=95, optimize=True)
+    grid_img.convert("RGB").save(pub_preview_path, quality=95, optimize=True)
+    grid_img.convert("RGB").save(art_preview_path, quality=95, optimize=True)
+    print(f"Grid preview saved to {preview_path}")
 
 def render_all_posts():
     print("==================================================")
@@ -1369,10 +1329,25 @@ def render_all_posts():
         img_4x5.convert("RGB").save(jpg_path, quality=95, optimize=True)
         img_4x5.save(png_path)
         
+        # Mirror to public and artifact directories
+        pub_jpg = os.path.join(PUBLIC_POSTS_DIR, f"{base_stem}.jpg")
+        pub_png = os.path.join(PUBLIC_POSTS_DIR, f"{base_stem}.png")
+        img_4x5.convert("RGB").save(pub_jpg, quality=95, optimize=True)
+        img_4x5.save(pub_png)
+        
+        art_jpg = os.path.join(ARTIFACTS_DIR, f"khaos_{base_stem}.jpg")
+        img_4x5.convert("RGB").save(art_jpg, quality=95, optimize=True)
+        
         # 2. 1:1 Safe Crop (1080x1080)
         img_1x1 = crop_1x1_square(img_4x5)
         sq_path = os.path.join(POSTS_DIR, f"{base_stem}_sq.jpg")
         img_1x1.convert("RGB").save(sq_path, quality=95, optimize=True)
+        
+        pub_sq = os.path.join(PUBLIC_POSTS_DIR, f"{base_stem}_sq.jpg")
+        img_1x1.convert("RGB").save(pub_sq, quality=95, optimize=True)
+        
+        art_sq = os.path.join(ARTIFACTS_DIR, f"khaos_{base_stem}_sq.jpg")
+        img_1x1.convert("RGB").save(art_sq, quality=95, optimize=True)
         
         # 3. 9:16 Vertical Reel (1080x1920) if applicable
         if pid in REEL_POST_IDS:
@@ -1381,10 +1356,17 @@ def render_all_posts():
             reel_png_path = os.path.join(POSTS_DIR, f"{base_stem}_reel.png")
             img_reel.convert("RGB").save(reel_jpg_path, quality=95, optimize=True)
             img_reel.save(reel_png_path)
+            
+            pub_reel = os.path.join(PUBLIC_POSTS_DIR, f"{base_stem}_reel.jpg")
+            img_reel.convert("RGB").save(pub_reel, quality=95, optimize=True)
+            
+            art_reel = os.path.join(ARTIFACTS_DIR, f"khaos_{base_stem}_reel.jpg")
+            img_reel.convert("RGB").save(art_reel, quality=95, optimize=True)
             print(f"  -> Generated 4:5, 1:1 safe crop, and 9:16 reel for Post {pid:02d}")
         else:
             print(f"  -> Generated 4:5 and 1:1 safe crop for Post {pid:02d}")
             
+    render_instagram_grid_preview()
     print("==================================================")
     print("ALL 15 KHAOS POSTS SUCCESSFULLY GENERATED!")
     print("==================================================")
